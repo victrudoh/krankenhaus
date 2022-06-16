@@ -1,0 +1,23 @@
+:root {
+    /* --bg-color: #f4f2e2; */
+    --bg-color: #f2f8ff;
+    --primary-color: #9bd8f0;
+    --secondary-color: #1ebfc2;
+    --accent-color: #000080;
+
+    --border-radius: 10px;
+    --text-white: white;
+    --text-black: black;
+
+    --box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    --box-shadow-topNav: rgba(149, 157, 165, 0.2) 5px 8px 24px;
+    --topnav-height: 60px;
+
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}

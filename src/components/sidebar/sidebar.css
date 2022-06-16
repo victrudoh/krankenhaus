@@ -1,0 +1,28 @@
+.activeClicked {
+    color: red;
+}
+
+.pinToTop {
+    position: fixed;
+}
+
+.hideButton {
+    display: none;
+}
+
+.onHover {
+    color: navy;
+}
+
+.onHover:hover {
+    color: var(--accent-color);
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+@media (max-width: 1024px) {
+    .hideButton {
+        display: block;
+    }
+}
