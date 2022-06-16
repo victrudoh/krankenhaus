@@ -2,9 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 // Styles
-import { Wrapper, Top } from "./ProductList.Styles";
+import { Wrapper, Top } from "./ProductByUnit.Styles";
 
-const ProductList = ({ setIsEditing, setByUnit }) => {
+const ProductByUnit = ({ setIsEditing, setByUnit }) => {
   const editHandler = () => {
     setIsEditing(true);
     // collect user ID and pass it to the edit page, use state to carry the ID or something
@@ -15,14 +15,14 @@ const ProductList = ({ setIsEditing, setByUnit }) => {
       <Wrapper>
         <Top>
           {/* <NavLink exact to="/superadmin/productsbyunits">
-            View by units
+            View by departments
           </NavLink> */}
-          <button onClick={() => setByUnit(true)}>View by units</button>
+          <button onClick={() => setByUnit(false)}>View by departments</button>
           <div className="pair">
-            <label>Select a department:</label>
+            <label>Select a unit:</label>
             <form>
               <select name="publish" id="publish">
-                <option value="all">All departments</option>
+                <option value="all">All units</option>
                 <option value="contracts">Contracts and Tender</option>
                 <option value="false">Dental services</option>
                 <option value="false">FMC administration</option>
@@ -45,17 +45,17 @@ const ProductList = ({ setIsEditing, setByUnit }) => {
           <tbody>
             <tr onClick={editHandler}>
               <th scope="row">1</th>
-              <td>A&E</td>
-              <td>Amlodipine 10Mg</td>
-              <td>17.00</td>
-              <td>No</td>
-            </tr>
-            <tr onClick={editHandler}>
-              <th scope="row">2</th>
               <td>A&E Pharmacy</td>
               <td>Amoxicillin INJ</td>
               <td>250.00</td>
               <td>Yes</td>
+            </tr>
+            <tr onClick={editHandler}>
+              <th scope="row">2</th>
+              <td>A&E</td>
+              <td>Amlodipine 10Mg</td>
+              <td>17.00</td>
+              <td>No</td>
             </tr>
             <tr onClick={editHandler}>
               <th scope="row">3</th>
@@ -71,4 +71,4 @@ const ProductList = ({ setIsEditing, setByUnit }) => {
   );
 };
 
-export default ProductList;
+export default ProductByUnit;
