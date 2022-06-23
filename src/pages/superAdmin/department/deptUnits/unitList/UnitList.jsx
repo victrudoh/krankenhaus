@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Wrapper } from "./UnitList.Styles";
 
 const UnitList = ({ setIsEditing }) => {
+  const navigate = useNavigate();
   const editHandler = () => {
     setIsEditing(true);
     // collect user ID and pass it to the edit page, use state to carry the ID or something
@@ -9,6 +11,7 @@ const UnitList = ({ setIsEditing }) => {
 
   const viewHandler = () => {
     // collect ID and navigate torequired page
+    navigate("/superadmin/viewunit");
   };
   return (
     <>
@@ -54,7 +57,7 @@ const UnitList = ({ setIsEditing }) => {
                 <td>2. Admin</td>
                 <td>No</td>
                 <td>
-                  <button>View</button>
+                  <button onClick={viewHandler}>View</button>
                   <button className="mx-3" onClick={editHandler}>
                     Edit
                   </button>
@@ -65,7 +68,7 @@ const UnitList = ({ setIsEditing }) => {
                 <td>3. A&E Pharmacy</td>
                 <td>Yes</td>
                 <td>
-                  <button>View</button>
+                  <button onClick={viewHandler}>View</button>
                   <button className="mx-3" onClick={editHandler}>
                     Edit
                   </button>
@@ -84,7 +87,7 @@ const UnitList = ({ setIsEditing }) => {
                 <td>4. Amenity</td>
                 <td>Yes</td>
                 <td>
-                  <button>View</button>
+                  <button onClick={viewHandler}>View</button>
                   <button className="mx-3" onClick={editHandler}>
                     Edit
                   </button>

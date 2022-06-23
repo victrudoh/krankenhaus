@@ -2,14 +2,13 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   margin-top: 1rem;
-  /* margin-left: 1rem; */
-  display: flex;
-  justify-content: space-evenly;
   gap: 1rem;
+  /* background-color: orange; */
 
   @media (max-width: 1024px) {
     flex-direction: column-reverse;
-    gap: 1rem;
+    gap: 2rem;
+    padding-bottom: 2rem;
   }
 `;
 
@@ -21,7 +20,11 @@ export const Top = styled.div`
   display: flex;
   justify-content: space-between;
 
-  a {
+  @media (max-width: 1024px) {
+    width: 90%;
+  }
+
+  button {
     background-color: white;
     box-shadow: var(--box-shadow);
     padding: 0.3rem 1rem;
@@ -33,6 +36,11 @@ export const Top = styled.div`
     &:hover {
       background-color: var(--secondary-color);
     }
+
+    @media (max-width: 1024px) {
+      padding: 0.3rem;
+      font-weight: 500;
+    }
   }
 
   .pair {
@@ -41,12 +49,10 @@ export const Top = styled.div`
     align-items: center;
     gap: 1rem;
     /* background-color: green; */
-    /* width: 60%; */
 
     select {
       padding: 0.5rem;
       border-radius: var(--border-radius);
-      /* width: 100%; */
 
       &:focus {
         border-radius: 10px 10px 0 0;
@@ -65,8 +71,5 @@ export const Top = styled.div`
         background-color: var(--secondary-color);
       }
     }
-  }
-
-  @media (max-width: 1024px) {
   }
 `;

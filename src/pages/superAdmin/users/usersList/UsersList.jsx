@@ -23,7 +23,7 @@ const UsersList = ({ setIsEditing }) => {
                 type="search"
                 name="search"
                 id="search"
-                placeholder="Search username"
+                placeholder="Search"
               />
               <button type="submit">Search</button>
             </form>

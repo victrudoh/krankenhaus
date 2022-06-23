@@ -58,8 +58,8 @@ const Sidebar = () => {
                   to="/superadmin/department"
                   activeClassName="activeClicked"
                 >
-                  <CDBSidebarMenuItem icon="columns" className="onHover">
-                    Department
+                  <CDBSidebarMenuItem icon="building" className="onHover">
+                    Departments
                   </CDBSidebarMenuItem>
                 </NavLink>
                 <NavLink
@@ -67,7 +67,7 @@ const Sidebar = () => {
                   to="/superadmin/products"
                   activeClassName="activeClicked"
                 >
-                  <CDBSidebarMenuItem icon="columns" className="onHover">
+                  <CDBSidebarMenuItem icon="box" /*cross*/ className="onHover">
                     Products/Services
                   </CDBSidebarMenuItem>
                 </NavLink>
@@ -76,7 +76,7 @@ const Sidebar = () => {
                   to="/superadmin/transactions"
                   activeClassName="activeClicked"
                 >
-                  <CDBSidebarMenuItem icon="columns" className="onHover">
+                  <CDBSidebarMenuItem icon="wallet" className="onHover">
                     Transactions
                   </CDBSidebarMenuItem>
                 </NavLink>
@@ -85,7 +85,7 @@ const Sidebar = () => {
                   to="/superadmin/config"
                   activeClassName="activeClicked"
                 >
-                  <CDBSidebarMenuItem icon="columns" className="onHover">
+                  <CDBSidebarMenuItem icon="flag" className="onHover">
                     Config
                   </CDBSidebarMenuItem>
                 </NavLink>

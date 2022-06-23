@@ -32,7 +32,7 @@ const ProductByUnit = ({ setIsEditing, setByUnit }) => {
             </form>
           </div>
         </Top>
-        <table className="table table-hover">
+        <table className="table table-striped">
           <thead>
             <tr>
               <th scope="col">S/N</th>

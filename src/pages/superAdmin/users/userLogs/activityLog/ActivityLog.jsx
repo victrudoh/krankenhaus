@@ -23,14 +23,28 @@ const ActivityLog = () => {
               <th scope="row">1</th>
               <td>Login</td>
               <td>user Mark Joseph logged in as superadmin</td>
-              <td>2022=03-12</td>
+              <td>2022-03-12</td>
               <td>Mark Joseph</td>
             </tr>
             <tr>
               <th scope="row">2</th>
               <td>Login</td>
               <td>user Roxxy Smith logged in as admin</td>
-              <td>2022=03-12</td>
+              <td>2022-03-12</td>
+              <td>Roxxy Smith</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Login</td>
+              <td>user Roxxy Smith logged in as admin</td>
+              <td>2022-03-12</td>
+              <td>Roxxy Smith</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Login</td>
+              <td>user Roxxy Smith logged in as admin</td>
+              <td>2022-03-12</td>
               <td>Roxxy Smith</td>
             </tr>
           </tbody>

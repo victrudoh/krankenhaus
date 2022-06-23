@@ -65,12 +65,13 @@ const AddUser = () => {
             </div>
             <div className="pair">
               <label>Account type:</label>
-              <input
-                type="text"
-                name="role"
-                id="role"
-                placeholder="Account type"
-              />
+              <select name="role" id="role">
+                <option>Select role</option>
+                <option value="bank-admin">Bank admin</option>
+                <option value="hospital-admin">Hospital admin</option>
+                <option value="teller">Teller</option>
+                <option value="pharmacy">Pharmacist</option>
+              </select>
             </div>
             <div className="pair">
               <label>Privilege:</label>

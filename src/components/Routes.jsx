@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Layed from "./Layed";
 import UnAuth from "../pages/unAuth/UnAuth";
 import Error404 from "../pages/error404/Error404";
+import Login from "../pages/login/Login";
 
 // Super Admin
 import Dashboard from "../pages/superAdmin/dashboard/Dashboard";
@@ -14,8 +15,11 @@ import UserLogs from "../pages/superAdmin/users/userLogs/UserLogs";
 import Department from "../pages/superAdmin/department/Department";
 import DeptUnits from "../pages/superAdmin/department/deptUnits/DeptUnits";
 import DeptPrivilege from "../pages/superAdmin/department/deptPrivilege/DeptPrivilege";
+import ViewUnit from "../pages/superAdmin/department/deptUnits/viewUnit/ViewUnit";
 import Config from "../pages/superAdmin/config/Config";
 import Products from "../pages/superAdmin/products/Products";
+import Transactions from "../pages/superAdmin/transactions/Transactions";
+import ViewDetails from "../pages/superAdmin/transactions/productsCustomerHistory/customerHistory/viewDetails/ViewDetails";
 
 const MainRouter = ({ title, setTitle }) => {
   return (
@@ -25,6 +29,12 @@ const MainRouter = ({ title, setTitle }) => {
           index
           element={<Dashboard title={title} setTitle={setTitle} />}
         />
+
+        {/* LOGIN */}
+        {/* <Route
+          path="/login"
+          element={<Login title={title} setTitle={setTitle} />}
+        /> */}
 
         {/* USERS */}
         <Route
@@ -49,6 +59,10 @@ const MainRouter = ({ title, setTitle }) => {
           path="/superadmin/deptprivilege"
           element={<DeptPrivilege title={title} setTitle={setTitle} />}
         />
+        <Route
+          path="/superadmin/viewunit"
+          element={<ViewUnit title={title} setTitle={setTitle} />}
+        />
 
         {/* PRODUCTS */}
         <Route
@@ -58,6 +72,16 @@ const MainRouter = ({ title, setTitle }) => {
         <Route
           path="/superadmin/productsbyunits"
           element={<Products title={title} setTitle={setTitle} />}
+        />
+
+        {/* TRANSACTIONS */}
+        <Route
+          path="/superadmin/transactions"
+          element={<Transactions title={title} setTitle={setTitle} />}
+        />
+        <Route
+          path="/superadmin/viewtrxdetails"
+          element={<ViewDetails title={title} setTitle={setTitle} />}
         />
 
         {/* CONFIG */}

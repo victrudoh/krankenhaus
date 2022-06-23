@@ -15,6 +15,7 @@ export const Wrapper = styled.div`
 
   @media (max-width: 1024px) {
     width: 95%;
+    margin: 0 auto;
   }
 `;
 
@@ -38,6 +39,11 @@ export const Top = styled.div`
       background-color: var(--secondary-color);
       color: var(--accent-color);
     }
+
+    @media (max-width: 768px) {
+      padding: 0.3rem;
+      font-weight: 300;
+    }
   }
 
   .pair {
@@ -47,6 +53,10 @@ export const Top = styled.div`
     gap: 1rem;
     /* background-color: green; */
     /* width: 60%; */
+
+    label {
+      font-size: 12px;
+    }
 
     select {
       padding: 0.5rem;

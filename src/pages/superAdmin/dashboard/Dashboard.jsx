@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Styles
 import { Wrapper } from "./Dashboard.Styles";
 
+// Components
+import Overview from "./overview/Overview";
+import ActivityLog from "../users/userLogs/activityLog/ActivityLog";
+import Chart from "./chart/Chart";
+import Spinner from "../../../components/spinner/Spinner";
+
 const Dashboard = ({ setTitle }) => {
   setTitle("Dashboard");
 
+  const [loading, setLoading] = useState(false);
+
   return (
     <>
-      <Wrapper>Scribble Scribble</Wrapper>
+      <Wrapper>
+        {/*  */}
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <Overview />
+            <ActivityLog />
+            <Chart />
+          </>
+        )}
+      </Wrapper>
     </>
   );
 };

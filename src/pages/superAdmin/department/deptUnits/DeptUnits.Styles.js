@@ -9,6 +9,8 @@ export const Wrapper = styled.div`
 
   @media (max-width: 1024px) {
     flex-direction: column-reverse;
-    gap: 1rem;
+    margin-left: 1rem;
+    gap: 2rem;
+    padding-bottom: 2rem;
   }
 `;

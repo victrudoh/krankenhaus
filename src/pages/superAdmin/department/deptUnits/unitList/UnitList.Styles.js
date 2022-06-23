@@ -27,6 +27,7 @@ export const Wrapper = styled.div`
 
   @media (max-width: 1024px) {
     width: 95%;
+    margin: 0 auto;
   }
 `;
 
