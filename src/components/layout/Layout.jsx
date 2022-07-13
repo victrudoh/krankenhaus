@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -7,46 +7,25 @@ import MainRouter from "../Routes";
 import Sidebar from "../sidebar/Sidebar";
 import Topbar from "../topbar/Topbar";
 import Login from "../../pages/login/Login";
-import Spinner from "../spinner/Spinner";
 
 // Styles
 import { LayoutStyle, Right } from "./Layout.Styles";
-import { useEffect } from "react";
 
 const Layout = () => {
-  const [title, setTitle] = useState("");
-  const [showLogin, setShowLogin] = useState(true);
-  const [loading, setLoading] = useState(false);
-
-  console.log(window.location.href);
-  let url = window.location.href;
-
-  const SetLogin = (url) => {
-    if (url === "http://localhost:3000/login") {
-      setShowLogin(true);
-    } else {
-      setShowLogin(false);
-    }
-  };
-
-  useEffect(() => {
-    SetLogin(url);
-  }, []);
-
-  //http://localhost:3000/login
+  const token = localStorage.getItem("token");
 
   return (
     <>
-      {showLogin ? (
+      {!token ? (
         <Login />
       ) : (
         <>
           <LayoutStyle>
             <Sidebar />
             <Right>
-              <Topbar title={title} setTitle={setTitle} />
+              <Topbar />
               <ToastContainer
-                position="top-right" //Alert is not working, fix it
+                position="top-right"
                 autoClose={5000}
                 hideProgressBar={false}
                 newestOnTop={false}
@@ -56,7 +35,7 @@ const Layout = () => {
                 draggable
                 pauseOnHover
               />
-              <MainRouter title={title} setTitle={setTitle} />
+              <MainRouter />
             </Right>
           </LayoutStyle>
         </>

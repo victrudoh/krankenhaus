@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useContext } from "react";
 
 // Styles
 import { Wrapper } from "./Users.Styles";
@@ -7,19 +7,18 @@ import { Wrapper } from "./Users.Styles";
 import UsersList from "./usersList/UsersList";
 import AddUser from "./addUser/AddUser";
 import EditUser from "./editUser/EditUser";
+import AppContext from "../../../context/AppContext";
 
-const Users = ({ setTitle }) => {
-  setTitle("Users");
-
-  const [isEditing, setIsEditing] = useState(false);
+const Users = () => {
+  const { editUser } = useContext(AppContext);
 
   return (
     <>
       <Wrapper>
-        <UsersList setIsEditing={setIsEditing} />
-        {isEditing ? (
+        <UsersList />
+        {editUser.editing ? (
           <>
-            <EditUser setIsEditing={setIsEditing} />
+            <EditUser />
           </>
         ) : (
           <AddUser />

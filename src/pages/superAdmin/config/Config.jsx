@@ -7,8 +7,7 @@ import { Wrapper } from "./Config.Styles";
 import Contact from "./contact/Contact";
 import ChangePassword from "./changePassword/ChangePassword";
 
-const Config = ({ setTitle }) => {
-  setTitle("Configuration");
+const Config = () => {
   return (
     <>
       <Wrapper>

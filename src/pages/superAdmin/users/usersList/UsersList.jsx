@@ -1,14 +1,45 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import AppContext from "../../../../context/AppContext";
 
 // styles
 import { Wrapper, Top } from "./UsersList.Styles";
 
-const UsersList = ({ setIsEditing }) => {
-  const editHandler = () => {
-    setIsEditing(true);
-    // collect user ID and pass it to the edit page, use state to carry the ID or something
+// components
+import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
+
+const UsersList = () => {
+  const [filtered, setFiltered] = useState([]);
+
+  const { loading, users, setEditUser } = useContext(AppContext);
+
+  let SN = 1;
+
+  // Edit user
+  const editHandler = (index) => {
+    setEditUser({
+      index: index,
+      editing: true,
+    });
   };
+
+  // SearchBar Handler
+  const onSearchCangeHandler = async (e) => {
+    try {
+      e.preventDefault();
+      const filteredUser = users.filter((item) =>
+        item.userName.toLowerCase().includes(e.target.value.toLocaleLowerCase())
+      );
+      setFiltered(filteredUser);
+    } catch (err) {
+      return err;
+    }
+  };
+
+  // populate filtered with users on page load
+  useEffect(() => {
+    setFiltered(users);
+  }, []);
 
   return (
     <>
@@ -23,50 +54,45 @@ const UsersList = ({ setIsEditing }) => {
                 type="search"
                 name="search"
                 id="search"
-                placeholder="Search"
+                placeholder="Search username"
+                onChange={onSearchCangeHandler}
               />
-              <button type="submit">Search</button>
+              {/* <button type="submit">Search</button> */}
             </form>
           </div>
         </Top>
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">S/N</th>
-              <th scope="col">Full name</th>
-              <th scope="col">Username</th>
-              <th scope="col">Department</th>
-              <th scope="col">Account type</th>
-              <th scope="col">Rights</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr onClick={editHandler}>
-              <th scope="row">1</th>
-              <td>Mark Joseph</td>
-              <td>Otto</td>
-              <td>Accounts</td>
-              <td>teller</td>
-              <td>limited</td>
-            </tr>
-            <tr onClick={editHandler}>
-              <th scope="row">2</th>
-              <td>Roxxy Smith</td>
-              <td>@fat</td>
-              <td>Revenue</td>
-              <td>Admin</td>
-              <td>full</td>
-            </tr>
-            <tr onClick={editHandler}>
-              <th scope="row">3</th>
-              <td>Daniel Regha</td>
-              <td>@twixx</td>
-              <td>Dental</td>
-              <td>user</td>
-              <td>limited</td>
-            </tr>
-          </tbody>
-        </table>
+        {loading ? (
+          <CircleSpinner />
+        ) : (
+          <table className="table table-hover">
+            <>
+              <thead>
+                <tr>
+                  <th scope="col">S/N</th>
+                  <th scope="col">Full name</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Department</th>
+                  <th scope="col">Account type</th>
+                  <th scope="col">Rights</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtered.map((item, i) => (
+                  <tr key={i} onClick={() => editHandler(i)}>
+                    <th scope="row">{SN++}</th>
+                    <td>
+                      {item.firstName} {item.lastName}
+                    </td>
+                    <td>{item.userName}</td>
+                    <td>{item.department}</td>
+                    <td>{item.role}</td>
+                    <td>{item.access}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </>
+          </table>
+        )}
       </Wrapper>
     </>
   );

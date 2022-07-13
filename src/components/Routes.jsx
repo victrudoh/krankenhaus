@@ -6,6 +6,8 @@ import { Route, Routes } from "react-router-dom";
 import Layed from "./Layed";
 import UnAuth from "../pages/unAuth/UnAuth";
 import Error404 from "../pages/error404/Error404";
+
+// Login
 import Login from "../pages/login/Login";
 
 // Super Admin
@@ -21,84 +23,47 @@ import Products from "../pages/superAdmin/products/Products";
 import Transactions from "../pages/superAdmin/transactions/Transactions";
 import ViewDetails from "../pages/superAdmin/transactions/productsCustomerHistory/customerHistory/viewDetails/ViewDetails";
 
-const MainRouter = ({ title, setTitle }) => {
+const MainRouter = () => {
+  const token = localStorage.getItem("token");
+
   return (
     <Routes>
+      {/* {!token ? (
+        <Route path="/" element={<Layed />}>
+          <Route index element={<Login />} />
+          <Route path="/login" element={<Login />} />
+        </Route>
+      ) : ( */}
       <Route path="/" element={<Layed />}>
-        <Route
-          index
-          element={<Dashboard title={title} setTitle={setTitle} />}
-        />
+        <Route index element={<Dashboard />} />
 
-        {/* LOGIN */}
-        {/* <Route
-          path="/login"
-          element={<Login title={title} setTitle={setTitle} />}
-        /> */}
+        <Route path="/superadmin/dashboard" element={<Dashboard />} />
 
         {/* USERS */}
-        <Route
-          path="/superadmin/users"
-          element={<Users title={title} setTitle={setTitle} />}
-        />
-        <Route
-          path="/superadmin/userlogs"
-          element={<UserLogs title={title} setTitle={setTitle} />}
-        />
+        <Route path="/superadmin/users" element={<Users />} />
+        <Route path="/superadmin/userlogs" element={<UserLogs />} />
 
         {/* DEPARTMENT */}
-        <Route
-          path="/superadmin/department"
-          element={<Department title={title} setTitle={setTitle} />}
-        />
-        <Route
-          path="/superadmin/deptunits"
-          element={<DeptUnits title={title} setTitle={setTitle} />}
-        />
-        <Route
-          path="/superadmin/deptprivilege"
-          element={<DeptPrivilege title={title} setTitle={setTitle} />}
-        />
-        <Route
-          path="/superadmin/viewunit"
-          element={<ViewUnit title={title} setTitle={setTitle} />}
-        />
+        <Route path="/superadmin/department" element={<Department />} />
+        <Route path="/superadmin/deptunits" element={<DeptUnits />} />
+        <Route path="/superadmin/deptprivilege" element={<DeptPrivilege />} />
+        <Route path="/superadmin/viewunit" element={<ViewUnit />} />
 
         {/* PRODUCTS */}
-        <Route
-          path="/superadmin/products"
-          element={<Products title={title} setTitle={setTitle} />}
-        />
-        <Route
-          path="/superadmin/productsbyunits"
-          element={<Products title={title} setTitle={setTitle} />}
-        />
+        <Route path="/superadmin/products" element={<Products />} />
+        <Route path="/superadmin/productsbyunits" element={<Products />} />
 
         {/* TRANSACTIONS */}
-        <Route
-          path="/superadmin/transactions"
-          element={<Transactions title={title} setTitle={setTitle} />}
-        />
-        <Route
-          path="/superadmin/viewtrxdetails"
-          element={<ViewDetails title={title} setTitle={setTitle} />}
-        />
+        <Route path="/superadmin/transactions" element={<Transactions />} />
+        <Route path="/superadmin/viewtrxdetails" element={<ViewDetails />} />
 
         {/* CONFIG */}
-        <Route
-          path="/superadmin/config"
-          element={<Config setTitle={setTitle} />}
-        />
+        <Route path="/superadmin/config" element={<Config />} />
 
-        <Route
-          path="/unauth"
-          element={<UnAuth title={title} setTitle={setTitle} />}
-        />
-        <Route
-          path="*"
-          element={<Error404 title={title} setTitle={setTitle} />}
-        />
+        <Route path="/unauth" element={<UnAuth />} />
+        <Route path="*" element={<Error404 />} />
       </Route>
+      {/* )} */}
     </Routes>
   );
 };

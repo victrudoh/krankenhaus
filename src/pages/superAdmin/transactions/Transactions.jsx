@@ -8,9 +8,7 @@ import ProductCustomerHistory from "./productsCustomerHistory/ProductCustomerHis
 import Invoices from "./invoices/Invoices";
 import UnitDeptHistory from "./unitDeptHistory/UnitDeptHistory";
 
-const Transactions = ({ setTitle }) => {
-  setTitle("Transactions");
-
+const Transactions = () => {
   const [display, setDisplay] = useState("records");
 
   const SelectedDisplay = (e) => {

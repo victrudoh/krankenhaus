@@ -9,16 +9,13 @@ import DeptList from "./deptList/DeptList";
 import AddDept from "./addDept/AddDept";
 import EditDept from "./editDept/EditDept";
 
-const Department = ({ setTitle }) => {
+const Department = () => {
   const [isEditing, setIsEditing] = useState(false);
 
-  setTitle("Department");
   return (
     <>
       <Top>
-        <NavLink exact to="/superadmin/deptunits">
-          View units
-        </NavLink>
+        <NavLink to="/superadmin/deptunits">View units</NavLink>
       </Top>
       <Wrapper>
         <DeptList isEditing={isEditing} setIsEditing={setIsEditing} />

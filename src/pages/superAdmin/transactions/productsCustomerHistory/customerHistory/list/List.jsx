@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import AppContext from "../../../../../../context/AppContext";
 
 // styles
 import { Wrapper, Top } from "./List.Styles";
 
 const List = ({ setIsCustomer }) => {
+  const { transactions } = useContext(AppContext);
+  console.log("transactions", transactions);
   const navigate = useNavigate();
 
   const viewDetailsHandler = () => {

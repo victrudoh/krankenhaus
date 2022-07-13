@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import AppContext from "../../../../../context/AppContext";
 import { Wrapper } from "./UnitList.Styles";
 
+// components
+import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
+
 const UnitList = ({ setIsEditing }) => {
+  const { loading, departments, getDepartments } = useContext(AppContext);
+  let SN = 0;
+
   const navigate = useNavigate();
   const editHandler = () => {
     setIsEditing(true);
@@ -13,91 +20,56 @@ const UnitList = ({ setIsEditing }) => {
     // collect ID and navigate torequired page
     navigate("/superadmin/viewunit");
   };
+
+  // useEffect(() => {
+  //   getDepartments();
+  // }, []);
+
   return (
     <>
       <Wrapper>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Department</th>
-              <th scope="col">Units</th>
-              <th scope="col">Publish</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <>
-              <tr className="bg-secondary bg-gradient text-white">
-                <td className="fw-bold">A & E</td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
+        {loading ? (
+          <CircleSpinner />
+        ) : (
+          <table className="table">
+            <thead>
               <tr>
-                <td></td>
-                <td>1. A & E</td>
-                <td>Yes</td>
-                <td>
-                  <button onClick={viewHandler}>View</button>
-                  <button className="mx-3" onClick={editHandler}>
-                    Edit
-                  </button>
-                </td>
+                <th scope="col">Department</th>
+                <th scope="col">Units</th>
+                <th scope="col">Publish</th>
+                <th scope="col">Actions</th>
               </tr>
-            </>
-            <>
-              <tr className="bg-secondary bg-gradient text-white">
-                <td className="fw-bold">Admin</td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>2. Admin</td>
-                <td>No</td>
-                <td>
-                  <button onClick={viewHandler}>View</button>
-                  <button className="mx-3" onClick={editHandler}>
-                    Edit
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>3. A&E Pharmacy</td>
-                <td>Yes</td>
-                <td>
-                  <button onClick={viewHandler}>View</button>
-                  <button className="mx-3" onClick={editHandler}>
-                    Edit
-                  </button>
-                </td>
-              </tr>
-            </>
-            <>
-              <tr className="bg-secondary bg-gradient text-white">
-                <td className="fw-bold">Amenity</td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>4. Amenity</td>
-                <td>Yes</td>
-                <td>
-                  <button onClick={viewHandler}>View</button>
-                  <button className="mx-3" onClick={editHandler}>
-                    Edit
-                  </button>
-                </td>
-              </tr>
-            </>
+            </thead>
+            {departments.map((item, i) => (
+              <tbody key={i}>
+                <>
+                  <tr className="bg-secondary bg-gradient text-white">
+                    <td className="fw-bold">{item.department.name}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    {item.units.map((unit, i) => (
+                      <>
+                        <td key={i}></td>
+                        <td>{unit.name}</td>
+                        <td>{unit.publish === false ? "No" : "Yes"}</td>
+                      </>
+                    ))}
+                    <td>
+                      <button onClick={viewHandler}>View</button>
+                      <button className="mx-3" onClick={editHandler}>
+                        Edit
+                      </button>
+                    </td>
+                  </tr>
+                </>
+              </tbody>
+            ))}
             <></>
-          </tbody>
 
-          {/* <>
+            {/* <>
             <tr>
               <td>A & E</td>
               <td></td>
@@ -130,7 +102,8 @@ const UnitList = ({ setIsEditing }) => {
               </td>
             </tr>
           </> */}
-        </table>
+          </table>
+        )}
       </Wrapper>
     </>
   );

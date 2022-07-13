@@ -8,9 +8,8 @@ import UnitList from "./unitList/UnitList";
 import AddUnit from "./addUnit/AddUnit";
 import EditUnit from "./editUnit/EditUnit";
 
-const DeptUnits = ({ setTitle }) => {
+const DeptUnits = () => {
   const [isEditing, setIsEditing] = useState(false);
-  setTitle("Department Units");
   return (
     <Wrapper>
       <UnitList setIsEditing={setIsEditing} />

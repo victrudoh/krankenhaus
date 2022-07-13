@@ -9,9 +9,7 @@ import ActivityLog from "../users/userLogs/activityLog/ActivityLog";
 import Chart from "./chart/Chart";
 import Spinner from "../../../components/spinner/Spinner";
 
-const Dashboard = ({ setTitle }) => {
-  setTitle("Dashboard");
-
+const Dashboard = () => {
   const [loading, setLoading] = useState(false);
 
   return (

@@ -16,7 +16,7 @@ const Card = ({ name, icon, value, url }) => {
     <>
       <Wrapper onClick={redirect}>
         <Content>
-          <i class={icon}></i>
+          <i className={icon}></i>
           <h5>No. of {name}</h5>
           <h3>{value}</h3>
         </Content>

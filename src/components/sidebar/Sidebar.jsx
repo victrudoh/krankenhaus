@@ -1,5 +1,5 @@
 // Dependencies
-import React from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   CDBSidebar,
@@ -9,11 +9,31 @@ import {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from "cdbreact";
+import { info } from "../../helpers/Alert";
 
 // Styles
 import "./sidebar.css";
+import AppContext from "../../context/AppContext";
 
 const Sidebar = () => {
+  const { user } = useContext(AppContext);
+  // const [superAdmin, setSuperAdmin] = useState(false);
+  // const [revenue, setRevenue] = useState(false);
+
+  // if (user.role === "super-admin") {
+  //   setSuperAdmin(true);
+  // }
+
+  // if (user.department === "Revenue") {
+  //   setRevenue(true);
+  // }
+
+  const logoutHandler = () => {
+    info("You were logged out");
+    localStorage.removeItem("token");
+    window.location.reload(false);
+  };
+
   return (
     <>
       <aside className="pinToTop">
@@ -37,81 +57,96 @@ const Sidebar = () => {
               </a>
             </CDBSidebarHeader>
 
-            <CDBSidebarContent className="sidebar-content">
-              <CDBSidebarMenu>
-                <NavLink exact to="/" activeClassName="activeClicked">
-                  <CDBSidebarMenuItem icon="table" className="onHover">
-                    Dashboard
-                  </CDBSidebarMenuItem>
-                </NavLink>
-                <NavLink
-                  exact
-                  to="/superadmin/users"
-                  activeClassName="activeClicked"
-                >
-                  <CDBSidebarMenuItem icon="users" className="onHover">
-                    Users
-                  </CDBSidebarMenuItem>
-                </NavLink>
-                <NavLink
-                  exact
-                  to="/superadmin/department"
-                  activeClassName="activeClicked"
-                >
-                  <CDBSidebarMenuItem icon="building" className="onHover">
-                    Departments
-                  </CDBSidebarMenuItem>
-                </NavLink>
-                <NavLink
-                  exact
-                  to="/superadmin/products"
-                  activeClassName="activeClicked"
-                >
-                  <CDBSidebarMenuItem icon="box" /*cross*/ className="onHover">
-                    Products/Services
-                  </CDBSidebarMenuItem>
-                </NavLink>
-                <NavLink
-                  exact
-                  to="/superadmin/transactions"
-                  activeClassName="activeClicked"
-                >
-                  <CDBSidebarMenuItem icon="wallet" className="onHover">
-                    Transactions
-                  </CDBSidebarMenuItem>
-                </NavLink>
-                <NavLink
-                  exact
-                  to="/superadmin/config"
-                  activeClassName="activeClicked"
-                >
-                  <CDBSidebarMenuItem icon="flag" className="onHover">
-                    Config
-                  </CDBSidebarMenuItem>
-                </NavLink>
-              </CDBSidebarMenu>
-            </CDBSidebarContent>
+            {/* SUPER ADMIN */}
+            {user.access === "full" ? (
+              <CDBSidebarContent className="sidebar-content">
+                <CDBSidebarMenu>
+                  <NavLink to="/">
+                    <CDBSidebarMenuItem icon="table" className="onHover">
+                      Dashboard
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                  <NavLink to="/superadmin/users">
+                    <CDBSidebarMenuItem icon="users" className="onHover">
+                      Users
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                  <NavLink to="/superadmin/department">
+                    <CDBSidebarMenuItem icon="building" className="onHover">
+                      Departments
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                  <NavLink to="/superadmin/products">
+                    <CDBSidebarMenuItem
+                      icon="box"
+                      /*cross*/ className="onHover"
+                    >
+                      Products/Services
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                  <NavLink to="/superadmin/transactions">
+                    <CDBSidebarMenuItem icon="wallet" className="onHover">
+                      Transactions
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                  <NavLink to="/superadmin/config">
+                    <CDBSidebarMenuItem icon="flag" className="onHover">
+                      Config
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                </CDBSidebarMenu>
+              </CDBSidebarContent>
+            ) : (
+              ""
+            )}
+
+            {/* USER */}
+            {user.access === "limited" ? (
+              <CDBSidebarContent className="sidebar-content">
+                <CDBSidebarMenu>
+                  <NavLink to="/user/invoice">
+                    <CDBSidebarMenuItem icon="pen" className="onHover">
+                      Create Invoice
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                </CDBSidebarMenu>
+                <CDBSidebarMenu>
+                  <NavLink to="/user/payment">
+                    <CDBSidebarMenuItem icon="wallet" className="onHover">
+                      Track Payment
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                </CDBSidebarMenu>
+                <CDBSidebarMenu>
+                  <NavLink to="/user/transactions">
+                    <CDBSidebarMenuItem icon="list" className="onHover">
+                      Transaction History
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                </CDBSidebarMenu>
+                <CDBSidebarMenu>
+                  <NavLink to="/user/config">
+                    <CDBSidebarMenuItem icon="flag" className="onHover">
+                      Config
+                    </CDBSidebarMenuItem>
+                  </NavLink>
+                </CDBSidebarMenu>
+              </CDBSidebarContent>
+            ) : (
+              ""
+            )}
 
             {/* Just added this extra block of code so there'll be gap in the sidebar */}
             <CDBSidebarContent>
               <CDBSidebarMenu></CDBSidebarMenu>
             </CDBSidebarContent>
             <CDBSidebarContent>
+              <CDBSidebarMenu></CDBSidebarMenu>
+            </CDBSidebarContent>
+
+            <CDBSidebarContent>
               <CDBSidebarMenu>
-                {/* <NavLink
-                  exact
-                  to="/superadmin/changepassword"
-                  activeClassName="activeClicked"
-                >
-                  <CDBSidebarMenuItem icon="user" className="onHover">
-                    Change Password
-                  </CDBSidebarMenuItem>
-                </NavLink> */}
-                <NavLink
-                  exact
-                  to="/superadmin/logout"
-                  activeClassName="activeClicked"
-                >
+                <NavLink to="/login" onClick={logoutHandler}>
                   <CDBSidebarMenuItem icon="user" className="onHover">
                     Log out
                   </CDBSidebarMenuItem>

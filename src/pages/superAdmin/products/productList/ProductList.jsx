@@ -1,71 +1,124 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import axios from "axios";
+import React, { useContext, useState } from "react";
+import AppContext from "../../../../context/AppContext";
+import { success, error } from "../../../../helpers/Alert";
+import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
 
 // Styles
 import { Wrapper, Top } from "./ProductList.Styles";
 
 const ProductList = ({ setIsEditing, setByUnit }) => {
+  const { loading, setLoading, departments, prodsByDept, setProdsByDept } =
+    useContext(AppContext);
+
+  console.log("~ prodsByDept", prodsByDept);
+  const [sortBy, setSortBy] = useState("");
+
+  let SN = 0;
+
+  const foundDept = departments.filter((item) => {
+    return item.department.name.includes(sortBy);
+  });
+
+  // get products
+  const getProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/products/departments?departmentId=${foundDept[0].department.id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setProdsByDept(response.data.products);
+      console.log("response.data.products", response.data.products);
+      setLoading(false);
+    } catch (err) {
+      // error(err.response.data.message);
+      console.log(err);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
   const editHandler = () => {
     setIsEditing(true);
     // collect user ID and pass it to the edit page, use state to carry the ID or something
+  };
+
+  const onchangeHandler = (e) => {
+    e.persist();
+    console.log(e.target.value);
+    setSortBy(e.target.value);
   };
 
   return (
     <>
       <Wrapper>
         <Top>
-          {/* <NavLink exact to="/superadmin/productsbyunits">
-            View by units
-          </NavLink> */}
           <button onClick={() => setByUnit(true)}>View by units</button>
-          <div className="pair">
-            <label>Select a department:</label>
-            <form>
-              <select name="publish" id="publish">
-                <option value="all">All departments</option>
-                <option value="contracts">Contracts and Tender</option>
-                <option value="false">Dental services</option>
-                <option value="false">FMC administration</option>
-                <option value="false">Nursing services/Retainership</option>
+          <form onSubmit={getProducts}>
+            <div className="pair">
+              <label>Sort by department:</label>
+              <select
+                name="department"
+                id="department"
+                required
+                onChange={onchangeHandler}
+                defaultValue="select Department"
+              >
+                <option value="">Select department</option>
+                {departments.map((item, i) => (
+                  <option key={i} value={item.department.name}>
+                    {item.department.name}
+                  </option>
+                ))}
               </select>
               <button type="submit">Sort</button>
-            </form>
-          </div>
+            </div>
+          </form>
         </Top>
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">S/N</th>
-              <th scope="col">Department</th>
-              <th scope="col">Product/Service</th>
-              <th scope="col">Price</th>
-              <th scope="col">Publish</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr onClick={editHandler}>
-              <th scope="row">1</th>
-              <td>A&E</td>
-              <td>Amlodipine 10Mg</td>
-              <td>17.00</td>
-              <td>No</td>
-            </tr>
-            <tr onClick={editHandler}>
-              <th scope="row">2</th>
-              <td>A&E Pharmacy</td>
-              <td>Amoxicillin INJ</td>
-              <td>250.00</td>
-              <td>Yes</td>
-            </tr>
-            <tr onClick={editHandler}>
-              <th scope="row">3</th>
-              <td>NHIS</td>
-              <td>NHIS-Enoxaprim 20Mg</td>
-              <td>85.00</td>
-              <td>Yes</td>
-            </tr>
-          </tbody>
-        </table>
+        {loading ? (
+          <CircleSpinner />
+        ) : (
+          <>
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">S/N</th>
+                  {/* <th scope="col">Department</th> */}
+                  <th scope="col">Product/Service</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Publish</th>
+                </tr>
+              </thead>
+              <tbody>
+                {prodsByDept.map((item, i) => (
+                  <tr key={i} onClick={editHandler}>
+                    <th scope="row">{(SN = SN + 1)}</th>
+                    {/* <td>{item.department}</td> */}
+                    <td>{item.name}</td>
+                    <td>{item.price}</td>
+                    <td>{item.publish ? "Yes" : "No"}</td>
+                  </tr>
+                ))}
+                {/* <tr onClick={editHandler}>
+                  <th scope="row">2</th>
+                  <td>A&E Pharmacy</td>
+                  <td>Amoxicillin INJ</td>
+                  <td>250.00</td>
+                  <td>Yes</td>
+                </tr> */}
+              </tbody>
+            </table>
+          </>
+        )}
       </Wrapper>
     </>
   );

@@ -7,8 +7,7 @@ import { Wrapper } from "./DeptPrivilege.Styles";
 import AddPrivilege from "./addPrivilege/AddPrivilege";
 import PrivilegeList from "./privilegeList/PrivilegeList";
 
-const DeptPrivilege = ({ setTitle }) => {
-  setTitle("Department Privileges");
+const DeptPrivilege = () => {
   return (
     <>
       <Wrapper>

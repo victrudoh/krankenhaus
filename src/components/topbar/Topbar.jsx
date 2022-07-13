@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 
 //Dependencies
 import { NavLink, Link } from "react-router-dom";
+import AppContext from "../../context/AppContext";
 
 //Styles
 import {
@@ -13,21 +14,22 @@ import {
   Status,
 } from "./Topbar.Styles";
 
-const notifications = "Scribble scribble";
-
-const curr_user = {
-  display_name: "victrudoh@gmail.com",
-  status: "Available",
-};
-
-const renderNotificationItem = (item, index) => (
-  <div className="notification-item" key={index}>
-    <i className={item.icon}></i>
-    <span>{item.content}</span>
-  </div>
-);
-
 const Topbar = ({ title, setTitle }) => {
+  const { user } = useContext(AppContext);
+
+  const notifications = "Scribble scribble";
+
+  const curr_user = {
+    display_name: `${user.firstName} ${user.lastName}`,
+    status: user.userName,
+  };
+
+  const renderNotificationItem = (item, index) => (
+    <div className="notification-item" key={index}>
+      <i className={item.icon}></i>
+      <span>{item.content}</span>
+    </div>
+  );
   // const ifUser = () => <button className="mx-3">User Logs</button>;
   // let test = ifUser();
 

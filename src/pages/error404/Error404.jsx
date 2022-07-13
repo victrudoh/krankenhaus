@@ -3,9 +3,7 @@ import React from "react";
 // Styles
 import { Wrapper, Content } from "./Error404.Styles";
 
-const Error404 = ({ title, setTitle }) => {
-  setTitle("Page not found");
-
+const Error404 = () => {
   return (
     <>
       <Wrapper>
