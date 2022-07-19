@@ -9,6 +9,7 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState(null);
   const [user, setUser] = useState({});
+  const [printing, setPrinting] = useState(false);
 
   // USERS
   const [users, setUsers] = useState([]);
@@ -33,22 +34,41 @@ export const AppProvider = ({ children }) => {
 
   // TRANSACTIONS
   const [transactions, setTransactions] = useState([]);
+  const [chartData, setChartData] = useState([]);
 
-  // Invoice stuff
+  // Users Invoice stuff
   const [invoiceUser, setInvoiceUser] = useState({
     foundInvoiceUser: false,
     firstName: "",
     lastName: "",
     items: [],
   });
+  const [savedInvoice, setSavedInvoice] = useState({
+    display: false,
+    data: {},
+    items: [],
+  });
+  const [trackPayment, setTrackPayment] = useState({
+    transaction: {},
+    products: [],
+  });
+  const [transactionDisplayPage, setTransactionDisplayPage] =
+    useState("products");
+  const [invoiceProducts, setInvoiceProducts] = useState([]);
+  const [invoiceCustomers, setInvoiceCustomers] = useState([]);
+  const [endOfDay, setEndOfDay] = useState({
+    day: "",
+    transactions: [],
+  });
 
+  // **************** //
   //*** FUNCTIONS ***//
+  // **************** //
 
   // Get active user
   const activeUser = async () => {
     try {
       const userId = localStorage.getItem("userId");
-      // console.log("userId", userId);
       const response = await axios.get(
         `https://hospital-ms-api.herokuapp.com/users/${userId}`,
         {
@@ -58,7 +78,6 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
-      // console.log("Active user", response);
       setUser(response.data);
     } catch (error) {
       console.log("~ activeUser ~ error", error);
@@ -81,7 +100,6 @@ export const AppProvider = ({ children }) => {
       console.log("getUsers ~ response", response);
       setLoading(false);
       setUsers(response.data);
-      console.log("get users");
     } catch (err) {
       // console.log(err);
       error(err.response.data.message);
@@ -94,13 +112,13 @@ export const AppProvider = ({ children }) => {
   };
 
   // Edit user
-  // const editUserFunction = (user) => {
-  //   setEditUser({
-  //     index: user,
-  //     editing: true,
-  //     // editing: !editUserId.editing,
-  //   });
-  // };
+  const editUserFunction = (user) => {
+    setEditUser({
+      index: user,
+      editing: true,
+      // editing: !editUserId.editing,
+    });
+  };
 
   // get All departments and units
   const getDepartments = async () => {
@@ -136,7 +154,8 @@ export const AppProvider = ({ children }) => {
       activeUser();
       getUsers();
       getDepartments();
-      // setTransactions([]);
+      setTransactions([]);
+      // setPrinting(false);
     }
   }, []);
 
@@ -147,10 +166,12 @@ export const AppProvider = ({ children }) => {
         user,
         token,
         loading,
+        printing,
 
         setUser,
         setToken,
         setLoading,
+        setPrinting,
 
         // Users
         users,
@@ -182,14 +203,28 @@ export const AppProvider = ({ children }) => {
         setProdsByDept,
 
         // Transactions
+        chartData,
         transactions,
 
+        setChartData,
         setTransactions,
 
         // Invoice stuff
+        endOfDay,
         invoiceUser,
+        savedInvoice,
+        trackPayment,
+        invoiceProducts,
+        invoiceCustomers,
+        transactionDisplayPage,
 
+        setEndOfDay,
         setInvoiceUser,
+        setTrackPayment,
+        setSavedInvoice,
+        setInvoiceProducts,
+        setInvoiceCustomers,
+        setTransactionDisplayPage,
       }}
     >
       {children}

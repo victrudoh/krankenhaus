@@ -21,10 +21,8 @@ const UserDetails = () => {
       setLoading(true);
       setInvoiceUser({
         foundInvoiceUser: true,
-        // user: {
         firstName: newUser.firstName,
         lastName: newUser.lastName,
-        // },
         items: [],
       });
       setLoading(false);

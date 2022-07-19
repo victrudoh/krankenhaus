@@ -1,17 +1,34 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import AppContext from "../../../../context/AppContext";
 
 //styles
-import { Wrapper } from "./List.Styles";
+import { Wrapper, Top } from "./List.Styles";
 
 // components
 import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const List = () => {
-  const { loading, setLoading } = useContext(AppContext);
+  const { loading, trackPayment } = useContext(AppContext);
+
+  let SN = 0;
+  let totalPrice = 0;
+
   return (
     <>
       <Wrapper>
+        <Top>
+          <div className="pair">
+            <label>Name: </label>
+            <h4>
+              {trackPayment.transaction.firstName}{" "}
+              {trackPayment.transaction.lastName}
+            </h4>
+          </div>
+          <div className="pair">
+            <label>Status: </label>
+            <h4>{trackPayment.transaction.status}</h4>
+          </div>
+        </Top>
         {loading ? (
           <CircleSpinner />
         ) : (
@@ -20,34 +37,28 @@ const List = () => {
             <thead>
               <tr>
                 <th scope="col">S/N</th>
-                <th scope="col">Payment Date</th>
-                <th scope="col">Department</th>
                 <th scope="col">Description</th>
                 <th scope="col">Qty</th>
-                <th scope="col">Price</th>
-                <th scope="col">Status</th>
+                <th scope="col">Price (₦)</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>2022-03-12 17:53:49</td>
-                <td>Pharmacy</td>
-                <td>Abidec Syr</td>
-                <td>1</td>
-                <td>955.00</td>
-                <td>Paid</td>
-              </tr>
-              {/* {invoiceList.map((item, i) => (
+              {trackPayment.products.map((item, i) => (
                 <tr key={i}>
                   <th scope="row">{(SN = SN + 1)}</th>
-                  <td>{item.department.name}</td>
-                  <td>{item.department.publish === true ? "Yes" : "No"}</td>
-                  <td>
-                    <button onClick={() => deleteHandler(i)}>Delete</button>
+                  <td>{item.name}</td>
+                  <td>{item.quantity}</td>
+                  <td value={(totalPrice = totalPrice + item.price)}>
+                    {item.price}
                   </td>
                 </tr>
-              ))} */}
+              ))}
+              <tr>
+                <td></td>
+                <td></td>
+                <th>Total:</th>
+                <td>{totalPrice}</td>
+              </tr>
             </tbody>
           </table>
         )}

@@ -9,11 +9,14 @@ import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpi
 import { Wrapper, Content } from "./Panel.Styles";
 
 const Panel = () => {
-  const { loading, setLoading, setTransactions } = useContext(AppContext);
+  const { loading, setLoading, setPrinting, setEndOfDay } =
+    useContext(AppContext);
 
   const [filterParams, setFilterParams] = useState({
     date: "",
+    time: "",
   });
+  console.log("Panel ~ filterParams", filterParams);
 
   const filter = async (e) => {
     setLoading(true);
@@ -21,7 +24,7 @@ const Panel = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/transactions/view-By-customer?From=${filterParams.From}&To=${filterParams.To}&status=${filterParams.status}&lastName=${filterParams.lastName}&firstName=${filterParams.firstName}`,
+        `https://hospital-ms-api.herokuapp.com/transactions/summary?date=${filterParams.date}&time=${filterParams.time}`,
         {
           headers: {
             "content-type": "application/json",
@@ -33,7 +36,13 @@ const Panel = () => {
       setLoading(false);
       if (response.status === 200) {
         success(response.data.message);
-        setTransactions(response.data.transactions);
+        let date = response.data.message.split("for ");
+        setEndOfDay({
+          day: date[1],
+          transactions: response.data.transactions,
+        });
+        // setPrinting(true);
+        // window.open("http://localhost:3000/print/endofday");
       }
     } catch (err) {
       error(err.response.data.message);
@@ -43,10 +52,11 @@ const Panel = () => {
 
   const onchangeHandler = (e) => {
     e.persist();
-    setFilterParams((filterParams) => ({
-      ...filterParams,
-      [e.target.name]: e.target.value,
-    }));
+    let dateTime = e.target.value.split("T");
+    setFilterParams({
+      date: dateTime[0],
+      time: dateTime[1],
+    });
   };
 
   return (

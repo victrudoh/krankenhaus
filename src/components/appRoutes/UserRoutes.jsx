@@ -11,6 +11,7 @@ import CreateInvoice from "../../pages/user/createInvoice/CreateInvoice";
 import TrackPayment from "../../pages/user/trackPayment/TrackPayment";
 import Transactions from "../../pages/user/transactions/Transactions";
 import Config from "../../pages/user/config/Config";
+import EndOfDay from "../../pages/print/endOfDaySummary/EndOfDay";
 
 const UserRoutes = () => {
   return (

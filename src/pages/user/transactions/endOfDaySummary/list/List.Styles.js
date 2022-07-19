@@ -74,8 +74,8 @@ export const Top = styled.div`
   /* background-color: red; */
   width: 100%;
   margin: 1.5rem 0;
-  display: flex;
-  justify-content: space-between;
+  /* display: flex; */
+  /* justify-content: space-between; */
 
   button {
     background-color: var(--accent-color);
@@ -94,11 +94,22 @@ export const Top = styled.div`
 
   .pair {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    /* background-color: green; */
-    /* width: 60%; */
+    /* gap: 1rem; */
+    // background-color: green;
+    width: 60%;
+
+    h5 {
+      // margin-right: 3rem;
+      font-weight: 300;
+      font-size: 24px;
+    }
+
+    h4 {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 30px;
+    }
 
     input {
       padding: 0.2rem;

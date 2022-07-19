@@ -14,6 +14,18 @@ export const Wrapper = styled.div`
     cursor: pointer;
   }
 
+  button {
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    background-color: var(--accent-color);
+    color: var(--text-white);
+
+    &:hover {
+      color: var(--accent-color);
+      background-color: var(--secondary-color);
+    }
+  }
+
   @media (max-width: 1024px) {
     width: 96%;
     margin: 0 auto;
@@ -22,8 +34,9 @@ export const Wrapper = styled.div`
 
 export const Top = styled.div`
   /* background-color: red; */
-  width: 95%;
-  margin: 1.5rem 0;
+  width: 100%;
+  /* margin: 1.5rem 0; */
+  margin-bottom: 0.2rem;
   display: flex;
   justify-content: space-between;
 
@@ -45,4 +58,33 @@ export const Top = styled.div`
 
   @media (max-width: 1024px) {
   }
+`;
+
+export const Head = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h4 {
+    color: grey;
+  }
+
+  i {
+    font-size: 30px;
+    cursor: pointer;
+    color: red;
+
+    &:hover {
+      font-size: 35px;
+      color: var(--secondary-color);
+    }
+  }
+`;
+
+export const Bottom = styled.div`
+  background-color: red;
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: end;
 `;

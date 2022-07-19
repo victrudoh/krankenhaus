@@ -10,6 +10,19 @@ export const Wrapper = styled.div`
   overflow-y: auto;
   margin-bottom: 2rem;
 
+  button {
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--border-radius);
+    background-color: var(--accent-color);
+    color: var(--text-white);
+    /* margin: 1rem 0.5rem; */
+
+    &:hover {
+      color: var(--accent-color);
+      background-color: var(--secondary-color);
+    }
+  }
+
   tr {
     cursor: pointer;
   }
@@ -33,13 +46,24 @@ export const Top = styled.div`
     align-items: center;
     gap: 1rem;
     /* background-color: green; */
-    font-size: 23px;
+    /* font-size: 23px; */
     /* width: 60%; */
 
     h4 {
       margin-top: 0.5rem;
       display: flex;
       align-items: center;
+    }
+
+    select {
+      /* width: 100%; */
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--border-radius);
+      /* margin: 1rem 0.5rem; */
+
+      &:focus {
+        border-radius: 10px 10px 0 0;
+      }
     }
   }
 

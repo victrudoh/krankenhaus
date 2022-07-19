@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   margin-bottom: 2rem;
-  max-height: 70vh;
+  max-height: 15rem;
 
   @media (max-width: 1024px) {
     width: 80%;
@@ -51,7 +51,7 @@ export const Content = styled.div`
   }
 
   button {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     border-radius: var(--border-radius);
     background-color: var(--accent-color);
     color: var(--text-white);

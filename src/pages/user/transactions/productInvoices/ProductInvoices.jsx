@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import AppContext from "../../../../context/AppContext";
 
 // Styles
 import { Wrapper } from "./ProductInvoices.Styles";
@@ -6,13 +7,23 @@ import { Wrapper } from "./ProductInvoices.Styles";
 // Components
 import List from "./list/List";
 import Panel from "./panel/Panel";
+import ViewInvoice from "../../createInvoice/viewInvoice/ViewInvoice";
 
 const ProductInvoices = ({ setIsCustomer }) => {
+  const { savedInvoice } = useContext(AppContext);
   return (
     <>
       <Wrapper>
-        <List setIsCustomer={setIsCustomer} />
-        <Panel />
+        {savedInvoice.display === false ? (
+          <>
+            <List />
+            <Panel />
+          </>
+        ) : (
+          <>
+            <ViewInvoice />
+          </>
+        )}
       </Wrapper>
     </>
   );

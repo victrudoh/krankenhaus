@@ -8,15 +8,28 @@ import { Wrapper } from "./CreateInvoice.Styles";
 import ItemList from "./itemList/ItemList";
 import UserDetails from "./userDetails/UserDetails";
 import AddItem from "./addItem/AddItem";
+import ViewInvoice from "./viewInvoice/ViewInvoice";
 
 const CreateInvoice = () => {
-  const { invoiceUser } = useContext(AppContext);
+  const { invoiceUser, savedInvoice } = useContext(AppContext);
 
   return (
     <>
       <Wrapper>
-        <ItemList />
-        {invoiceUser.foundInvoiceUser === false ? <UserDetails /> : <AddItem />}
+        {savedInvoice.display === false ? (
+          <>
+            <ItemList />
+            {invoiceUser.foundInvoiceUser === false ? (
+              <UserDetails />
+            ) : (
+              <AddItem />
+            )}
+          </>
+        ) : (
+          <>
+            <ViewInvoice />
+          </>
+        )}
       </Wrapper>
     </>
   );

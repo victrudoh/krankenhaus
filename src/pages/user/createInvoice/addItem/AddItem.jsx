@@ -10,14 +10,14 @@ import { Wrapper, Content } from "./AddItem.Styles";
 import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const AddItem = () => {
-  const { loading, setLoading, setInvoiceUser } = useContext(AppContext);
+  const { loading, setLoading, invoiceUser, setInvoiceUser } =
+    useContext(AppContext);
+  console.log("InvoiceUser: ", invoiceUser);
 
   const [newItem, setNewItem] = useState({
     id: 0,
-    firstName: "",
-    lastName: "",
     department: "",
-    item: "",
+    name: "",
     quantity: 1,
     price: 0,
   });
@@ -25,9 +25,9 @@ const AddItem = () => {
   const [deptByPriv, setDeptByPriv] = useState([]);
   const [deptId, setDeptId] = useState();
   const [item, setItem] = useState([]);
-  console.log("item", item);
-  const [price, setPrice] = useState();
+  console.log(" item", item);
 
+  // get department by privilege
   const getDeptByPriv = async () => {
     try {
       const response = await axios.get(
@@ -54,6 +54,7 @@ const AddItem = () => {
     }
   };
 
+  // get products in department
   const getDeptId = async (id) => {
     try {
       const response = await axios.get(
@@ -65,6 +66,7 @@ const AddItem = () => {
           },
         }
       );
+      console.log("getDeptId ~ response", response);
       setItem(response.data.products);
     } catch (error) {
       console.log(error);
@@ -95,13 +97,26 @@ const AddItem = () => {
       console.log("response", response);
       if (response.status === 200) {
         success("Added new item");
-        setInvoiceUser((item) => ({
-          ...item,
-          items: [response.data.item],
+        const itemExists = invoiceUser.items.filter((item) =>
+          item.name.includes(response.data.item.name)
+        );
+        if (itemExists) {
+          // Add quantity of new item to existing item
+          // setInvoiceUser(() => ({
+          //   ...invoiceUser,
+          //   [invoiceUser.items.quantity]: [
+          //     invoiceUser.items.quantity + response.data.item.quantity,
+          //   ],
+          // }));
+          // console.log("InvoiceUser After: ", invoiceUser);
+        }
+        setInvoiceUser(() => ({
+          ...invoiceUser,
+          items: [...invoiceUser.items, response.data.item],
         }));
       }
     } catch (err) {
-      error("Psych");
+      error("Psych!, couldn't add item");
       console.log(err);
       setLoading(false);
     }
@@ -130,21 +145,16 @@ const AddItem = () => {
     });
   };
 
-  // select item
+  // select item and set name, price and Id
   const onItemSelectHandler = (e) => {
     e.persist();
-    setNewItem((newItem) => ({
+    const getItem = item.filter((i) => i.name.includes(e.target.value));
+    setNewItem(() => ({
       ...newItem,
-      [e.target.name]: e.target.value,
+      name: e.target.value,
+      id: getItem[0].id,
+      price: getItem[0].price,
     }));
-    item.filter((item) => {
-      item.name.includes(e.target.value);
-      setPrice(item.price);
-      setNewItem((newItem) => ({
-        ...newItem,
-        id: item.id,
-      }));
-    });
   };
 
   useEffect(() => {
@@ -164,30 +174,6 @@ const AddItem = () => {
             <CircleSpinner />
           ) : (
             <form onSubmit={addItem}>
-              {/* <div className="pair">
-                <label>First name:</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  id="firstName"
-                  required
-                  placeholder="First name"
-                  onChange={onchangeHandler}
-                  defaultValue={newItem.firstName}
-                />
-              </div>
-              <div className="pair">
-                <label>Last name:</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  id="lastName"
-                  required
-                  placeholder="last name"
-                  onChange={onchangeHandler}
-                  defaultValue={newItem.lastName}
-                />
-              </div> */}
               <div className="pair">
                 <label>Auto add product:</label>
                 <input
@@ -221,11 +207,11 @@ const AddItem = () => {
                   <div className="pair">
                     <label>Item:</label>
                     <select
-                      name="item"
-                      id="item"
+                      name="name"
+                      id="name"
                       required
                       onChange={onItemSelectHandler}
-                      defaultValue={newItem.item}
+                      defaultValue={newItem.name}
                     >
                       <option value="">Select item</option>
                       {item.map((item, i) => (
@@ -237,11 +223,11 @@ const AddItem = () => {
                   </div>
                 </>
               )}
-              {newItem.item && (
+              {newItem.name && (
                 <>
                   <div className="pair">
                     <label>Price:</label>
-                    <h5 className="mx-1">{price}</h5>
+                    <h5 className="mx-1">{newItem.price}</h5>
                   </div>
                 </>
               )}

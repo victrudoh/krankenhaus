@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import AppContext from "../../../context/AppContext";
 
 // Styles
 import { Top, Wrapper } from "./Transactions.Styles";
@@ -9,14 +10,15 @@ import ProductInvoices from "./productInvoices/ProductInvoices";
 import EndOfDaySummary from "./endOfDaySummary/EndOfDaySummary";
 
 const Transactions = () => {
-  const [display, setDisplay] = useState("records");
+  const { transactionDisplayPage, setTransactionDisplayPage } =
+    useContext(AppContext);
 
-  const SelectedDisplay = (e) => {
-    if (e.display === "records") {
+  const SelectedDisplay = () => {
+    if (transactionDisplayPage === "products") {
       return <ProductInvoices />;
-    } else if (e.display === "invoices") {
+    } else if (transactionDisplayPage === "customers") {
       return <CustomerInvoices />;
-    } else if (e.display === "summaries") {
+    } else if (transactionDisplayPage === "summary") {
       return <EndOfDaySummary />;
     }
   };
@@ -25,18 +27,18 @@ const Transactions = () => {
     <>
       <Wrapper>
         <Top>
-          <button onClick={() => setDisplay("records")}>
+          <button onClick={() => setTransactionDisplayPage("products")}>
             Invoices by Products
           </button>
-          <button onClick={() => setDisplay("invoices")}>
+          <button onClick={() => setTransactionDisplayPage("customers")}>
             Invoices by Customers
           </button>
-          <button onClick={() => setDisplay("summaries")}>
+          <button onClick={() => setTransactionDisplayPage("summary")}>
             End of Day Summary
           </button>
         </Top>
 
-        <SelectedDisplay display={display} />
+        <SelectedDisplay />
       </Wrapper>
     </>
   );

@@ -3,13 +3,13 @@ import AppContext from "../../../../context/AppContext";
 import axios from "axios";
 
 // styles
-import { Wrapper, Top, Bottom } from "./ItemList.Styles";
+import { Wrapper, Top } from "./ItemList.Styles";
 
 // components
 import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const ItemList = () => {
-  const { loading, setLoading, invoiceUser, setInvoiceUser } =
+  const { loading, setLoading, invoiceUser, setInvoiceUser, setSavedInvoice } =
     useContext(AppContext);
 
   const [invoice, setInvoice] = useState({
@@ -37,6 +37,11 @@ const ItemList = () => {
       );
       setLoading(false);
       console.log("generateInvoice ~ response", response);
+      setSavedInvoice({
+        display: true,
+        data: response.data.invoice,
+        items: response.data.items,
+      });
       setInvoiceUser({
         foundInvoiceUser: false,
         firstName: "",
@@ -50,6 +55,12 @@ const ItemList = () => {
 
   const deleteHandler = (id) => {
     // delete item
+    invoiceUser.items.pop(id);
+    setInvoice({
+      firstName: invoiceUser.firstName,
+      lastName: invoiceUser.lastName,
+      items: invoiceUser.items,
+    });
   };
 
   useEffect(() => {
@@ -58,7 +69,6 @@ const ItemList = () => {
       lastName: invoiceUser.lastName,
       items: invoiceUser.items,
     });
-    console.log("invoice: ", invoice);
   }, []);
 
   return (
@@ -92,26 +102,18 @@ const ItemList = () => {
               </thead>
               <tbody>
                 {invoiceUser.items.map((item, i) => (
-                  <>
-                    <tr key={i}>
-                      <th scope="row">{(SN = SN + 1)}</th>
-                      <td>{item.name}</td>
-                      <td>{item.department}</td>
-                      <td>{item.quantity}</td>
-                      <td value={(totalPrice = totalPrice + item.price)}>
-                        {item.price}
-                      </td>
-                      <td>
-                        <button onClick={() => deleteHandler(i)}>Delete</button>
-                      </td>
-                    </tr>
-                    {/* <input
-                      key={i}
-                      type="hidden"
-                      name="totalPrice"
-                      value={(totalPrice = totalPrice + item.price)}
-                    /> */}
-                  </>
+                  <tr key={i}>
+                    <th scope="row">{(SN = SN + 1)}</th>
+                    <td>{item.name}</td>
+                    <td>{item.department}</td>
+                    <td>{item.quantity}</td>
+                    <td value={(totalPrice = totalPrice + item.price)}>
+                      {item.price}
+                    </td>
+                    <td>
+                      <button onClick={() => deleteHandler(i)}>Delete</button>
+                    </td>
+                  </tr>
                 ))}
                 <tr>
                   <td></td>

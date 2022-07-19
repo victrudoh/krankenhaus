@@ -52,7 +52,7 @@ const Login = () => {
       }
     } catch (err) {
       console.log(err);
-      console.log(err.response.data.error);
+      error(err.response.data.error);
       setLoading(false);
     }
   };

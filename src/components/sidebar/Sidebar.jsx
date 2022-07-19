@@ -102,36 +102,69 @@ const Sidebar = () => {
 
             {/* USER */}
             {user.access === "limited" ? (
-              <CDBSidebarContent className="sidebar-content">
-                <CDBSidebarMenu>
-                  <NavLink to="/user/invoice">
-                    <CDBSidebarMenuItem icon="pen" className="onHover">
-                      Create Invoice
-                    </CDBSidebarMenuItem>
-                  </NavLink>
-                </CDBSidebarMenu>
-                <CDBSidebarMenu>
-                  <NavLink to="/user/payment">
-                    <CDBSidebarMenuItem icon="wallet" className="onHover">
-                      Track Payment
-                    </CDBSidebarMenuItem>
-                  </NavLink>
-                </CDBSidebarMenu>
-                <CDBSidebarMenu>
-                  <NavLink to="/user/transactions">
-                    <CDBSidebarMenuItem icon="list" className="onHover">
-                      Transaction History
-                    </CDBSidebarMenuItem>
-                  </NavLink>
-                </CDBSidebarMenu>
-                <CDBSidebarMenu>
-                  <NavLink to="/user/config">
-                    <CDBSidebarMenuItem icon="flag" className="onHover">
-                      Config
-                    </CDBSidebarMenuItem>
-                  </NavLink>
-                </CDBSidebarMenu>
-              </CDBSidebarContent>
+              <>
+                {/* TELLER */}
+                {user.role === "teller" ? (
+                  <>
+                    <CDBSidebarContent className="sidebar-content">
+                      <CDBSidebarMenu>
+                        <NavLink to="/teller/payment">
+                          <CDBSidebarMenuItem icon="pen" className="onHover">
+                            Make Payment
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                      <CDBSidebarMenu>
+                        <NavLink to="/teller/transactions">
+                          <CDBSidebarMenuItem icon="wallet" className="onHover">
+                            Transaction History
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                      <CDBSidebarMenu>
+                        <NavLink to="/teller/config">
+                          <CDBSidebarMenuItem icon="flag" className="onHover">
+                            Config
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                    </CDBSidebarContent>
+                  </>
+                ) : (
+                  <>
+                    <CDBSidebarContent className="sidebar-content">
+                      <CDBSidebarMenu>
+                        <NavLink to="/user/invoice">
+                          <CDBSidebarMenuItem icon="pen" className="onHover">
+                            Create Invoice
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                      <CDBSidebarMenu>
+                        <NavLink to="/user/payment">
+                          <CDBSidebarMenuItem icon="wallet" className="onHover">
+                            Track Payment
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                      <CDBSidebarMenu>
+                        <NavLink to="/user/transactions">
+                          <CDBSidebarMenuItem icon="list" className="onHover">
+                            Transaction History
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                      <CDBSidebarMenu>
+                        <NavLink to="/user/config">
+                          <CDBSidebarMenuItem icon="flag" className="onHover">
+                            Config
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                    </CDBSidebarContent>
+                  </>
+                )}
+              </>
             ) : (
               ""
             )}
