@@ -25,6 +25,12 @@ export const AppProvider = ({ children }) => {
   // DEPARTMENTS
   const [departments, setDepartments] = useState([]);
   const [editDeptId, setEditDeptId] = useState();
+
+  // ******************************** //
+  // Creating saved DeptID so i can use for privileges stuff
+  const [savedDeptId, setSavedDeptId] = useState();
+  // ******************************** //
+
   // to trigger reload of department list
   const [addedDept, setAddedDept] = useState("");
   const [editedDept, SetEditedDept] = useState("");
@@ -162,8 +168,10 @@ export const AppProvider = ({ children }) => {
     if (token) {
       console.log("Fetch everything");
       activeUser();
+      if (user.access === "full") {
+        getDepartments();
+      }
       getUsers();
-      getDepartments();
       setTransactions([]);
       // setPrinting(false);
     }

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import AppContext from "../../../../context/AppContext";
+import axios from "axios";
 
 // Styles
 import { Wrapper } from "./DeptList.Styles";
@@ -10,6 +11,7 @@ import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinne
 
 const DeptList = ({ setIsEditing }) => {
   const { loading, departments, setEditDeptId } = useContext(AppContext);
+  console.log("~ departments", departments);
 
   let SN = 0;
 
@@ -18,7 +20,7 @@ const DeptList = ({ setIsEditing }) => {
     setEditDeptId(id);
   };
 
-  const gotoPrivilegeHandler = () => {
+  const gotoPrivilegeHandler = (id) => {
     // Navigate("/superadmin/deptprivilege");
   };
 

@@ -10,7 +10,7 @@ import { Wrapper, Top } from "./List.Styles";
 import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const List = () => {
-  const { loading, setLoading, invoiceCustomers, savedCustomerInvoice } =
+  const { loading, setLoading, invoiceCustomers, savedInvoice } =
     useContext(AppContext);
 
   let SN = 0;
@@ -33,7 +33,7 @@ const List = () => {
       if (response.status === 200) {
         success("Found payment");
         // show transaction details on screen
-        savedCustomerInvoice({
+        savedInvoice({
           display: true,
           data: response.data.transaction,
           items: response.data.products,

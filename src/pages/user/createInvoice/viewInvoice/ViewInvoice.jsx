@@ -45,12 +45,15 @@ const ViewInvoice = () => {
     });
   };
 
-  const printHandler = () => {
-    // Run print stuff first sha
-    setSavedInvoice({
-      ...savedInvoice,
-      display: false,
-    });
+  const printInvoice = () => {
+    var printContents = document.getElementById("printInvoice").innerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
   };
 
   return (
@@ -59,23 +62,27 @@ const ViewInvoice = () => {
         <div className="card-body">
           <div className="container mb-5 mt-3">
             <div className="row d-flex align-items-baseline">
-              {/* <div className="col-xl-6">
-                <p style={{ color: "#7e8d9f", fontSize: "20px" }}>
-                  Invoice >> <strong>ID: #123-123</strong>
-                </p>
-              </div> */}
-              <div className="col-xl-6">
-                <a
-                  className="btn btn-light text-capitalize border-0"
-                  data-mdb-ripple-color="dark"
-                >
-                  <i className="fas fa-print text-primary"></i> Print
-                </a>
+              <div className="col-xl-6 w-100 d-flex justify-content-between align-items-center mb-2">
+                <button onClick={() => printInvoice()}>
+                  {" "}
+                  <i className="fas fa-print text-white mx-2"></i>Print invoice
+                </button>
+                <i
+                  className="bx bx-x-circle"
+                  style={{
+                    fontSize: "25px",
+                    cursor: "pointer",
+                    color: "#000080",
+                  }}
+                  onClick={closeHandler}
+                ></i>
               </div>
               <hr />
             </div>
 
-            <div className="container">
+            <img src={savedInvoice.data.badcode} alt="barcode" />
+
+            <div className="container printInvoice" id="printInvoice">
               <div className="col-md-12">
                 <div className="text-center">
                   <i
@@ -89,8 +96,10 @@ const ViewInvoice = () => {
                 </div>
               </div>
 
+              <div className="my-5"></div>
+
               <div className="row">
-                <div className="col-xl-7">
+                <div className="col-xl-7 mt-4">
                   {/* <p className="text-muted">Invoice</p> */}
                   <ul className="list-unstyled">
                     <li className="text-muted d-flex align-items-center">
@@ -104,14 +113,14 @@ const ViewInvoice = () => {
                         {savedInvoice.data.lastName}
                       </h5>
                     </li>
-                    <li className="text-muted d-flex align-items-center">
+                    {/* <li className="text-muted d-flex align-items-center">
                       <i
                         className="fas fa-circle mx-1"
                         style={{ color: "#000080" }}
                       ></i>{" "}
                       <span className="fw-bold">ID: </span>
                       <h5 className="mx-2">{savedInvoice.data.id}</h5>
-                    </li>
+                    </li> */}
                     <li className="text-muted d-flex align-items-center">
                       <i
                         className="fas fa-circle mx-1"
@@ -122,7 +131,7 @@ const ViewInvoice = () => {
                         {savedInvoice.data.createdAt.slice(0, 10)}
                       </h5>
                     </li>
-                    <li className="text-muted d-flex align-items-center">
+                    {/* <li className="text-muted d-flex align-items-center">
                       <i
                         className="fas fa-circle mx-1"
                         style={{ color: "#000080" }}
@@ -137,13 +146,15 @@ const ViewInvoice = () => {
                           {savedInvoice.data.status}
                         </span>
                       )}
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
-                <div class="col-xl-5">
+                <div className="col-xl-5">
                   <Barcode value={savedInvoice.data.id} />
                 </div>
               </div>
+
+              <div className="my-5"></div>
 
               <div className="row mt-4 my-2 mx-1 justify-content-center">
                 <table className="table table-striped table-borderless">
@@ -152,20 +163,20 @@ const ViewInvoice = () => {
                     className="text-white"
                   >
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Description</th>
                       <th scope="col">Qty</th>
-                      <th scope="col">Unit Price</th>
+                      {/* <th scope="col">#</th> */}
+                      <th scope="col">Description</th>
+                      {/* <th scope="col">Unit Price</th> */}
                       <th scope="col">Amount</th>
                     </tr>
                   </thead>
                   <tbody>
                     {savedInvoice.items.map((item, i) => (
                       <tr key={i}>
-                        <th scope="row">{(SN = SN + 1)}</th>
-                        <td>{item.name}</td>
                         <td>{item.quantity}</td>
-                        <td>{(item.price / item.quantity).toFixed(2)}</td>
+                        {/* <th scope="row">{(SN = SN + 1)}</th> */}
+                        <td>{item.name}</td>
+                        {/* <td>{(item.price / item.quantity).toFixed(2)}</td> */}
                         <td value={(totalPrice = totalPrice + item.price)}>
                           {item.price.toFixed(2)}
                         </td>
@@ -174,42 +185,38 @@ const ViewInvoice = () => {
                   </tbody>
                 </table>
               </div>
+
               <div className="row">
-                <div className="col-xl-6">
-                  {/* <p className="ms-3">
-                    Additional notes and payment information:
-                  </p> */}
-                </div>
-                <div className="col-xl-5">
-                  <p className="text-black float-end">
-                    <span className="text-black me-3">Total Amount</span>
-                    <span style={{ fontSize: "25px" }}>
+                <div className="col-xl-6"></div>
+                <div className="col-xl-5 d-flex justify-content-end">
+                  <p className="text-black">
+                    <span
+                      className="text-black me-3"
+                      style={{ fontSize: "22px" }}
+                    >
+                      Total price:
+                    </span>
+                    <span style={{ fontSize: "22px", fontWeight: "500" }}>
                       {totalPrice.toFixed(2)}
                     </span>
                   </p>
                 </div>
               </div>
+              {/* <div className="my-5"></div>
               <div className="row">
                 <div className="col-xl-7">
                   <p className="ms-3">
                     Additional notes and payment information:
                   </p>
+                  <div className="mb-4"></div>
                 </div>
-                {/* <div className="col-xl-5">
-                  <p className="text-black float-start">
-                    <span className="text-black me-3"> Total Amount</span>
-                    <span style={{ fontSize: "25px" }}>
-                      {totalPrice.toFixed(2)}
-                    </span>
-                  </p>
-                </div> */}
               </div>
               <hr />
               <div className="row">
                 <div className="col-xl-9">
                   <p>Thank you for your purchase</p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
