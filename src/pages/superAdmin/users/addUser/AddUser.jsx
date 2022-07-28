@@ -33,6 +33,11 @@ const AddUser = () => {
     access: "",
   });
 
+  const [editUser, setEditUser] = useState({
+    isEditing: false,
+    user: {},
+  });
+
   const addUser = async (e) => {
     console.log("newUser", newUser);
     e.preventDefault();
@@ -83,20 +88,30 @@ const AddUser = () => {
     getUnit(newUser.department);
   }, [newUser.department]);
 
-  // // set form to Edit mode
+  useEffect(() => {
+    setEditUser(() => ({
+      ...editUser,
+      user: newUser,
+    }));
+  }, []);
+
+  // set form to Edit mode
   // useEffect(() => {
-  //   if (editUser.isEditing === true) {
-  //     setNewUser({
-  //       firstName: editUser.user.firstName,
-  //       lastName: editUser.user.lastName,
-  //       userName: editUser.user.userName,
-  //       department: editUser.user.department,
-  //       unit: editUser.user.unit,
-  //       role: editUser.user.role,
-  //       active: true,
-  //       access: editUser.user.access,
-  //     });
-  //   }
+  // setNewUser(() => ({
+  //   ...editUser,
+  // }));
+  // if (editUser.isEditing === true) {
+  // setNewUser({
+  //   firstName: editUser.user.firstName,
+  //   lastName: editUser.user.lastName,
+  //   userName: editUser.user.userName,
+  //   department: editUser.user.department,
+  //   unit: editUser.user.unit,
+  //   role: editUser.user.role,
+  //   active: true,
+  //   access: editUser.user.access,
+  // });
+  // }
   // }, [editUser]);
 
   return (

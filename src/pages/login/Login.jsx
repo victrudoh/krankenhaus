@@ -31,7 +31,7 @@ const Login = () => {
           headers: { "content-type": "application/json" },
         }
       );
-      console.log("response", response);
+      // console.log("response", response);
       const token = response.data.token;
       const userId = response.data.user.id;
       setLoading(false);
@@ -40,13 +40,11 @@ const Login = () => {
         localStorage.setItem("token", token);
         localStorage.setItem("userId", userId);
         if (response.data.user.access === "full") {
-          navigate("/superadmin/dashboard");
-          console.log("force refresh");
+          navigate("/");
           window.location.reload(false);
         }
         if (response.data.user.access === "limited") {
-          navigate("/user/invoice");
-          console.log("force refresh");
+          navigate("/");
           window.location.reload(false);
         }
       }

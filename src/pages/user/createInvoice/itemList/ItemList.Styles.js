@@ -35,7 +35,8 @@ export const Wrapper = styled.div`
 
 export const Top = styled.div`
   /* background-color: red; */
-  width: 60%;
+  min-width: 60%;
+  max-width: 90%;
   margin: 1.5rem 0;
   display: flex;
   justify-content: space-between;

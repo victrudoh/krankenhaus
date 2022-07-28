@@ -1,13 +1,13 @@
 import React from "react";
 
-// Styles
-import { Wrapper } from "./ProductsHistory.Styles";
+// styles
+import { Wrapper } from "./CustomersHistory.Styles";
 
 // Components
 import List from "./list/List";
 import Panel from "./panel/Panel";
 
-const ProductsHistory = () => {
+const CustomersHistory = () => {
   return (
     <>
       <Wrapper>
@@ -18,4 +18,4 @@ const ProductsHistory = () => {
   );
 };
 
-export default ProductsHistory;
+export default CustomersHistory;

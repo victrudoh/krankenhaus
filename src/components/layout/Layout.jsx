@@ -1,6 +1,4 @@
 import React from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 // Components
 import MainRouter from "../Routes";
@@ -24,17 +22,6 @@ const Layout = () => {
             <Sidebar />
             <Right>
               <Topbar />
-              <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-              />
               <MainRouter />
             </Right>
           </LayoutStyle>

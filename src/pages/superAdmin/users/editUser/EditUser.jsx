@@ -12,6 +12,7 @@ const EditUser = () => {
     users,
     loading,
     editUser,
+    getUsers,
     setLoading,
     setEditUser,
     departments,
@@ -68,7 +69,7 @@ const EditUser = () => {
       if (response.status === 200) {
         success("Updated user successfully");
         setEditedUser(response.status);
-        // getUsers();
+        getUsers();
       }
     } catch (err) {
       error("Psych! can't update user");
@@ -85,9 +86,9 @@ const EditUser = () => {
   };
 
   // fetch unit when department is selected
-  // useEffect(() => {
-  //   getUnit(foundUser.department);
-  // }, [foundUser.department]);
+  useEffect(() => {
+    getUnit(foundUser.department);
+  }, [foundUser]);
 
   const onchangeHandler = (e) => {
     e.persist();
@@ -96,6 +97,13 @@ const EditUser = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
+  useEffect(() => {
+    setUpdateUser(() => ({
+      ...foundUser,
+    }));
+    console.log(updateUser);
+  }, [foundUser]);
 
   return (
     <>

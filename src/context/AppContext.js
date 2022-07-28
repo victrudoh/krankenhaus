@@ -43,6 +43,16 @@ export const AppProvider = ({ children }) => {
     lastName: "",
     items: [],
   });
+  // const [savedProductInvoice, setSavedProductInvoice] = useState({
+  //   display: false,
+  //   data: {},
+  //   items: [],
+  // });
+  // const [savedCustomerInvoice, setSavedCustomerInvoice] = useState({
+  //   display: false,
+  //   data: {},
+  //   items: [],
+  // });
   const [savedInvoice, setSavedInvoice] = useState({
     display: false,
     data: {},
@@ -216,6 +226,8 @@ export const AppProvider = ({ children }) => {
         trackPayment,
         invoiceProducts,
         invoiceCustomers,
+        // savedProductInvoice,
+        // savedCustomerInvoice,
         transactionDisplayPage,
 
         setEndOfDay,
@@ -224,6 +236,8 @@ export const AppProvider = ({ children }) => {
         setSavedInvoice,
         setInvoiceProducts,
         setInvoiceCustomers,
+        // setSavedProductInvoice,
+        // setSavedCustomerInvoice,
         setTransactionDisplayPage,
       }}
     >

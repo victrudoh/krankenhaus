@@ -16,6 +16,32 @@ const List = () => {
   let SN = 0;
   let totalPrice = 0;
 
+  // const getDate = async (fetchDate) => {
+  //   const getDate = new Date(fetchDate);
+  //   const monthList = [
+  //     "Jan",
+  //     "Feb",
+  //     "Mar",
+  //     "Apr",
+  //     "May",
+  //     "June",
+  //     "July",
+  //     "Aug",
+  //     "Sept",
+  //     "Oct",
+  //     "Nov",
+  //     "Dec",
+  //   ];
+  //   let dateString = getDate.toString();
+  //   const day = dateString.slice(0, 3);
+  //   let month = monthList[getDate.getMonth()];
+  //   let date = getDate.getDate();
+  //   let year = getDate.getFullYear();
+
+  //   let invoiceDate = `${day} ${month} ${date}, ${year}`;
+  //   return invoiceDate;
+  // };
+
   const getDetails = async (id) => {
     try {
       setLoading(true);

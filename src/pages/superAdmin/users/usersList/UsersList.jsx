@@ -17,6 +17,10 @@ const UsersList = () => {
 
   // Edit user
   const editHandler = (index) => {
+    console.log(
+      "🚀 ~ file: UsersList.jsx ~ line 20 ~ editHandler ~ index",
+      index
+    );
     setEditUser({
       index: index,
       editing: true,
