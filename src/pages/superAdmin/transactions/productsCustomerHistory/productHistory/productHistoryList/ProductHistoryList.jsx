@@ -1,18 +1,16 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import AppContext from "../../../../../../context/AppContext";
 
 // Styles
 import { Wrapper, Top } from "./ProductHistoryList.Styles";
 
 const ProductHistoryList = ({ setIsCustomer }) => {
+  const { setShowProductPage } = useContext(AppContext);
   return (
     <>
       <Wrapper>
         <Top>
-          {/* <NavLink exact to="/superadmin/userlogs">
-            Customer Transaction History
-          </NavLink> */}
-          <button onClick={() => setIsCustomer(true)}>
+          <button onClick={() => setShowProductPage(false)}>
             View Customer Transaction History
           </button>
           <div className="pair">

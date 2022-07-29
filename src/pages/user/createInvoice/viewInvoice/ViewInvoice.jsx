@@ -80,7 +80,7 @@ const ViewInvoice = () => {
               <hr />
             </div>
 
-            <img src={savedInvoice.data.badcode} alt="barcode" />
+            {/* <img src={savedInvoice.data.badcode} alt="barcode" /> */}
 
             <div className="container printInvoice" id="printInvoice">
               <div className="col-md-12">

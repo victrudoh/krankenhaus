@@ -99,22 +99,25 @@ const ProductList = ({ setIsEditing, setByUnit }) => {
                 </tr>
               </thead>
               <tbody>
-                {prodsByDept.map((item, i) => (
-                  <tr key={i} onClick={editHandler}>
-                    <th scope="row">{(SN = SN + 1)}</th>
-                    {/* <td>{item.department}</td> */}
-                    <td>{item.name}</td>
-                    <td>{item.price}</td>
-                    <td>{item.publish ? "Yes" : "No"}</td>
+                {prodsByDept.length < 1 ? (
+                  <tr>
+                    <td colSpan={4}>
+                      <h6>No Products to show</h6>
+                    </td>
                   </tr>
-                ))}
-                {/* <tr onClick={editHandler}>
-                  <th scope="row">2</th>
-                  <td>A&E Pharmacy</td>
-                  <td>Amoxicillin INJ</td>
-                  <td>250.00</td>
-                  <td>Yes</td>
-                </tr> */}
+                ) : (
+                  <>
+                    {prodsByDept.map((item, i) => (
+                      <tr key={i} onClick={editHandler}>
+                        <th scope="row">{(SN = SN + 1)}</th>
+                        {/* <td>{item.department}</td> */}
+                        <td>{item.name}</td>
+                        <td>{item.price}</td>
+                        <td>{item.publish ? "Yes" : "No"}</td>
+                      </tr>
+                    ))}
+                  </>
+                )}
               </tbody>
             </table>
           </>

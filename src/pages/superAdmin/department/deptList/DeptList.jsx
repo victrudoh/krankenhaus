@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AppContext from "../../../../context/AppContext";
-import axios from "axios";
 
 // Styles
 import { Wrapper } from "./DeptList.Styles";
@@ -58,11 +57,6 @@ const DeptList = ({ setIsEditing }) => {
                     >
                       Teller privileges
                     </button>
-                    {/* <NavLink exact to="/superadmin/deptprivilege">
-                      <button className="mx-3" onClick={gotoPrivilegeHandler}>
-                        Teller privileges
-                      </button>
-                    </NavLink> */}
                   </td>
                 </tr>
               ))}

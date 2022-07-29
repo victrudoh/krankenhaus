@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import AppContext from "../../../../../context/AppContext";
 
 // Styles
 import { Wrapper } from "./CustomerHistory.Styles";
@@ -6,13 +7,23 @@ import { Wrapper } from "./CustomerHistory.Styles";
 // components
 import List from "./list/List";
 import Panel from "./panel/Panel";
+import ViewInvoice from "../../../../user/createInvoice/viewInvoice/ViewInvoice";
 
-const CustomerHistory = ({ setIsCustomer }) => {
+const CustomerHistory = () => {
+  const { savedInvoice } = useContext(AppContext);
   return (
     <>
       <Wrapper>
-        <List setIsCustomer={setIsCustomer} />
-        <Panel />
+        {savedInvoice.display === false ? (
+          <>
+            <List />
+            <Panel />
+          </>
+        ) : (
+          <>
+            <ViewInvoice />
+          </>
+        )}
       </Wrapper>
     </>
   );

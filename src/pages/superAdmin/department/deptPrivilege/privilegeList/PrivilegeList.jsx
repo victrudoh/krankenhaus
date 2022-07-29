@@ -92,17 +92,29 @@ const PrivilegeList = () => {
               <CircleSpinner />
             ) : (
               <>
-                {privs.map((item, i) => (
-                  <tr key={i}>
-                    <th scope="row">{(SN = SN + 1)}</th>
-                    <td>{item.name}</td>
-                    <td>
-                      <button onClick={() => deleteHandler(item.id)}>
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {privs.length < 1 ? (
+                  <>
+                    <tr>
+                      <td colSpan="2">
+                        <h6>No privilege was found for this department</h6>
+                      </td>
+                    </tr>
+                  </>
+                ) : (
+                  <>
+                    {privs.map((item, i) => (
+                      <tr key={i}>
+                        <th scope="row">{(SN = SN + 1)}</th>
+                        <td>{item.name}</td>
+                        <td>
+                          <button onClick={() => deleteHandler(item.id)}>
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                )}
               </>
             )}
           </tbody>

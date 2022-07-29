@@ -36,6 +36,7 @@ export const AppProvider = ({ children }) => {
   // TRANSACTIONS
   const [transactions, setTransactions] = useState([]);
   const [chartData, setChartData] = useState([]);
+  const [showProductPage, setShowProductPage] = useState(false);
 
   // Users Invoice stuff
   const [invoiceUser, setInvoiceUser] = useState({
@@ -44,16 +45,6 @@ export const AppProvider = ({ children }) => {
     lastName: "",
     items: [],
   });
-  // const [savedProductInvoice, setSavedProductInvoice] = useState({
-  //   display: false,
-  //   data: {},
-  //   items: [],
-  // });
-  // const [savedCustomerInvoice, setSavedCustomerInvoice] = useState({
-  //   display: false,
-  //   data: {},
-  //   items: [],
-  // });
   const [savedInvoice, setSavedInvoice] = useState({
     display: false,
     data: {},
@@ -223,9 +214,11 @@ export const AppProvider = ({ children }) => {
         // Transactions
         chartData,
         transactions,
+        showProductPage,
 
         setChartData,
         setTransactions,
+        setShowProductPage,
 
         // Invoice stuff
         endOfDay,

@@ -10,7 +10,8 @@ import { Wrapper, Content } from "./AddPrivilege.Styles";
 import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const AddPrivilege = () => {
-  const { loading, savedDeptId, departments } = useContext(AppContext);
+  const { loading, setLoading, savedDeptId, departments } =
+    useContext(AppContext);
 
   const [newPriv, setNewPriv] = useState({
     privId: "",
@@ -51,6 +52,7 @@ const AddPrivilege = () => {
   const addPriv = async (e) => {
     e.preventDefault();
     try {
+      // setLoading(true);
       const response = await axios.post(
         `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
         {
@@ -60,12 +62,14 @@ const AddPrivilege = () => {
           },
         }
       );
+      setLoading(false);
       console.log("response", response);
       if (response.status === 200) {
         success(`Added privilege`);
         // setAllPrivs(response.data.privileges);
       }
     } catch (err) {
+      console.log("🚀 ~ file: AddPrivilege.jsx ~ line 72 ~ addPriv ~ err", err);
       error("Couldn't fetch privileges");
       // if (err.response.status === 401) {
       //   error(err.response.data.message);

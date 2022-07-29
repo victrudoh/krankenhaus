@@ -9,7 +9,7 @@ import List from "./list/List";
 import Panel from "./panel/Panel";
 import ViewInvoice from "../../createInvoice/viewInvoice/ViewInvoice";
 
-const CustomerInvoices = ({ setIsCustomer }) => {
+const CustomerInvoices = () => {
   const { savedCustomerInvoice } = useContext(AppContext);
   return (
     <>

@@ -1,30 +1,65 @@
 import React, { useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AppContext from "../../../../../../context/AppContext";
+import axios from "axios";
+import { success, error } from "../../../../../../helpers/Alert";
 
 // styles
 import { Wrapper, Top } from "./List.Styles";
 
-const List = ({ setIsCustomer }) => {
-  const { transactions } = useContext(AppContext);
-  console.log("transactions", transactions);
-  const navigate = useNavigate();
+// components
+import { CircleSpinner } from "../../../../../../components/circleSpinner/CircleSpinner.Styles";
 
-  const viewDetailsHandler = () => {
-    navigate("/superadmin/viewtrxdetails");
+const List = ({ setIsCustomer }) => {
+  const {
+    loading,
+    setLoading,
+    transactions,
+    setSavedInvoice,
+    setShowProductPage,
+  } = useContext(AppContext);
+
+  let SN = 0;
+  let totalPrice = 0;
+
+  const getDetails = async (id) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/transactions/${id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setLoading(false);
+      // console.log("response", response);
+      if (response.status === 200) {
+        success("Found payment");
+        // show transaction details on screen
+        setSavedInvoice({
+          display: true,
+          data: response.data.transaction,
+          items: response.data.products,
+        });
+      }
+    } catch (err) {
+      error("Couldn't fetch details");
+      // console.log(err);
+      setLoading(false);
+    }
   };
 
   return (
     <>
       <Wrapper>
         <Top>
-          {/* <NavLink exact to="/superadmin/userlogs">
-            Product Transaction History
-          </NavLink> */}
-          <button onClick={() => setIsCustomer(false)}>
+          <button onClick={() => setShowProductPage(true)}>
             View Product Transaction History
           </button>
-          <div className="pair">
+          {/* <div className="pair">
             <form>
               <input
                 type="search"
@@ -34,7 +69,7 @@ const List = ({ setIsCustomer }) => {
               />
               <button type="submit">Search</button>
             </form>
-          </div>
+          </div> */}
         </Top>
         <table className="table table-striped caption-top">
           <caption>Transaction History: Customers</caption>
@@ -50,53 +85,41 @@ const List = ({ setIsCustomer }) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>2022-03-12 17:53:49</td>
-              <td>Kim Sadiq</td>
-              <td>Bank Bank</td>
-              <td>1315.00</td>
-              <td>paid</td>
-              <td>
-                {/* <a href="#">Details</a> */}
-                <button onClick={viewDetailsHandler}>Details</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>2022-03-12 17:53:49</td>
-              <td>Kim Sadiq</td>
-              <td>Bank Bank</td>
-              <td>1315.00</td>
-              <td>paid</td>
-              <td>
-                {/* <a href="#">Details</a> */}
-                <button onClick={viewDetailsHandler}>Details</button>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">1</th>
-              <td>2022-03-12 17:53:49</td>
-              <td>Kim Sadiq</td>
-              <td>Bank Bank</td>
-              <td>1315.00</td>
-              <td>paid</td>
-              <td>
-                {/* <a href="#">Details</a> */}
-                <button onClick={viewDetailsHandler}>Details</button>
-              </td>
-            </tr>
+            {loading ? (
+              <CircleSpinner />
+            ) : (
+              <>
+                {transactions.map((item, i) => (
+                  <tr>
+                    <th scope="row">{(SN = SN + 1)}</th>
+                    <td>{item.date}</td>
+                    <td>
+                      {item.firstName} {item.lastName}
+                    </td>
+                    <td>Bank Bank</td>
+                    <td value={(totalPrice = totalPrice + item.total)}>
+                      {item.total}
+                    </td>
+                    <td>{item.status}</td>
+                    <td>
+                      {/* <a href="#">Details</a> */}
+                      <button onClick={() => getDetails(item.id)}>
+                        Details
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </>
+            )}
           </tbody>
         </table>
         <div className="bottom">
           <div className="moveToRight">
             <div className="row">
               <h5>Total</h5>
-              <h5>Grand total</h5>
             </div>
             <div className="row">
-              <h5>6620.00</h5>
-              <h5>6620.00</h5>
+              <h5>₦ {totalPrice}</h5>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
+import AppContext from "../../../../context/AppContext";
 
 // Styles
 import { Wrapper, Top } from "./ProductCustomerHistory.Styles";
@@ -9,16 +10,12 @@ import ProductHistory from "./productHistory/ProductHistory";
 import CustomerHistory from "./customerHistory/CustomerHistory";
 
 const ProductCustomerHistory = () => {
-  const [isCustomer, setIsCustomer] = useState(true);
+  const { showProductPage } = useContext(AppContext);
 
   return (
     <>
       <Wrapper>
-        {isCustomer ? (
-          <CustomerHistory setIsCustomer={setIsCustomer} />
-        ) : (
-          <ProductHistory setIsCustomer={setIsCustomer} />
-        )}
+        {showProductPage === false ? <CustomerHistory /> : <ProductHistory />}
       </Wrapper>
     </>
   );
