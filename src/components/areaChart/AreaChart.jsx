@@ -8,7 +8,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const AreaChart = () => {
   const { chartData, setChartData } = useContext(AppContext);
-  console.log("chartData", chartData);
+  // console.log("chartData", chartData);
 
   const test = [
     { x: 30, y: 50 },

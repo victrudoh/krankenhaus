@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import AppContext from "../../../../context/AppContext";
 import axios from "axios";
 
@@ -10,10 +10,11 @@ import { Wrapper } from "./DeptList.Styles";
 import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const DeptList = ({ setIsEditing }) => {
-  const { loading, departments, setEditDeptId } = useContext(AppContext);
-  console.log("~ departments", departments);
+  const { loading, departments, setEditDeptId, setSavedDeptId } =
+    useContext(AppContext);
 
   let SN = 0;
+  let Navigate = useNavigate();
 
   const editHandler = (id) => {
     setIsEditing(true);
@@ -21,7 +22,8 @@ const DeptList = ({ setIsEditing }) => {
   };
 
   const gotoPrivilegeHandler = (id) => {
-    // Navigate("/superadmin/deptprivilege");
+    setSavedDeptId(id);
+    Navigate("/superadmin/deptprivilege");
   };
 
   return (
@@ -50,11 +52,17 @@ const DeptList = ({ setIsEditing }) => {
                     <button onClick={() => editHandler(i)}>
                       Edit department
                     </button>
-                    <NavLink exact to="/superadmin/deptprivilege">
+                    <button
+                      className="mx-3"
+                      onClick={() => gotoPrivilegeHandler(i)}
+                    >
+                      Teller privileges
+                    </button>
+                    {/* <NavLink exact to="/superadmin/deptprivilege">
                       <button className="mx-3" onClick={gotoPrivilegeHandler}>
                         Teller privileges
                       </button>
-                    </NavLink>
+                    </NavLink> */}
                   </td>
                 </tr>
               ))}

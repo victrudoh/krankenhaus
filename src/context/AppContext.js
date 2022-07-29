@@ -25,12 +25,7 @@ export const AppProvider = ({ children }) => {
   // DEPARTMENTS
   const [departments, setDepartments] = useState([]);
   const [editDeptId, setEditDeptId] = useState();
-
-  // ******************************** //
-  // Creating saved DeptID so i can use for privileges stuff
-  const [savedDeptId, setSavedDeptId] = useState();
-  // ******************************** //
-
+  const [savedDeptId, setSavedDeptId] = useState(); //for privileges
   // to trigger reload of department list
   const [addedDept, setAddedDept] = useState("");
   const [editedDept, SetEditedDept] = useState("");
@@ -149,7 +144,7 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log("getDepartments ~ response", response);
+      // console.log("getDepartments ~ response", response);
       setDepartments(response.data);
       setLoading(false);
     } catch (err) {
@@ -168,14 +163,17 @@ export const AppProvider = ({ children }) => {
     if (token) {
       console.log("Fetch everything");
       activeUser();
-      if (user.access === "full") {
-        getDepartments();
-      }
       getUsers();
       setTransactions([]);
       // setPrinting(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (user.access === "full") {
+      getDepartments();
+    }
+  }, [user]);
 
   return (
     <AppContext.Provider
@@ -205,15 +203,17 @@ export const AppProvider = ({ children }) => {
 
         // Departments
         addedDept,
-        editedDept,
         editDeptId,
+        editedDept,
         departments,
+        savedDeptId,
 
         setAddedDept,
         setEditDeptId,
         SetEditedDept,
         setDepartments,
         getDepartments,
+        setSavedDeptId,
 
         // Products
         prodsByDept,
