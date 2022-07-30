@@ -12,35 +12,13 @@ import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpi
 const List = () => {
   const { loading, setLoading, invoiceProducts, setSavedInvoice } =
     useContext(AppContext);
+  console.log(
+    "🚀 ~ file: List.jsx ~ line 14 ~ List ~ invoiceProducts",
+    invoiceProducts
+  );
 
   let SN = 0;
   let totalPrice = 0;
-
-  // const getDate = async (fetchDate) => {
-  //   const getDate = new Date(fetchDate);
-  //   const monthList = [
-  //     "Jan",
-  //     "Feb",
-  //     "Mar",
-  //     "Apr",
-  //     "May",
-  //     "June",
-  //     "July",
-  //     "Aug",
-  //     "Sept",
-  //     "Oct",
-  //     "Nov",
-  //     "Dec",
-  //   ];
-  //   let dateString = getDate.toString();
-  //   const day = dateString.slice(0, 3);
-  //   let month = monthList[getDate.getMonth()];
-  //   let date = getDate.getDate();
-  //   let year = getDate.getFullYear();
-
-  //   let invoiceDate = `${day} ${month} ${date}, ${year}`;
-  //   return invoiceDate;
-  // };
 
   const getDetails = async (id) => {
     try {
@@ -110,13 +88,13 @@ const List = () => {
                 {invoiceProducts.map((item, i) => (
                   <tr key={i}>
                     <th scope="row">{(SN = SN + 1)}</th>
-                    <td>{item.createdAt}</td>
+                    <td>{item.createdAt.slice(0, 10)}</td>
                     {/* <td>{item.id}</td> */}
                     <td>
                       {item.firstName} {item.lastName}
                     </td>
                     <td value={(totalPrice = totalPrice + item.total)}>
-                      {item.total}
+                      {item.total.toFixed(2)}
                     </td>
                     <td>{item.status}</td>
                     <td>
@@ -139,7 +117,7 @@ const List = () => {
                   <td></td>
                   {/* <td></td> */}
                   <th>Total</th>
-                  <th>₦ {totalPrice}</th>
+                  <th>₦ {totalPrice.toFixed(2)}</th>
                   <td></td>
                   <td></td>
                 </tr>

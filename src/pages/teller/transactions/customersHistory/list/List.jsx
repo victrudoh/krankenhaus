@@ -10,7 +10,7 @@ import { Wrapper, Top } from "./List.Styles";
 import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const List = () => {
-  const { loading, setLoading, invoiceProducts, setSavedInvoice } =
+  const { loading, setLoading, invoiceCustomers, setSavedInvoice } =
     useContext(AppContext);
 
   let SN = 0;
@@ -49,27 +49,12 @@ const List = () => {
   return (
     <>
       <Wrapper>
-        {/* <Top>
-          <div></div>
-          <div className="pair">
-            <form>
-              <input
-                type="search"
-                name="search"
-                id="search"
-                placeholder="Search record"
-              />
-              <button type="submit">Search</button>
-            </form>
-          </div>
-          <div></div>
-        </Top> */}
         {loading ? (
           <CircleSpinner />
         ) : (
           <>
             <table className="table table-hover caption-top">
-              <caption>Invoice History: Products</caption>
+              <caption>Invoice History: Customers</caption>
               <thead>
                 <tr>
                   <th scope="col">S/N</th>
@@ -81,16 +66,16 @@ const List = () => {
                 </tr>
               </thead>
               <tbody>
-                {invoiceProducts.map((item, i) => (
+                {invoiceCustomers.map((item, i) => (
                   <tr key={i}>
                     <th scope="row">{(SN = SN + 1)}</th>
-                    <td>{item.createdAt}</td>
+                    <td>{item.createdAt.slice(0, 10)}</td>
                     {/* <td>{item.id}</td> */}
                     <td>
                       {item.firstName} {item.lastName}
                     </td>
                     <td value={(totalPrice = totalPrice + item.total)}>
-                      {item.total}
+                      {item.total.toFixed(2)}
                     </td>
                     <td>{item.status}</td>
                     <td>
@@ -113,7 +98,7 @@ const List = () => {
                   <td></td>
                   {/* <td></td> */}
                   <th>Total</th>
-                  <th>₦ {totalPrice}</th>
+                  <th>₦ {totalPrice.toFixed(2)}</th>
                   <td></td>
                   <td></td>
                 </tr>

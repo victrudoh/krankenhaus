@@ -10,7 +10,8 @@ const ProductHistoryList = ({ setIsCustomer }) => {
     <>
       <Wrapper>
         <Top>
-          <button onClick={() => setShowProductPage(false)}>
+          {/* <button onClick={() => setShowProductPage(false)}> */}
+          <button onClick={() => setIsCustomer(true)}>
             View Customer Transaction History
           </button>
           <div className="pair">

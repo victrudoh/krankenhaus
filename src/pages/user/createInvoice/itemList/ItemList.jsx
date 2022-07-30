@@ -108,7 +108,7 @@ const ItemList = () => {
                     <td>{item.department}</td>
                     <td>{item.quantity}</td>
                     <td value={(totalPrice = totalPrice + item.price)}>
-                      {item.price}
+                      {item.price.toFixed(2)}
                     </td>
                     <td>
                       <button onClick={() => deleteHandler(i)}>Delete</button>
@@ -128,7 +128,7 @@ const ItemList = () => {
                   <td></td>
                   <td></td>
                   <th>Total:</th>
-                  <td>{totalPrice}</td>
+                  <td>{totalPrice.toFixed(2)}</td>
                   <td></td>
                 </tr>
                 <tr>

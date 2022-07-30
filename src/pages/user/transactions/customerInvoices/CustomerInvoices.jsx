@@ -10,11 +10,11 @@ import Panel from "./panel/Panel";
 import ViewInvoice from "../../createInvoice/viewInvoice/ViewInvoice";
 
 const CustomerInvoices = () => {
-  const { savedCustomerInvoice } = useContext(AppContext);
+  const { savedInvoice } = useContext(AppContext);
   return (
     <>
       <Wrapper>
-        {savedCustomerInvoice.display === false ? (
+        {savedInvoice.display === false ? (
           <>
             <List />
             <Panel />

@@ -64,7 +64,7 @@ const List = () => {
                 </div>
                 <div className="pair">
                   <h5>Date under review:</h5>
-                  <h5>{endOfDay.day}</h5>
+                  <h6>{endOfDay.day}</h6>
                 </div>
               </Top>
               {/* PAID */}

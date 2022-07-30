@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   margin-bottom: 2rem;
-  max-height: 15rem;
+  max-height: 25rem;
 
   @media (max-width: 1024px) {
     width: 80%;

@@ -73,7 +73,7 @@ const List = () => {
                       {item.firstName} {item.lastName}
                     </td>
                     <td value={(totalPrice = totalPrice + item.total)}>
-                      {item.total}
+                      {item.total.toFixed(2)}
                     </td>
                     <td>{item.status}</td>
                     <td>
@@ -96,7 +96,7 @@ const List = () => {
                   <td></td>
                   {/* <td></td> */}
                   <th>Total</th>
-                  <th>₦ {totalPrice}</th>
+                  <th>₦ {totalPrice.toFixed(2)}</th>
                   <td></td>
                   <td></td>
                 </tr>

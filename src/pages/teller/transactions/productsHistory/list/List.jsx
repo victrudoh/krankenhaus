@@ -84,20 +84,20 @@ const List = () => {
                 {invoiceProducts.map((item, i) => (
                   <tr key={i}>
                     <th scope="row">{(SN = SN + 1)}</th>
-                    <td>{item.createdAt}</td>
+                    <td>{item.createdAt.slice(0, 10)}</td>
                     {/* <td>{item.id}</td> */}
                     <td>
                       {item.firstName} {item.lastName}
                     </td>
                     <td value={(totalPrice = totalPrice + item.total)}>
-                      {item.total}
+                      {item.total.toFixed(2)}
                     </td>
                     <td>{item.status}</td>
-                    <td>
+                    {/* <td>
                       <button onClick={() => getDetails(item.id)}>
                         Details
                       </button>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
                 <tr>
@@ -113,7 +113,7 @@ const List = () => {
                   <td></td>
                   {/* <td></td> */}
                   <th>Total</th>
-                  <th>₦ {totalPrice}</th>
+                  <th>₦ {totalPrice.toFixed(2)}</th>
                   <td></td>
                   <td></td>
                 </tr>

@@ -9,14 +9,13 @@ import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpi
 import { Wrapper, Content } from "./Panel.Styles";
 
 const Panel = () => {
-  const { loading, setLoading, setPrinting, setEndOfDay } =
-    useContext(AppContext);
+  const { loading, setLoading, setEndOfDay } = useContext(AppContext);
 
   const [filterParams, setFilterParams] = useState({
     date: "",
     time: "",
+    time2: "",
   });
-  console.log("Panel ~ filterParams", filterParams);
 
   const filter = async (e) => {
     setLoading(true);
@@ -24,7 +23,7 @@ const Panel = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/transactions/summary?date=${filterParams.date}&time=${filterParams.time}`,
+        `https://hospital-ms-api.herokuapp.com/transactions/summary?date=${filterParams.date}&time=${filterParams.time}&time2=${filterParams.time2}`,
         {
           headers: {
             "content-type": "application/json",
@@ -32,7 +31,7 @@ const Panel = () => {
           },
         }
       );
-      console.log("response", response);
+      // console.log("response", response);
       setLoading(false);
       if (response.status === 200) {
         success(response.data.message);
@@ -41,8 +40,6 @@ const Panel = () => {
           day: date[1],
           transactions: response.data.transactions,
         });
-        // setPrinting(true);
-        // window.open("http://localhost:3000/print/endofday");
       }
     } catch (err) {
       error(err.response.data.message);
@@ -52,11 +49,10 @@ const Panel = () => {
 
   const onchangeHandler = (e) => {
     e.persist();
-    let dateTime = e.target.value.split("T");
-    setFilterParams({
-      date: dateTime[0],
-      time: dateTime[1],
-    });
+    setFilterParams(() => ({
+      ...filterParams,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   return (
@@ -72,11 +68,31 @@ const Panel = () => {
                 <div className="pair">
                   <label>Date under review:</label>
                   <input
-                    type="datetime-local"
+                    type="date"
                     name="date"
                     id="date"
                     onChange={onchangeHandler}
                     defaultValue={filterParams.date}
+                  />
+                </div>
+                <div className="pair">
+                  <label>Start Time:</label>
+                  <input
+                    type="time"
+                    name="time"
+                    id="time"
+                    onChange={onchangeHandler}
+                    defaultValue={filterParams.time}
+                  />
+                </div>
+                <div className="pair">
+                  <label>End Time:</label>
+                  <input
+                    type="time"
+                    name="time2"
+                    id="time2"
+                    onChange={onchangeHandler}
+                    defaultValue={filterParams.time2}
                   />
                 </div>
                 <button>Filter</button>

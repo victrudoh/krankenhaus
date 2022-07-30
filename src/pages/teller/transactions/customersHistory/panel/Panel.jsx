@@ -1,31 +1,30 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import AppContext from "../../../../../context/AppContext";
 import axios from "axios";
+import { success, error } from "../../../../../helpers/Alert";
 
 // Styles
 import { Wrapper, Content } from "./Panel.Styles";
 
 // components
 import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
-import { success, error } from "../../../../../helpers/Alert";
-
 const Panel = () => {
-  const { loading, setLoading, setInvoiceProducts } = useContext(AppContext);
+  const { loading, setLoading, setInvoiceCustomers } = useContext(AppContext);
 
   const [filterParams, setFilterParams] = useState({
     From: "",
     To: "",
+    firstName: "",
+    lastName: "",
+    status: "",
   });
-  console.log("filterParams", filterParams);
 
-  // On submit
   const filter = async (e) => {
-    e.preventDefault();
-    console.log("filterParams", filterParams);
     try {
+      e.preventDefault();
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/transactions/view-By-products?From=${filterParams.From}&To=${filterParams.To}&s`,
+        `https://hospital-ms-api.herokuapp.com/transactions/view-By-customer?From=${filterParams.From}&To=${filterParams.To}&status=${filterParams.status}&firstName=${filterParams.firstName}&lastName=${filterParams.lastName}`,
         {
           headers: {
             "content-type": "application/json",
@@ -34,20 +33,20 @@ const Panel = () => {
         }
       );
       setLoading(false);
-      console.log("response", response);
+      console.log("Invoice by customers response", response);
       if (response.status === 200) {
         success(response.data.message);
-        setInvoiceProducts(response.data.transactions);
+        setInvoiceCustomers(response.data.transactions);
       }
     } catch (err) {
+      error("OOps! Couldn't fetch record");
       console.log(err);
-      error("Couldn't fetch History");
     }
   };
 
-  const onchangeHandler = (e) => {
+  const onChangeHandler = (e) => {
     e.persist();
-    setFilterParams((filterParams) => ({
+    setFilterParams(() => ({
       ...filterParams,
       [e.target.name]: e.target.value,
     }));
@@ -69,8 +68,8 @@ const Panel = () => {
                     type="date"
                     name="From"
                     id="From"
-                    onChange={onchangeHandler}
                     defaultValue={filterParams.From}
+                    onChange={onChangeHandler}
                   />
                 </div>
                 <div className="pair">
@@ -79,11 +78,38 @@ const Panel = () => {
                     type="date"
                     name="To"
                     id="To"
-                    onChange={onchangeHandler}
                     defaultValue={filterParams.To}
+                    onChange={onChangeHandler}
                   />
                 </div>
-                <button>Filter</button>
+                <div className="pair">
+                  <label>First name:</label>
+                  <input type="text" name="firstName" id="firstName" />
+                </div>
+                <div className="pair">
+                  <label>Last name:</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    id="lastName"
+                    defaultValue={filterParams.lastName}
+                    onChange={onChangeHandler}
+                  />
+                </div>
+                <div className="pair">
+                  <label>Status:</label>
+                  <select
+                    name="status"
+                    id="status"
+                    defaultValue={filterParams.status}
+                    onChange={onChangeHandler}
+                  >
+                    <option>Select status</option>
+                    <option value="paid">Paid</option>
+                    <option value="unpaid">Not paid</option>
+                  </select>
+                </div>
+                <button type="submit">Filter</button>
               </form>
             </>
           )}

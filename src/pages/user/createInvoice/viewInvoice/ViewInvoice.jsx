@@ -9,8 +9,11 @@ import { Wrapper, Top, Head } from "./ViewInvoice.Styles";
 import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const ViewInvoice = () => {
-  const { loading, savedInvoice, setSavedInvoice } = useContext(AppContext);
-  console.log("savedInvoice", savedInvoice);
+  const { user, savedInvoice, setSavedInvoice } = useContext(AppContext);
+  console.log(
+    "🚀 ~ file: ViewInvoice.jsx ~ line 13 ~ ViewInvoice ~ user",
+    user
+  );
 
   let totalPrice = 0;
   let SN = 0;
@@ -63,10 +66,14 @@ const ViewInvoice = () => {
           <div className="container mb-5 mt-3">
             <div className="row d-flex align-items-baseline">
               <div className="col-xl-6 w-100 d-flex justify-content-between align-items-center mb-2">
-                <button onClick={() => printInvoice()}>
-                  {" "}
-                  <i className="fas fa-print text-white mx-2"></i>Print invoice
-                </button>
+                {user.role !== "teller" ? (
+                  <button onClick={() => printInvoice()}>
+                    <i className="fas fa-print text-white mx-2"></i>Print
+                    invoice
+                  </button>
+                ) : (
+                  <div></div>
+                )}
                 <i
                   className="bx bx-x-circle"
                   style={{
@@ -128,7 +135,8 @@ const ViewInvoice = () => {
                       ></i>{" "}
                       <span className="fw-bold">Creation Date: </span>
                       <h5 className="mx-2">
-                        {savedInvoice.data.createdAt.slice(0, 10)}
+                        {/* {savedInvoice.data.createdAt.slice(0, 10)} */}
+                        {invoiceDate}
                       </h5>
                     </li>
                     {/* <li className="text-muted d-flex align-items-center">

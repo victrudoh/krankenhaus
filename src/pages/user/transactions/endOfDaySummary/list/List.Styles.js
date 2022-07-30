@@ -97,8 +97,8 @@ export const Top = styled.div`
     justify-content: space-between;
     align-items: center;
     /* gap: 1rem; */
-    // background-color: green;
-    width: 60%;
+    /* background-color: green; */
+    width: 70%;
 
     h5 {
       // margin-right: 3rem;

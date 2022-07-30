@@ -34,7 +34,7 @@ const Transactions = () => {
             Invoices by Customers
           </button>
           <button onClick={() => setTransactionDisplayPage("summary")}>
-            End of Day Summary
+            Periodic Summary
           </button>
         </Top>
 

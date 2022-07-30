@@ -34,7 +34,7 @@ const Panel = () => {
         }
       );
       setLoading(false);
-      // console.log("Invoice by customers response", response);
+      console.log("Invoice by customers response", response);
       if (response.status === 200) {
         success(response.data.message);
         setInvoiceCustomers(response.data.transactions);
