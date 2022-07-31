@@ -39,7 +39,7 @@ const AddDept = () => {
         setAddedDept(response.status);
       }
     } catch (err) {
-      error("Psych");
+      error("Psych! Couldn't add department");
       console.log(err);
       setLoading(false);
     }

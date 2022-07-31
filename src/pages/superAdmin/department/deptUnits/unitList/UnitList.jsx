@@ -7,7 +7,8 @@ import { Wrapper } from "./UnitList.Styles";
 import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const UnitList = ({ setIsEditing }) => {
-  const { loading, departments, getDepartments } = useContext(AppContext);
+  const { loading, departments, setSavedDeptName, getDepartments } =
+    useContext(AppContext);
   let SN = 0;
 
   const navigate = useNavigate();
@@ -16,8 +17,9 @@ const UnitList = ({ setIsEditing }) => {
     // collect user ID and pass it to the edit page, use state to carry the ID or something
   };
 
-  const viewHandler = () => {
-    // collect ID and navigate torequired page
+  const viewHandler = (name) => {
+    // collect name and navigate to required page
+    setSavedDeptName(name);
     navigate("/superadmin/viewunit");
   };
 
@@ -47,7 +49,11 @@ const UnitList = ({ setIsEditing }) => {
                     <td className="fw-bold">{item.department.name}</td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <td>
+                      <button onClick={() => viewHandler(item.department.name)}>
+                        View units products
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     {item.units.map((unit, i) => (
@@ -55,14 +61,11 @@ const UnitList = ({ setIsEditing }) => {
                         <td key={i}></td>
                         <td>{unit.name}</td>
                         <td>{unit.publish === false ? "No" : "Yes"}</td>
+                        <td>
+                          <button onClick={editHandler}>Edit unit</button>
+                        </td>
                       </>
                     ))}
-                    <td>
-                      <button onClick={viewHandler}>View</button>
-                      <button className="mx-3" onClick={editHandler}>
-                        Edit
-                      </button>
-                    </td>
                   </tr>
                 </>
               </tbody>
