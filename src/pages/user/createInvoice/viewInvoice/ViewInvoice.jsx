@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import AppContext from "../../../../context/AppContext";
 import Barcode from "react-barcode";
+import QRCode from "react-qr-code";
 
 // Styles
 import { Wrapper, Top, Head } from "./ViewInvoice.Styles";
@@ -106,7 +107,7 @@ const ViewInvoice = () => {
               <div className="my-5"></div>
 
               <div className="row">
-                <div className="col-xl-7 mt-4">
+                <div className="col-xl-9 mt-4">
                   {/* <p className="text-muted">Invoice</p> */}
                   <ul className="list-unstyled">
                     <li className="text-muted d-flex align-items-center">
@@ -157,8 +158,11 @@ const ViewInvoice = () => {
                     </li> */}
                   </ul>
                 </div>
-                <div className="col-xl-5">
+                {/* <div className="col-xl-5">
                   <Barcode value={savedInvoice.data.id} />
+                </div> */}
+                <div className="col-xl-3 ml-3">
+                  <QRCode value={savedInvoice.data.id} size={130} />
                 </div>
               </div>
 

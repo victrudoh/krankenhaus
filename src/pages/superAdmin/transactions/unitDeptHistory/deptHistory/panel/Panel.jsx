@@ -40,9 +40,9 @@ const Panel = () => {
     }
   };
 
-  // useEffect(() => {
-  //   filter();
-  // }, []);
+  useEffect(() => {
+    filter();
+  }, []);
 
   return (
     <>
