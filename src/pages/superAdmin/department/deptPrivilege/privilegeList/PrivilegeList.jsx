@@ -96,9 +96,18 @@ const PrivilegeList = () => {
                 {privs.length < 1 ? (
                   <>
                     <tr>
-                      <td colSpan="2">
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>
                         <h6>No privilege was found for this department</h6>
                       </td>
+                      <td></td>
                     </tr>
                   </>
                 ) : (

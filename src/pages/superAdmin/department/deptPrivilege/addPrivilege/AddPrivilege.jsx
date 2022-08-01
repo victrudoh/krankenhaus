@@ -33,7 +33,10 @@ const AddPrivilege = () => {
           },
         }
       );
-      // console.log("response", response);
+      // console.log(
+      //   "🚀 ~ file: AddPrivilege.jsx ~ line 36 ~ getAllPrivs ~ response",
+      //   response
+      // );
       if (response.status === 200) {
         success("Fetched all privileges");
         setAllPrivs(response.data.privileges);
@@ -47,6 +50,31 @@ const AddPrivilege = () => {
       }
     }
   };
+
+  // const addPriv = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     setLoading(true);
+  //     const response = await axios.post(
+  //       `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
+  //       {
+  //         headers: {
+  //           "content-type": "application/json",
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     );
+  //     // console.log("getDepartments ~ response", response);
+  //     setLoading(false);
+  //   } catch (err) {
+  //     error(err.response.data.message);
+  //     // if (err.response.status === 401) {
+  //     //   error("Unauthorized");
+  //     //   localStorage.removeItem("token");
+  //     //   window.location.reload(false);
+  //     // }
+  //   }
+  // };
 
   // Add privilege
   const addPriv = async (e) => {

@@ -42,6 +42,11 @@ const ViewUnit = () => {
       }
     } catch (err) {
       error("Couldn't fetch units");
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
     }
   };
 
@@ -58,17 +63,23 @@ const ViewUnit = () => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: ViewUnit.jsx ~ line 63 ~ getProducts ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: ViewUnit.jsx ~ line 63 ~ getProducts ~ response",
+      //   response
+      // );
       setLoading(false);
       if (response.status === 200) {
         success("fetched products successfully");
         setProdsByUnit(response.data);
       }
     } catch (err) {
+      console.log("🚀 ~ file: ViewUnit.jsx ~ line 71 ~ getProducts ~ err", err);
       error("Couldn't fetch products");
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
     }
   };
 
