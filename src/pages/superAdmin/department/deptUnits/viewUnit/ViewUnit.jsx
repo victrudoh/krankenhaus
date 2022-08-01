@@ -9,13 +9,15 @@ import { Wrapper, Top, Head } from "./ViewUnit.Styles";
 import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const ViewUnit = () => {
-  const { savedDeptName, loading, setLoading } = useContext(AppContext);
+  const { savedDeptName, loading, setLoading, prodsByUnit, setProdsByUnit } =
+    useContext(AppContext);
 
   const [units, setUnits] = useState([]);
-  const [products, setProducts] = useState([]);
   const [sortParams, setSortParams] = useState({
     unit: "",
   });
+
+  let SN = 0;
 
   // Navigate back
   const navigate = useNavigate();
@@ -48,7 +50,7 @@ const ViewUnit = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/products/units?unitId=${savedDeptName}`,
+        `https://hospital-ms-api.herokuapp.com/products/units?unitId=${sortParams.unit}`,
         {
           headers: {
             "content-type": "application/json",
@@ -56,10 +58,14 @@ const ViewUnit = () => {
           },
         }
       );
+      console.log(
+        "🚀 ~ file: ViewUnit.jsx ~ line 63 ~ getProducts ~ response",
+        response
+      );
       setLoading(false);
       if (response.status === 200) {
         success("fetched products successfully");
-        setProducts(response.data.units);
+        setProdsByUnit(response.data);
       }
     } catch (err) {
       error("Couldn't fetch products");
@@ -83,7 +89,7 @@ const ViewUnit = () => {
       <Wrapper>
         <Head>
           <h4 className="mx-e">Products/Services by Units</h4>
-          <i class="bx bx-x-circle" onClick={goBack}></i>
+          <i className="bx bx-x-circle" onClick={goBack}></i>
         </Head>
         <hr />
         <Top>
@@ -122,22 +128,34 @@ const ViewUnit = () => {
                 </tr>
               </thead>
               <tbody>
-                {products.map((item, i) => (
-                  <tr key={i}>
-                    <th scope="row">1</th>
-                    <td>A&E</td>
-                    <td>Back slaps</td>
-                    <td>4000.00</td>
-                    <td>Yes</td>
+                {prodsByUnit.length < 1 ? (
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th>No products to show</th>
+                    <th></th>
+                    <th></th>
                   </tr>
-                ))}
-                <tr>
+                ) : (
+                  <>
+                    {prodsByUnit.map((item, i) => (
+                      <tr key={i}>
+                        <th scope="row">{(SN = SN + 1)}</th>
+                        <td>{savedDeptName}</td>
+                        <td>{item.name}</td>
+                        <td>{item.price}</td>
+                        <td>{item.publish ? "Yes" : "No"}</td>
+                      </tr>
+                    ))}
+                  </>
+                )}
+                {/* <tr>
                   <th scope="row">1</th>
                   <td>Admin</td>
                   <td>Chest Tube-Insertion</td>
                   <td>7000.00</td>
                   <td>No</td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
           </>

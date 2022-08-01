@@ -55,8 +55,8 @@ const UnitList = ({ setIsEditing }) => {
                       </button>
                     </td>
                   </tr>
-                  <tr>
-                    {item.units.map((unit, i) => (
+                  {item.units.map((unit, i) => (
+                    <tr>
                       <>
                         <td key={i}></td>
                         <td>{unit.name}</td>
@@ -65,8 +65,8 @@ const UnitList = ({ setIsEditing }) => {
                           <button onClick={editHandler}>Edit unit</button>
                         </td>
                       </>
-                    ))}
-                  </tr>
+                    </tr>
+                  ))}
                 </>
               </tbody>
             ))}

@@ -51,7 +51,7 @@ const PrivilegeList = () => {
   const deleteHandler = async (id) => {
     try {
       // console.log("privs", privs);
-      const response = await axios.get(
+      const response = await axios.delete(
         `https://hospital-ms-api.herokuapp.com/departments/privilleges/remove?privillegeId=${id}&departmentId=${foundDept.id}`,
         {
           headers: {
@@ -67,6 +67,7 @@ const PrivilegeList = () => {
       }
     } catch (err) {
       error("Couldn't delete privilege");
+      console.log("privilege: ", err);
       if (err.response.status === 401) {
         error(err.response.data.message);
         localStorage.removeItem("token");

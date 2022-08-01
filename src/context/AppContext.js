@@ -33,6 +33,7 @@ export const AppProvider = ({ children }) => {
 
   // PRODUCTS
   const [prodsByDept, setProdsByDept] = useState([]);
+  const [prodsByUnit, setProdsByUnit] = useState([]);
 
   // TRANSACTIONS
   const [transactions, setTransactions] = useState([]);
@@ -210,8 +211,10 @@ export const AppProvider = ({ children }) => {
         setSavedDeptName,
 
         // Products
+        prodsByUnit,
         prodsByDept,
 
+        setProdsByUnit,
         setProdsByDept,
 
         // Transactions

@@ -26,7 +26,7 @@ const AddUnit = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `https://hospital-ms-api.herokuapp.com/unit/new?departmentId=${newUnit.department}`,
+        `https://hospital-ms-api.herokuapp.com/departments/unit/new?departmentId=${newUnit.department}`,
         newUnit,
         {
           headers: {
