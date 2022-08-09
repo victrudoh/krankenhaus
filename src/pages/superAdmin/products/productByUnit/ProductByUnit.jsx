@@ -1,71 +1,133 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import AppContext from "../../../../context/AppContext";
+import { success, error } from "../../../../helpers/Alert";
+import axios from "axios";
 
 // Styles
 import { Wrapper, Top } from "./ProductByUnit.Styles";
 
-const ProductByUnit = ({ setIsEditing, setByUnit }) => {
-  const editHandler = () => {
-    setIsEditing(true);
-    // collect user ID and pass it to the edit page, use state to carry the ID or something
+// components
+import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
+
+const ProductByUnit = () => {
+  const {
+    loading,
+    setLoading,
+    prodsByUnit,
+    departments,
+    setProdsByUnit,
+    setDisplayByUnit,
+  } = useContext(AppContext);
+
+  const [unit, setUnit] = useState({
+    unitId: "",
+  });
+
+  let SN = 0;
+
+  const getProducts = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/products/units?unitId=${unit.unitId}`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setLoading(false);
+      // console.log(
+      //   "🚀 ~ file: ProductByUnit.jsx ~ line 31 ~ getProducts ~ response",
+      //   response
+      // );
+      if (response.status === 200) {
+        success("Fetched products successfully");
+        setProdsByUnit(response.data.products);
+      }
+    } catch (err) {
+      error("couldn't fetch products");
+      console.log(err);
+    }
+  };
+
+  const onchangeHandler = (e) => {
+    e.persist();
+    setUnit(() => ({
+      ...unit,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   return (
     <>
       <Wrapper>
         <Top>
-          {/* <NavLink exact to="/superadmin/productsbyunits">
+          <button onClick={() => setDisplayByUnit(false)}>
             View by departments
-          </NavLink> */}
-          <button onClick={() => setByUnit(false)}>View by departments</button>
+          </button>
           <div className="pair">
             <label>Select a unit:</label>
-            <form>
-              <select name="publish" id="publish">
-                <option value="all">All units</option>
-                <option value="contracts">Contracts and Tender</option>
-                <option value="false">Dental services</option>
-                <option value="false">FMC administration</option>
-                <option value="false">Nursing services/Retainership</option>
+            <form onSubmit={getProducts}>
+              <select
+                name="unitId"
+                id="unitId"
+                onChange={onchangeHandler}
+                defaultValue={unit.unitId}
+              >
+                <option>Select Unit</option>
+                {departments.map((item, i) =>
+                  item.units.map((unit, i) => (
+                    <option key={i} value={unit.id}>
+                      {unit.name}
+                    </option>
+                  ))
+                )}
               </select>
               <button type="submit">Sort</button>
             </form>
           </div>
         </Top>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">S/N</th>
-              <th scope="col">Department</th>
-              <th scope="col">Product/Service</th>
-              <th scope="col">Price</th>
-              <th scope="col">Publish</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr onClick={editHandler}>
-              <th scope="row">1</th>
-              <td>A&E Pharmacy</td>
-              <td>Amoxicillin INJ</td>
-              <td>250.00</td>
-              <td>Yes</td>
-            </tr>
-            <tr onClick={editHandler}>
-              <th scope="row">2</th>
-              <td>A&E</td>
-              <td>Amlodipine 10Mg</td>
-              <td>17.00</td>
-              <td>No</td>
-            </tr>
-            <tr onClick={editHandler}>
-              <th scope="row">3</th>
-              <td>NHIS</td>
-              <td>NHIS-Enoxaprim 20Mg</td>
-              <td>85.00</td>
-              <td>Yes</td>
-            </tr>
-          </tbody>
-        </table>
+        {loading ? (
+          <CircleSpinner />
+        ) : (
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">S/N</th>
+                <th scope="col">Department</th>
+                <th scope="col">Product/Service</th>
+                <th scope="col">Price</th>
+                <th scope="col">Publish</th>
+              </tr>
+            </thead>
+            <tbody>
+              {prodsByUnit.length < 1 ? (
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>No products to show</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              ) : (
+                <>
+                  {prodsByUnit.map((item, i) => (
+                    <tr key={i}>
+                      <th scope="row">{(SN = SN + 1)}</th>
+                      <td>{item.department}</td>
+                      <td>{item.name}</td>
+                      <td>{item.price}</td>
+                      <td>{item.publish === true ? "Yes" : "No"}</td>
+                    </tr>
+                  ))}
+                </>
+              )}
+            </tbody>
+          </table>
+        )}
       </Wrapper>
     </>
   );

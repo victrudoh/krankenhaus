@@ -32,13 +32,20 @@ export const AppProvider = ({ children }) => {
   const [editedDept, SetEditedDept] = useState("");
 
   // PRODUCTS
+  const [products, setProducts] = useState([]);
   const [prodsByDept, setProdsByDept] = useState([]);
   const [prodsByUnit, setProdsByUnit] = useState([]);
+  const [displayByUnit, setDisplayByUnit] = useState(false); //for view product by unit
+  const [editProduct, setEditProduct] = useState({
+    index: "",
+    editing: false,
+  });
 
   // TRANSACTIONS
   const [transactions, setTransactions] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [showProductPage, setShowProductPage] = useState(false);
+  const [displayCustomer, setDisplayCustomer] = useState(false);
 
   // Users Invoice stuff
   const [invoiceUser, setInvoiceUser] = useState({
@@ -124,6 +131,37 @@ export const AppProvider = ({ children }) => {
     });
   };
 
+  // get All products
+  const getProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/products`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setLoading(false);
+      // console.log(
+      //   "🚀 ~ file: AppContext.js ~ line 152 ~ getProducts ~ response",
+      //   response
+      // );
+      if (response.status === 200) {
+        setProducts(response.data.products);
+      }
+    } catch (err) {
+      error(err.response.data.message);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
   // get All departments and units
   const getDepartments = async () => {
     try {
@@ -137,7 +175,7 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log("getDepartments ~ response", response);
+      // console.log("getDepartments ~ response", response);
       setDepartments(response.data);
       setLoading(false);
     } catch (err) {
@@ -157,6 +195,7 @@ export const AppProvider = ({ children }) => {
       console.log("Fetch everything");
       activeUser();
       getUsers();
+      getProducts();
       setTransactions([]);
       // setPrinting(false);
     }
@@ -211,19 +250,27 @@ export const AppProvider = ({ children }) => {
         setSavedDeptName,
 
         // Products
-        prodsByUnit,
+        products,
         prodsByDept,
+        prodsByUnit,
+        editProduct,
+        displayByUnit,
 
+        setProducts,
+        setEditProduct,
         setProdsByUnit,
         setProdsByDept,
+        setDisplayByUnit,
 
         // Transactions
         chartData,
         transactions,
+        displayCustomer,
         showProductPage,
 
         setChartData,
         setTransactions,
+        setDisplayCustomer,
         setShowProductPage,
 
         // Invoice stuff

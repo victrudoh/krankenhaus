@@ -16,6 +16,7 @@ const List = ({ setIsCustomer }) => {
     setLoading,
     transactions,
     setSavedInvoice,
+    setDisplayCustomer,
     setShowProductPage,
   } = useContext(AppContext);
 
@@ -57,7 +58,7 @@ const List = ({ setIsCustomer }) => {
       <Wrapper>
         <Top>
           {/* <button onClick={() => setShowProductPage(true)}> */}
-          <button onClick={() => setIsCustomer(false)}>
+          <button onClick={() => setDisplayCustomer(false)}>
             View Product Transaction History
           </button>
           {/* <div className="pair">

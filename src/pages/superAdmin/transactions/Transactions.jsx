@@ -28,9 +28,9 @@ const Transactions = () => {
           <button onClick={() => setDisplay("records")}>
             Transaction Histories
           </button>
-          <button onClick={() => setDisplay("invoices")}>
+          {/* <button onClick={() => setDisplay("invoices")}>
             Generated Invoices
-          </button>
+          </button> */}
           <button onClick={() => setDisplay("summaries")}>
             Departmental Summaries
           </button>

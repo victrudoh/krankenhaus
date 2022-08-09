@@ -32,7 +32,6 @@ const EditUser = () => {
     active: true,
     access: "",
   });
-  console.log("updateUser", updateUser);
 
   const getUnit = async (name) => {
     if (name) {

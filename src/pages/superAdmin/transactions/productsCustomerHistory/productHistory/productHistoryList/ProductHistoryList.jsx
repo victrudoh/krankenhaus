@@ -5,13 +5,13 @@ import AppContext from "../../../../../../context/AppContext";
 import { Wrapper, Top } from "./ProductHistoryList.Styles";
 
 const ProductHistoryList = ({ setIsCustomer }) => {
-  const { setShowProductPage } = useContext(AppContext);
+  const { setDisplayCustomer, setShowProductPage } = useContext(AppContext);
   return (
     <>
       <Wrapper>
         <Top>
           {/* <button onClick={() => setShowProductPage(false)}> */}
-          <button onClick={() => setIsCustomer(true)}>
+          <button onClick={() => setDisplayCustomer(true)}>
             View Customer Transaction History
           </button>
           <div className="pair">

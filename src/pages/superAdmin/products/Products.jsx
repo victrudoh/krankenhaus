@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 // Styles
 import { Wrapper } from "./Products.Styles";
@@ -8,23 +8,19 @@ import ProductList from "./productList/ProductList";
 import ProductByUnit from "./productByUnit/ProductByUnit";
 import AddProduct from "./addProduct/AddProduct";
 import EditProduct from "./editProduct/EditProduct";
+import AppContext from "../../../context/AppContext";
 
 const Products = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [byUnit, setByUnit] = useState(false); //for view product by unit
+  const { editProduct, displayByUnit } = useContext(AppContext);
 
   return (
     <>
       <Wrapper>
-        {byUnit ? (
-          <ProductByUnit setByUnit={setByUnit} />
-        ) : (
-          <ProductList setByUnit={setByUnit} setIsEditing={setIsEditing} />
-        )}
+        {displayByUnit ? <ProductByUnit /> : <ProductList />}
 
-        {isEditing ? (
+        {editProduct.editing ? (
           <>
-            <EditProduct setIsEditing={setIsEditing} />
+            <EditProduct />
           </>
         ) : (
           <AddProduct />

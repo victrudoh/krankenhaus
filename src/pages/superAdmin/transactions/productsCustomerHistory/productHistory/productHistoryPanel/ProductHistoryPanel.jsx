@@ -7,12 +7,8 @@ import { success, error } from "../../../../../../helpers/Alert";
 import { Wrapper, Content } from "./ProductHistoryPanel.Styles";
 
 const ProductHistoryPanel = () => {
-  const { loading, setLoading, users, departments, setTransactions } =
+  const { loading, users, setLoading, departments, setTransactions } =
     useContext(AppContext);
-  console.log(
-    "🚀 ~ file: ProductHistoryPanel.jsx ~ line 12 ~ ProductHistoryPanel ~ users",
-    users
-  );
 
   const [filterParams, setFilterParams] = useState({
     From: "",
@@ -21,12 +17,12 @@ const ProductHistoryPanel = () => {
     teller: "",
     status: "",
   });
+  console.log(
+    "🚀 ~ file: ProductHistoryPanel.jsx ~ line 20 ~ ProductHistoryPanel ~ filterParams",
+    filterParams
+  );
 
   const [tellers, setTellers] = useState([]);
-  console.log(
-    "🚀 ~ file: ProductHistoryPanel.jsx ~ line 27 ~ ProductHistoryPanel ~ tellers",
-    tellers
-  );
 
   const fetchTellers = async () => {
     try {
@@ -38,9 +34,56 @@ const ProductHistoryPanel = () => {
       error("Couldn't fetch tellers");
       console.log(err);
     }
+
+    // try {
+    //   setLoading(true);
+    //   const response = await axios.get(
+    //     "https://hospital-ms-api.herokuapp.com/users/tellers",
+    //     {
+    //       headers: {
+    //         "content-type": "application/json",
+    //         Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //       },
+    //     }
+    //   );
+    //   // console.log(
+    //   //   "🚀 ~ file: ProductHistoryPanel.jsx ~ line 142 ~ fetchTellers ~ response",
+    //   //   response
+    //   // );
+    //   setLoading(false);
+    //   if (response.status === 200) {
+    //     // success(response.data.message);
+    //     setTellers(response.data.tellers);
+    //   }
+    // } catch (err) {
+    //   error("couldn't fetch tellers");
+    //   console.log(err);
+    // }
   };
 
-  const filter = (e) => {};
+  const filter = async (e) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/transactions?From=${filterParams.From}&To=${filterParams.To}&status=${filterParams.status}&department=${filterParams.department}&teller=${filterParams.teller}`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: ProductHistoryPanel.jsx ~ line 65 ~ filter ~ response",
+        response
+      );
+      setLoading(false);
+    } catch (err) {
+      error("Couldn't fetch invoices");
+      console.log(err);
+    }
+  };
 
   const onchangeHandler = (e) => {
     e.persist();
@@ -91,7 +134,7 @@ const ProductHistoryPanel = () => {
               >
                 <option value="">Select department</option>
                 {departments.map((item, i) => (
-                  <option key={i} value={item.department.name}>
+                  <option key={i} value={item.department.id}>
                     {item.department.name}
                   </option>
                 ))}

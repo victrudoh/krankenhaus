@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import AppContext from "../../../../context/AppContext";
 import { success, error } from "../../../../helpers/Alert";
 import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
@@ -7,11 +7,17 @@ import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinne
 // Styles
 import { Wrapper, Top } from "./ProductList.Styles";
 
-const ProductList = ({ setIsEditing, setByUnit }) => {
-  const { loading, setLoading, departments, prodsByDept, setProdsByDept } =
-    useContext(AppContext);
+const ProductList = () => {
+  const {
+    loading,
+    setLoading,
+    departments,
+    prodsByDept,
+    setProdsByDept,
+    setEditProduct,
+    setDisplayByUnit,
+  } = useContext(AppContext);
 
-  console.log("~ prodsByDept", prodsByDept);
   const [sortBy, setSortBy] = useState("");
 
   let SN = 0;
@@ -34,10 +40,10 @@ const ProductList = ({ setIsEditing, setByUnit }) => {
         }
       );
       setProdsByDept(response.data.products);
-      console.log("response.data.products", response.data.products);
+      // console.log("response.data.products", response.data.products);
       setLoading(false);
     } catch (err) {
-      // error(err.response.data.message);
+      error("Couldn't fetch products");
       console.log(err);
       if (err.response.status === 401) {
         error("Unauthorized");
@@ -47,9 +53,11 @@ const ProductList = ({ setIsEditing, setByUnit }) => {
     }
   };
 
-  const editHandler = () => {
-    setIsEditing(true);
-    // collect user ID and pass it to the edit page, use state to carry the ID or something
+  const editHandler = (i) => {
+    setEditProduct({
+      index: i,
+      editing: true,
+    });
   };
 
   const onchangeHandler = (e) => {
@@ -62,7 +70,7 @@ const ProductList = ({ setIsEditing, setByUnit }) => {
     <>
       <Wrapper>
         <Top>
-          <button onClick={() => setByUnit(true)}>View by units</button>
+          <button onClick={() => setDisplayByUnit(true)}>View by units</button>
           <form onSubmit={getProducts}>
             <div className="pair">
               <label>Sort by department:</label>
@@ -92,7 +100,7 @@ const ProductList = ({ setIsEditing, setByUnit }) => {
               <thead>
                 <tr>
                   <th scope="col">S/N</th>
-                  {/* <th scope="col">Department</th> */}
+                  <th scope="col">Department</th>
                   <th scope="col">Product/Service</th>
                   <th scope="col">Price</th>
                   <th scope="col">Publish</th>
@@ -101,16 +109,18 @@ const ProductList = ({ setIsEditing, setByUnit }) => {
               <tbody>
                 {prodsByDept.length < 1 ? (
                   <tr>
-                    <td colSpan={4}>
-                      <h6>No Products to show</h6>
-                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>No products to show</td>
+                    <td></td>
+                    <td></td>
                   </tr>
                 ) : (
                   <>
                     {prodsByDept.map((item, i) => (
-                      <tr key={i} onClick={editHandler}>
+                      <tr key={i} onClick={() => editHandler(i)}>
                         <th scope="row">{(SN = SN + 1)}</th>
-                        {/* <td>{item.department}</td> */}
+                        <td>{foundDept[0].department.name}</td>
                         <td>{item.name}</td>
                         <td>{item.price}</td>
                         <td>{item.publish ? "Yes" : "No"}</td>

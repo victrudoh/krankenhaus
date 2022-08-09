@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import AppContext from "../../../../../context/AppContext";
 import axios from "axios";
 
@@ -10,11 +10,13 @@ import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpi
 import { success, error } from "../../../../../helpers/Alert";
 
 const Panel = () => {
-  const { loading, setLoading, setInvoiceProducts } = useContext(AppContext);
+  const { loading, setLoading, setSavedInvoice } = useContext(AppContext);
 
   const [filterParams, setFilterParams] = useState({
     From: "",
     To: "",
+    hour1: "",
+    hour2: "",
   });
   console.log("filterParams", filterParams);
 
@@ -25,7 +27,7 @@ const Panel = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/transactions/view-By-products?From=${filterParams.From}&To=${filterParams.To}&s`,
+        `https://hospital-ms-api.herokuapp.com/transactions/report?From=${filterParams.From}&To=${filterParams.To}&hour1=${filterParams.hour1}&hour2=${filterParams.hour2}`,
         {
           headers: {
             "content-type": "application/json",
@@ -37,9 +39,14 @@ const Panel = () => {
       console.log("response", response);
       if (response.status === 200) {
         success(response.data.message);
-        setInvoiceProducts(response.data.transactions);
+        setSavedInvoice({
+          display: true,
+          data: response.data,
+          items: [],
+        });
       }
     } catch (err) {
+      setLoading(false);
       console.log(err);
       error("Couldn't fetch History");
     }
@@ -74,6 +81,16 @@ const Panel = () => {
                   />
                 </div>
                 <div className="pair">
+                  <label>Hours:</label>
+                  <input
+                    type="time"
+                    name="hour1"
+                    id="hour1"
+                    onChange={onchangeHandler}
+                    defaultValue={filterParams.hour1}
+                  />
+                </div>
+                <div className="pair">
                   <label>To:</label>
                   <input
                     type="date"
@@ -81,6 +98,16 @@ const Panel = () => {
                     id="To"
                     onChange={onchangeHandler}
                     defaultValue={filterParams.To}
+                  />
+                </div>
+                <div className="pair">
+                  <label>Hours:</label>
+                  <input
+                    type="time"
+                    name="hour2"
+                    id="hour2"
+                    onChange={onchangeHandler}
+                    defaultValue={filterParams.hour2}
                   />
                 </div>
                 <button>Filter</button>
