@@ -60,14 +60,9 @@ const PeriodicSummaryTemplate = () => {
           <div className="container mb-5 mt-3">
             <div className="row d-flex align-items-baseline">
               <div className="col-xl-6 w-100 d-flex justify-content-between align-items-center mb-2">
-                {user.role !== "teller" ? (
-                  <button onClick={() => printInvoice()}>
-                    <i className="fas fa-print text-white mx-2"></i>Print
-                    invoice
-                  </button>
-                ) : (
-                  <div></div>
-                )}
+                <button onClick={() => printInvoice()}>
+                  <i className="fas fa-print text-white mx-2"></i>Print Record
+                </button>
                 <i
                   className="bx bx-x-circle"
                   style={{
@@ -80,107 +75,54 @@ const PeriodicSummaryTemplate = () => {
               </div>
               <hr />
             </div>
-
-            {/* <img src={savedInvoice.data.badcode} alt="barcode" /> */}
-
             <div className="container printInvoice" id="printInvoice">
-              <div className="col-md-12">
-                <div className="text-center">
-                  <i
-                    className="fab fa-2x ms-0 mt-2"
-                    style={{ color: "#000080" }}
-                  >
-                    Krankenhaus
-                  </i>
-                  <p></p>
-                  <p className="pt-0">Time Period Report</p>
-                </div>
-              </div>
-
+              <i className="fab fa-1x ms-0 mt-2" style={{ color: "#000080" }}>
+                Krankenhaus
+              </i>
               <div className="my-2"></div>
-
-              <div className="row">
-                <div className="col-xl-9 mt-4">
-                  <h5>Teller Details</h5>
-                  <ul className="list-unstyled">
-                    <li className="text-muted d-flex align-items-center">
-                      <i
-                        className="fas fa-circle  mx-1"
-                        style={{ color: "#000080" }}
-                      ></i>{" "}
-                      <span className="fw-bold">Name: </span>
-                      <h5 className="mx-2">
-                        {user.firstName} {user.lastName}
-                      </h5>
-                    </li>
-                    <li className="text-muted d-flex align-items-center">
-                      <i
-                        className="fas fa-circle mx-1"
-                        style={{ color: "#000080" }}
-                      ></i>{" "}
-                      <span className="fw-bold">Department: </span>
-                      <h5 className="mx-2">{user.department}</h5>
-                    </li>
-                    <br />
-                    <h5>Period Under Review</h5>
-                    <li className="text-muted d-flex align-items-center">
-                      <i
-                        className="fas fa-circle mx-1"
-                        style={{ color: "#000080" }}
-                      ></i>{" "}
-                      <span className="fw-bold">From: </span>
-                      <h5 className="mx-2">{savedInvoice.data.From}</h5>
-                    </li>
-                    <li className="text-muted d-flex align-items-center">
-                      <i
-                        className="fas fa-circle mx-1"
-                        style={{ color: "#000080" }}
-                      ></i>{" "}
-                      <span className="fw-bold">To: </span>
-                      <h5 className="mx-2">{savedInvoice.data.To}</h5>
-                    </li>
-                    <br />
-                    <h5>Payment Records</h5>
-                    <li className="text-muted d-flex align-items-center">
-                      <i
-                        className="fas fa-circle mx-1"
-                        style={{ color: "#000080" }}
-                      ></i>{" "}
-                      <span className="fw-bold">No. of Transactions:</span>
-                      <h5 className="mx-2">{savedInvoice.data.number}</h5>
-                    </li>
-                    <li className="text-muted d-flex align-items-center">
-                      <i
-                        className="fas fa-circle mx-1"
-                        style={{ color: "#000080" }}
-                      ></i>{" "}
-                      <span className="fw-bold">Amount:</span>
-                      <h5 className="mx-2">
-                        {savedInvoice.data.amount.toFixed(2)}
-                      </h5>
-                    </li>
-                  </ul>
-                </div>
-                {/* <div className="col-xl-3 ml-3">
-                  <QRCode value={savedInvoice.data.id} size={130} />
-                </div> */}
-              </div>
-
-              <div className="my-5"></div>
-
-              <div className="my-5"></div>
-              <div className="row">
-                <div className="col-xl-7">
-                  <p className="ms-3">Sign: ...........................</p>
-                  <div className="mb-4"></div>
-                </div>
-              </div>
+              <h4>Time Period Report</h4>
               <hr />
-              <div className="row">
-                <div className="col-xl-9">
-                  <p>Print Date: {invoiceDate}</p>
-                </div>
-              </div>
+              <div className="my-5"></div>
+              <h6>
+                <b>Teller Details</b>
+              </h6>
+              <h4>
+                <small>Name:</small> {user.firstName} {user.lastName}
+              </h4>
+              <h4>
+                <small>Department:</small> {user.department}
+              </h4>
+              <br />
+              <div className="my-3"></div>
+              <h6>
+                <b>Period Under Review</b>
+              </h6>
+              <h6>
+                <small>From:</small>
+                <small> {savedInvoice.data.From}</small>
+              </h6>
+              <h6>
+                <small>To:</small>
+                <small> {savedInvoice.data.To}</small>
+              </h6>
+              <br />
+              <h6>
+                <b>Payment Records</b>
+              </h6>
+              <h4>
+                <small>No. of Transactions:</small> {savedInvoice.data.number}
+              </h4>
+              <h4>
+                <small>Total Amount:</small>{" "}
+                {savedInvoice.data.amount.toFixed(2)}
+              </h4>
+              <br />
+              <div className="my-3"></div>
+
+              <p className="ms-3">Sign: ...........................</p>
+              <hr />
+              <div className="mb-4"></div>
+              <h6>Print Date: {invoiceDate}</h6>
             </div>
           </div>
         </div>

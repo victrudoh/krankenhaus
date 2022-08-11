@@ -88,10 +88,64 @@ const ViewInvoice = () => {
               <hr />
             </div>
 
-            {/* <img src={savedInvoice.data.badcode} alt="barcode" /> */}
-
             <div className="container printInvoice" id="printInvoice">
-              <div className="col-md-12">
+              <i className="fab fa-1x ms-0 mt-2" style={{ color: "#000080" }}>
+                Krankenhaus
+              </i>
+              <div className="my-2"></div>
+              <h4>Payment Invoice</h4>
+
+              <hr />
+
+              <div className="my-2"></div>
+              <h6>
+                <b>Transaction Details</b>
+              </h6>
+              <h5>
+                <small>Name:</small> {savedInvoice.data.firstName}{" "}
+                {savedInvoice.data.lastName}
+              </h5>
+              <h5>
+                <small>Transaction Id:</small> {savedInvoice.data.id}
+              </h5>
+              <h5>
+                <small>Creation Date:</small> {invoiceDate}
+              </h5>
+              <br />
+              <QRCode value={savedInvoice.data.id} size={130} />
+              <br />
+              <div className="my-5"></div>
+              <table className="table table-striped">
+                <thead
+                  style={{ backgroundColor: "#000080" }}
+                  className="text-white text-center"
+                >
+                  <tr>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Amount (₦)</th>
+                  </tr>
+                </thead>
+                <tbody className="text-center">
+                  {savedInvoice.items.map((item, i) => (
+                    <tr key={i}>
+                      <td>{item.quantity}</td>
+                      <td>{item.name}</td>
+                      <td value={(totalPrice = totalPrice + item.price)}>
+                        {item.price.toFixed(2)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="my-5"></div>
+              <h5>
+                <b>Total Price:</b> ₦
+                {totalPrice.toLocaleString("en-US").toFixed(2)}
+              </h5>
+              <div className="my-3"></div>
+
+              {/* <div className="col-md-12">
                 <div className="text-center">
                   <i
                     className="fab fa-2x ms-0 mt-2"
@@ -103,12 +157,9 @@ const ViewInvoice = () => {
                   <p className="pt-0">Payment Invoice</p>
                 </div>
               </div>
-
               <div className="my-5"></div>
-
               <div className="row">
                 <div className="col-xl-9 mt-4">
-                  {/* <p className="text-muted">Invoice</p> */}
                   <ul className="list-unstyled">
                     <li className="text-muted d-flex align-items-center">
                       <i
@@ -121,74 +172,46 @@ const ViewInvoice = () => {
                         {savedInvoice.data.lastName}
                       </h5>
                     </li>
-                    {/* <li className="text-muted d-flex align-items-center">
+                    <li className="text-muted d-flex align-items-center">
                       <i
                         className="fas fa-circle mx-1"
                         style={{ color: "#000080" }}
                       ></i>{" "}
                       <span className="fw-bold">ID: </span>
                       <h5 className="mx-2">{savedInvoice.data.id}</h5>
-                    </li> */}
+                    </li>
                     <li className="text-muted d-flex align-items-center">
                       <i
                         className="fas fa-circle mx-1"
                         style={{ color: "#000080" }}
                       ></i>{" "}
                       <span className="fw-bold">Creation Date: </span>
-                      <h5 className="mx-2">
-                        {/* {savedInvoice.data.createdAt.slice(0, 10)} */}
-                        {invoiceDate}
-                      </h5>
+                      <h5 className="mx-2">{invoiceDate}</h5>
                     </li>
-                    {/* <li className="text-muted d-flex align-items-center">
-                      <i
-                        className="fas fa-circle mx-1"
-                        style={{ color: "#000080" }}
-                      ></i>{" "}
-                      <span className="me-1 fw-bold">Status:</span>
-                      {savedInvoice.data.status === "not-paid" ? (
-                        <span className="badge bg-warning text-black fw-bold">
-                          {savedInvoice.data.status}
-                        </span>
-                      ) : (
-                        <span className="badge bg-success text-white fw-bold">
-                          {savedInvoice.data.status}
-                        </span>
-                      )}
-                    </li> */}
                   </ul>
                 </div>
-                {/* <div className="col-xl-5">
-                  <Barcode value={savedInvoice.data.id} />
-                </div> */}
                 <div className="col-xl-3 ml-3">
                   <QRCode value={savedInvoice.data.id} size={130} />
                 </div>
               </div>
-
-              <div className="my-5"></div>
-
-              <div className="row mt-4 my-2 mx-1 justify-content-center">
+              <div className="my-5"></div> */}
+              {/* <div className="row mt-4 my-2 mx-1 justify-content-center">
                 <table className="table table-striped table-borderless">
                   <thead
                     style={{ backgroundColor: "#000080" }}
-                    className="text-white"
+                    className="text-white text-center"
                   >
                     <tr>
                       <th scope="col">Qty</th>
-                      {/* <th scope="col">#</th> */}
                       <th scope="col">Description</th>
-                      {/* <th scope="col">Unit Price</th> */}
-                      <th scope="col">Amount</th>
+                      <th scope="col">Amount (₦)</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="text-center">
                     {savedInvoice.items.map((item, i) => (
                       <tr key={i}>
                         <td>{item.quantity}</td>
-                        {/* <th scope="row">{(SN = SN + 1)}</th> */}
                         <td>{item.name}</td>
-                        {/* <td>{(item.price / item.quantity).toFixed(2)}</td> */}
                         <td value={(totalPrice = totalPrice + item.price)}>
                           {item.price.toFixed(2)}
                         </td>
@@ -196,9 +219,8 @@ const ViewInvoice = () => {
                     ))}
                   </tbody>
                 </table>
-              </div>
-
-              <div className="row">
+              </div> */}
+              {/* <div className="row">
                 <div className="col-xl-6"></div>
                 <div className="col-xl-5 d-flex justify-content-end">
                   <p className="text-black">
@@ -209,24 +231,9 @@ const ViewInvoice = () => {
                       Total price:
                     </span>
                     <span style={{ fontSize: "22px", fontWeight: "500" }}>
-                      {totalPrice.toFixed(2)}
+                      ₦{totalPrice.toFixed(2)}
                     </span>
                   </p>
-                </div>
-              </div>
-              {/* <div className="my-5"></div>
-              <div className="row">
-                <div className="col-xl-7">
-                  <p className="ms-3">
-                    Additional notes and payment information:
-                  </p>
-                  <div className="mb-4"></div>
-                </div>
-              </div>
-              <hr />
-              <div className="row">
-                <div className="col-xl-9">
-                  <p>Thank you for your purchase</p>
                 </div>
               </div> */}
             </div>
@@ -235,92 +242,6 @@ const ViewInvoice = () => {
       </div>
     </Wrapper>
   );
-
-  // return (
-  //   <>
-  //     <Wrapper>
-  //       <Head>
-  //         <h5>Invoice</h5>
-  //         <i classNameName="bx bx-x-circle" onClick={closeHandler}></i>
-  //       </Head>
-  //       <hr />
-  //       <Top>
-  //         <div classNameName="pair">
-  //           <label>Name: </label>
-  //           <h4>
-  //             {savedInvoice.data.firstName} {savedInvoice.data.lastName}
-  //           </h4>
-  //         </div>
-  //       </Top>
-  //       <Top>
-  //         <div classNameName="pair">
-  //           <label>Date: </label>
-  //           <h4>{invoiceDate}</h4>
-  //         </div>
-  //       </Top>
-  //       <Top>
-  //         <div classNameName="pair">
-  //           <label>Transaction Id: </label>
-  //           <h4>{savedInvoice.data.id}</h4>
-  //         </div>
-  //       </Top>
-  //       {loading ? (
-  //         <CircleSpinner />
-  //       ) : (
-  //         <>
-  //           <table classNameName="table caption-top my-5">
-  //             {/* <caption>List of items</caption> */}
-  //             <thead>
-  //               <tr>
-  //                 <th scope="col">S/N</th>
-  //                 <th scope="col">Description</th>
-  //                 <th scope="col">Department</th>
-  //                 <th scope="col">Qty</th>
-  //                 <th scope="col">Price (₦)</th>
-  //               </tr>
-  //             </thead>
-  //             <tbody>
-  //               {savedInvoice.items.map((item, i) => (
-  //                 <tr key={i}>
-  //                   <th scope="row">{(SN = SN + 1)}</th>
-  //                   <td>{item.name}</td>
-  //                   <td>{item.department}</td>
-  //                   <td>{item.quantity}</td>
-  //                   <td value={(totalPrice = totalPrice + item.price)}>
-  //                     {item.price}
-  //                   </td>
-  //                 </tr>
-  //               ))}
-  //               {/* <tr>
-  //                 <td></td>
-  //                 <td></td>
-  //                 <td></td>
-  //                 <td></td>
-  //                 <td></td>
-  //               </tr> */}
-  //               <tr>
-  //                 <td></td>
-  //                 <td></td>
-  //                 <td></td>
-  //                 <th>Total:</th>
-  //                 <td>{totalPrice}</td>
-  //               </tr>
-  //               <tr>
-  //                 <td></td>
-  //                 <td></td>
-  //                 <td></td>
-  //                 <td></td>
-  //                 <td>
-  //                   <button onClick={printHandler}>Print invoice</button>
-  //                 </td>
-  //               </tr>
-  //             </tbody>
-  //           </table>
-  //         </>
-  //       )}
-  //     </Wrapper>
-  //   </>
-  // );
 };
 
 export default ViewInvoice;

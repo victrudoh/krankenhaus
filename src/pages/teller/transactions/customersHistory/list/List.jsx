@@ -63,6 +63,7 @@ const List = () => {
                   <th scope="col">Customer</th>
                   <th scope="col">Amount (₦)</th>
                   <th scope="col">Status</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>

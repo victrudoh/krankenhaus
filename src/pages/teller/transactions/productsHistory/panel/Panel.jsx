@@ -69,6 +69,7 @@ const Panel = () => {
                     type="date"
                     name="From"
                     id="From"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={filterParams.From}
                   />
@@ -79,6 +80,7 @@ const Panel = () => {
                     type="date"
                     name="To"
                     id="To"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={filterParams.To}
                   />

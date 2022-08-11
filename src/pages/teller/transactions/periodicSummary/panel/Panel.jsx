@@ -49,6 +49,11 @@ const Panel = () => {
       setLoading(false);
       console.log(err);
       error("Couldn't fetch History");
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
     }
   };
 
@@ -76,6 +81,7 @@ const Panel = () => {
                     type="date"
                     name="From"
                     id="From"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={filterParams.From}
                   />
@@ -86,6 +92,7 @@ const Panel = () => {
                     type="time"
                     name="hour1"
                     id="hour1"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={filterParams.hour1}
                   />
@@ -96,6 +103,7 @@ const Panel = () => {
                     type="date"
                     name="To"
                     id="To"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={filterParams.To}
                   />
@@ -106,6 +114,7 @@ const Panel = () => {
                     type="time"
                     name="hour2"
                     id="hour2"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={filterParams.hour2}
                   />
