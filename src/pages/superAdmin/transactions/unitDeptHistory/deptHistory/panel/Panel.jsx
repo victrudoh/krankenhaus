@@ -37,6 +37,11 @@ const Panel = () => {
       );
     } catch (err) {
       console.log(err);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
     }
   };
 

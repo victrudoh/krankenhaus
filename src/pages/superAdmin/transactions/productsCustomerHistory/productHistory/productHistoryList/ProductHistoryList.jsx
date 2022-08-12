@@ -37,7 +37,7 @@ const ProductHistoryList = ({ setIsCustomer }) => {
           <CircleSpinner />
         ) : (
           <>
-            <table className="table table-striped caption-top">
+            <table className="table table-striped caption-top text-center">
               <caption>Transaction History: Products</caption>
               <thead>
                 <tr>
@@ -59,7 +59,7 @@ const ProductHistoryList = ({ setIsCustomer }) => {
                     <td>{item.name}</td>
                     <td>{item.quantity}</td>
                     <td value={(totalPrice = totalPrice + item.total)}>
-                      {item.total}
+                      {item.total.toLocaleString("en-US")}
                     </td>
                     <td>{item.status}</td>
                   </tr>
@@ -73,96 +73,6 @@ const ProductHistoryList = ({ setIsCustomer }) => {
                   <td>150.00</td>
                   <td>paid</td>
                 </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>2022-03-12 18:13:14</td>
-                  <td>Pharmacy</td>
-                  <td>Alclav Susp. 457Mg</td>
-                  <td>1</td>
-                  <td>1325.00</td>
-                  <td>paid</td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>2022-03-12 17:53:49</td>
-                  <td>Pharmacy</td>
-                  <td>Actifed Tab</td>
-                  <td>1</td>
-                  <td>955.00</td>
-                  <td>paid</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>2022-03-12 19:33:03</td>
-                  <td>Pharmacy</td>
-                  <td>Andrenaline Inj</td>
-                  <td>6</td>
-                  <td>150.00</td>
-                  <td>paid</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>2022-03-12 18:13:14</td>
-                  <td>Pharmacy</td>
-                  <td>Alclav Susp. 457Mg</td>
-                  <td>1</td>
-                  <td>1325.00</td>
-                  <td>paid</td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>2022-03-12 17:53:49</td>
-                  <td>Pharmacy</td>
-                  <td>Actifed Tab</td>
-                  <td>1</td>
-                  <td>955.00</td>
-                  <td>paid</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>2022-03-12 19:33:03</td>
-                  <td>Pharmacy</td>
-                  <td>Andrenaline Inj</td>
-                  <td>6</td>
-                  <td>150.00</td>
-                  <td>paid</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>2022-03-12 18:13:14</td>
-                  <td>Pharmacy</td>
-                  <td>Alclav Susp. 457Mg</td>
-                  <td>1</td>
-                  <td>1325.00</td>
-                  <td>paid</td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>2022-03-12 17:53:49</td>
-                  <td>Pharmacy</td>
-                  <td>Actifed Tab</td>
-                  <td>1</td>
-                  <td>955.00</td>
-                  <td>paid</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>2022-03-12 19:33:03</td>
-                  <td>Pharmacy</td>
-                  <td>Andrenaline Inj</td>
-                  <td>6</td>
-                  <td>150.00</td>
-                  <td>paid</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>2022-03-12 18:13:14</td>
-                  <td>Pharmacy</td>
-                  <td>Alclav Susp. 457Mg</td>
-                  <td>1</td>
-                  <td>1325.00</td>
-                  <td>paid</td>
-                </tr>
               </tbody>
             </table>
             <div className="bottom">
@@ -172,8 +82,8 @@ const ProductHistoryList = ({ setIsCustomer }) => {
                   <h5>Grand total</h5>
                 </div>
                 <div className="row">
-                  <h5>₦ {totalPrice}</h5>
-                  <h5>₦ {totalPrice}</h5>
+                  <h5>₦ {totalPrice.toLocaleString("en-US")}</h5>
+                  <h5>₦ {totalPrice.toLocaleString("en-US")}</h5>
                 </div>
               </div>
             </div>

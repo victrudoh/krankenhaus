@@ -53,7 +53,7 @@ const List = () => {
           <CircleSpinner />
         ) : (
           <>
-            <table className="table table-hover caption-top">
+            <table className="table table-striped caption-top text-center">
               <caption>Invoice History: Customers</caption>
               <thead>
                 <tr>
@@ -76,7 +76,7 @@ const List = () => {
                       {item.firstName} {item.lastName}
                     </td>
                     <td value={(totalPrice = totalPrice + item.total)}>
-                      {item.total.toFixed(2)}
+                      {item.total.toLocaleString("en-US")}
                     </td>
                     <td>{item.status}</td>
                     <td>
@@ -99,7 +99,7 @@ const List = () => {
                   <td></td>
                   {/* <td></td> */}
                   <th>Total</th>
-                  <th>₦ {totalPrice.toFixed(2)}</th>
+                  <th>₦ {totalPrice.toLocaleString("en-US")}</th>
                   <td></td>
                   <td></td>
                 </tr>

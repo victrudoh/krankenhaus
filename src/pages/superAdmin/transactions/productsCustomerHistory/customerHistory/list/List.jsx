@@ -73,26 +73,26 @@ const List = ({ setIsCustomer }) => {
             </form>
           </div> */}
         </Top>
-        <table className="table table-striped caption-top">
-          <caption>Transaction History: Customers</caption>
-          <thead>
-            <tr>
-              <th scope="col">S/N</th>
-              <th scope="col">Payment date</th>
-              <th scope="col">Name</th>
-              <th scope="col">Teller</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Status</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              <CircleSpinner />
-            ) : (
-              <>
+        {loading ? (
+          <CircleSpinner />
+        ) : (
+          <>
+            <table className="table table-striped caption-top text-center">
+              <caption>Transaction History: Customers</caption>
+              <thead>
+                <tr>
+                  <th scope="col">S/N</th>
+                  <th scope="col">Payment date</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Teller</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
                 {transactions.map((item, i) => (
-                  <tr>
+                  <tr key={i}>
                     <th scope="row">{(SN = SN + 1)}</th>
                     <td>{item.date}</td>
                     <td>
@@ -100,7 +100,7 @@ const List = ({ setIsCustomer }) => {
                     </td>
                     <td>Bank Bank</td>
                     <td value={(totalPrice = totalPrice + item.total)}>
-                      {item.total}
+                      {item.total.toLocaleString("en-US")}
                     </td>
                     <td>{item.status}</td>
                     <td>
@@ -111,20 +111,20 @@ const List = ({ setIsCustomer }) => {
                     </td>
                   </tr>
                 ))}
-              </>
-            )}
-          </tbody>
-        </table>
-        <div className="bottom">
-          <div className="moveToRight">
-            <div className="row">
-              <h5>Total</h5>
+              </tbody>
+            </table>
+            <div className="bottom">
+              <div className="moveToRight">
+                <div className="row">
+                  <h5>Total</h5>
+                </div>
+                <div className="row">
+                  <h5>₦ {totalPrice.toLocaleString("en-US")}</h5>
+                </div>
+              </div>
             </div>
-            <div className="row">
-              <h5>₦ {totalPrice}</h5>
-            </div>
-          </div>
-        </div>
+          </>
+        )}
       </Wrapper>
     </>
   );

@@ -132,7 +132,7 @@ const ViewInvoice = () => {
                       <td>{item.quantity}</td>
                       <td>{item.name}</td>
                       <td value={(totalPrice = totalPrice + item.price)}>
-                        {item.price.toFixed(2)}
+                        {item.price.toLocaleString("en-US")}
                       </td>
                     </tr>
                   ))}
@@ -140,8 +140,8 @@ const ViewInvoice = () => {
               </table>
               <div className="my-5"></div>
               <h5>
-                <b>Total Price:</b> ₦
-                {totalPrice.toLocaleString("en-US").toFixed(2)}
+                <b>Total Price:</b> ₦{totalPrice.toLocaleString("en-US")}
+                {/* {totalPrice.toFixed(2).toLocaleString("en-US")} */}
               </h5>
               <div className="my-3"></div>
 

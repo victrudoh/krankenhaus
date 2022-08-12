@@ -19,7 +19,7 @@ const PeriodicSummary = () => {
       <Wrapper>
         {savedInvoice.display === false ? (
           <>
-            <List />
+            {/* <List /> */}
             <Panel />
           </>
         ) : (

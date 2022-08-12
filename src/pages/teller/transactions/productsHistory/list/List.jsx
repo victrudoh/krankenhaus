@@ -68,13 +68,13 @@ const List = () => {
           <CircleSpinner />
         ) : (
           <>
-            <table className="table table-striped caption-top">
+            <table className="table table-striped caption-top text-center">
               <caption>Invoice History: Products</caption>
               <thead>
                 <tr>
                   <th scope="col">S/N</th>
                   <th scope="col">Payment date</th>
-                  {/* <th scope="col">ID</th> */}
+                  <th scope="col">ID</th>
                   <th scope="col">Customer</th>
                   <th scope="col">Amount (₦)</th>
                   <th scope="col">Status</th>
@@ -85,12 +85,12 @@ const List = () => {
                   <tr key={i}>
                     <th scope="row">{(SN = SN + 1)}</th>
                     <td>{item.createdAt.slice(0, 10)}</td>
-                    {/* <td>{item.id}</td> */}
+                    <td>{item.id}</td>
                     <td>
                       {item.firstName} {item.lastName}
                     </td>
                     <td value={(totalPrice = totalPrice + item.total)}>
-                      {item.total.toFixed(2)}
+                      {item.total.toLocaleString("en-US")}
                     </td>
                     <td>{item.status}</td>
                     {/* <td>
@@ -101,7 +101,7 @@ const List = () => {
                   </tr>
                 ))}
                 <tr>
-                  {/* <td></td> */}
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
@@ -111,9 +111,9 @@ const List = () => {
                 <tr>
                   <td></td>
                   <td></td>
-                  {/* <td></td> */}
+                  <td></td>
                   <th>Total</th>
-                  <th>₦ {totalPrice.toFixed(2)}</th>
+                  <th>₦ {totalPrice.toLocaleString("en-US")}</th>
                   <td></td>
                   {/* <td></td> */}
                 </tr>

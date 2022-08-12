@@ -94,7 +94,7 @@ const List = () => {
                     onChange={onchangeHandler}
                     defaultValue={trackPayment.transaction.status}
                   >
-                    <option value="">{trackPayment.transaction.status}</option>
+                    <option>{trackPayment.transaction.status}</option>
                     <option value="paid">paid</option>
                   </select>
                   <button type="submit">Update</button>
@@ -106,7 +106,7 @@ const List = () => {
         {loading ? (
           <CircleSpinner />
         ) : (
-          <table className="table caption-top">
+          <table className="table caption-top text-center">
             <caption>Track payment</caption>
             <thead>
               <tr>
@@ -123,7 +123,7 @@ const List = () => {
                   <td>{item.name}</td>
                   <td>{item.quantity}</td>
                   <td value={(totalPrice = totalPrice + item.price)}>
-                    {item.price.toFixed(2)}
+                    {item.price.toLocaleString("en-US")}
                   </td>
                 </tr>
               ))}
@@ -131,7 +131,7 @@ const List = () => {
                 <td></td>
                 <td></td>
                 <th>Total:</th>
-                <td>{totalPrice.toFixed(2)}</td>
+                <td>₦ {totalPrice.toLocaleString("en-US")}</td>
               </tr>
             </tbody>
           </table>

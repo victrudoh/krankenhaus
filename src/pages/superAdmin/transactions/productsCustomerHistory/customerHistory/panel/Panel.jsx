@@ -42,6 +42,11 @@ const Panel = () => {
     } catch (err) {
       error(err.response.data.message);
       setLoading(false);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
     }
   };
 
@@ -69,6 +74,7 @@ const Panel = () => {
                     type="date"
                     name="From"
                     id="From"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={filterParams.From}
                   />
@@ -79,6 +85,7 @@ const Panel = () => {
                     type="date"
                     name="To"
                     id="To"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={filterParams.To}
                   />

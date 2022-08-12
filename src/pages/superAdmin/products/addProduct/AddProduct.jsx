@@ -45,6 +45,11 @@ const AddProduct = () => {
       error("Psych! couldn't add product");
       console.log(err);
       setLoading(false);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
     }
   };
 

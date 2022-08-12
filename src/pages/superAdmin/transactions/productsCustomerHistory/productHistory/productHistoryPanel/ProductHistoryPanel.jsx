@@ -69,7 +69,7 @@ const ProductHistoryPanel = () => {
       e.preventDefault();
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/transactions?From=${filterParams.From}&To=${filterParams.To}&status=${filterParams.status}&department=${filterParams.department}&teller=${filterParams.teller}`,
+        `https://hospital-ms-api.herokuapp.com/transactions/view-By-products?From=${filterParams.From}&To=${filterParams.To}&status=${filterParams.status}&departmentId=${filterParams.department}&tellerId=${filterParams.teller}`,
         {
           headers: {
             "content-type": "application/json",
@@ -145,7 +145,7 @@ const ProductHistoryPanel = () => {
                   <select
                     name="department"
                     id="department"
-                    required
+                    // required
                     onChange={onchangeHandler}
                     defaultValue={filterParams.department}
                   >

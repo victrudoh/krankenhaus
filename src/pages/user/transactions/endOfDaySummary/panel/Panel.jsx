@@ -9,7 +9,7 @@ import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpi
 import { Wrapper, Content } from "./Panel.Styles";
 
 const Panel = () => {
-  const { loading, setLoading, setEndOfDay } = useContext(AppContext);
+  const { loading, setLoading, setSavedInvoice } = useContext(AppContext);
 
   const [filterParams, setFilterParams] = useState({
     date: "",
@@ -31,19 +31,29 @@ const Panel = () => {
           },
         }
       );
-      // console.log("response", response);
+      console.log("End of day response", response);
       setLoading(false);
       if (response.status === 200) {
         success(response.data.message);
-        let date = response.data.message.split("for ");
-        setEndOfDay({
-          day: date[1],
-          transactions: response.data.transactions,
+        setSavedInvoice({
+          display: true,
+          data: response.data,
+          items: [],
         });
+        // let date = response.data.message.split("for ");
+        // setEndOfDay({
+        //   day: date[1],
+        //   transactions: response.data.transactions,
+        // });
       }
     } catch (err) {
       error(err.response.data.message);
       setLoading(false);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
     }
   };
 
