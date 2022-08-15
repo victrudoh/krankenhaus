@@ -10,7 +10,7 @@ import { Wrapper, Content } from "./ProductHistoryPanel.Styles";
 import { CircleSpinner } from "../../../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const ProductHistoryPanel = () => {
-  const { loading, users, setLoading, departments, setTransactions } =
+  const { loading, users, setLoading, departments, setTransactionsByProds } =
     useContext(AppContext);
 
   const [filterParams, setFilterParams] = useState({
@@ -20,10 +20,6 @@ const ProductHistoryPanel = () => {
     teller: "",
     status: "",
   });
-  console.log(
-    "🚀 ~ file: ProductHistoryPanel.jsx ~ line 20 ~ ProductHistoryPanel ~ filterParams",
-    filterParams
-  );
 
   const [tellers, setTellers] = useState([]);
 
@@ -84,7 +80,7 @@ const ProductHistoryPanel = () => {
       setLoading(false);
       if (response.status === 200) {
         success(response.data.message);
-        setTransactions(response.data.transactions);
+        setTransactionsByProds(response.data.transactions);
       }
     } catch (err) {
       error("Couldn't fetch invoices");
@@ -167,7 +163,7 @@ const ProductHistoryPanel = () => {
                   >
                     <option>Select teller</option>
                     {tellers.map((item, i) => (
-                      <option value={item.id}>
+                      <option key={i} value={item.id}>
                         {item.firstName} {item.lastName}
                       </option>
                     ))}

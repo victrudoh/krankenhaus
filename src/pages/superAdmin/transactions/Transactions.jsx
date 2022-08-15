@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 
 // Styles
 import { Top, Wrapper } from "./Transactions.Styles";
@@ -7,16 +7,17 @@ import { Top, Wrapper } from "./Transactions.Styles";
 import ProductCustomerHistory from "./productsCustomerHistory/ProductCustomerHistory";
 import Invoices from "./invoices/Invoices";
 import UnitDeptHistory from "./unitDeptHistory/UnitDeptHistory";
+import AppContext from "../../../context/AppContext";
 
 const Transactions = () => {
-  const [display, setDisplay] = useState("records");
+  const { trxDisplay, setTrxDisplay } = useContext(AppContext);
 
-  const SelectedDisplay = (e) => {
-    if (e.display === "records") {
+  const SelectedDisplay = () => {
+    if (trxDisplay === "records") {
       return <ProductCustomerHistory />;
-    } else if (e.display === "invoices") {
+    } else if (trxDisplay === "invoices") {
       return <Invoices />;
-    } else if (e.display === "summaries") {
+    } else if (trxDisplay === "summaries") {
       return <UnitDeptHistory />;
     }
   };
@@ -25,18 +26,19 @@ const Transactions = () => {
     <>
       <Wrapper>
         <Top>
-          <button onClick={() => setDisplay("records")}>
+          <button onClick={() => setTrxDisplay("records")}>
             Transaction Histories
           </button>
-          {/* <button onClick={() => setDisplay("invoices")}>
+          {/* <button onClick={() => setTrxDisplay("invoices")}>
             Generated Invoices
           </button> */}
-          <button onClick={() => setDisplay("summaries")}>
+          <button onClick={() => setTrxDisplay("summaries")}>
             Departmental Summaries
           </button>
+          <div className="mx-5"></div>
         </Top>
 
-        <SelectedDisplay display={display} />
+        <SelectedDisplay />
       </Wrapper>
     </>
   );

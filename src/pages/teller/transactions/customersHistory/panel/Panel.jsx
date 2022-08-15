@@ -84,7 +84,7 @@ const Panel = () => {
                     onChange={onChangeHandler}
                   />
                 </div>
-                <div className="pair">
+                {/* <div className="pair">
                   <label>First name:</label>
                   <input type="text" name="firstName" id="firstName" />
                 </div>
@@ -97,7 +97,7 @@ const Panel = () => {
                     defaultValue={filterParams.lastName}
                     onChange={onChangeHandler}
                   />
-                </div>
+                </div> */}
                 <div className="pair">
                   <label>Status:</label>
                   <select

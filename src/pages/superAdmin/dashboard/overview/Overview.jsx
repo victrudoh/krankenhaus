@@ -1,7 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import AppContext from "../../../../context/AppContext";
-import axios from "axios";
-import { success, error } from "../../../../helpers/Alert";
 
 // styles
 import { Content, Wrapper } from "./Overview.Styles";
@@ -10,43 +8,7 @@ import { Content, Wrapper } from "./Overview.Styles";
 import Card from "./card/Card";
 
 const Overview = () => {
-  const { setLoading, users, departments, products } = useContext(AppContext);
-
-  const [trxLength, setTrxLength] = useState("");
-
-  const getTrxLength = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/transactions/length`,
-        {
-          headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      // console.log(
-      //   "🚀 ~ file: Overview.jsx ~ line 28 ~ getTrxLength ~ response",
-      //   response
-      // );
-      setLoading(false);
-      if (response.status === 200) {
-        setTrxLength(response.data.total);
-      }
-    } catch (err) {
-      error(err.response.data.message);
-      if (err.response.status === 401) {
-        error("Unauthorized");
-        localStorage.removeItem("token");
-        window.location.reload(false);
-      }
-    }
-  };
-
-  useEffect(() => {
-    getTrxLength();
-  }, []);
+  const { users, departments, products, trxLength } = useContext(AppContext);
 
   return (
     <>

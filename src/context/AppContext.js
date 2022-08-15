@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 import axios from "axios";
-import { success, error, info } from "../helpers/Alert";
+import { error } from "../helpers/Alert";
 import { useEffect } from "react";
 
 const AppContext = createContext();
@@ -43,9 +43,15 @@ export const AppProvider = ({ children }) => {
 
   // TRANSACTIONS
   const [transactions, setTransactions] = useState([]);
+  const [trxLength, setTrxLength] = useState(""); //for dashboard
+  const [transactionsByProds, setTransactionsByProds] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [showProductPage, setShowProductPage] = useState(false);
   const [displayCustomer, setDisplayCustomer] = useState(false);
+  const [deptSummary, setDeptSummary] = useState([]);
+  const [unitSummary, setUnitSummary] = useState([]);
+  const [trxDisplay, setTrxDisplay] = useState("records");
+  const [byUnit, setByUnit] = useState(false); //for display
 
   // Users Invoice stuff
   const [invoiceUser, setInvoiceUser] = useState({
@@ -123,13 +129,13 @@ export const AppProvider = ({ children }) => {
   };
 
   // Edit user
-  const editUserFunction = (user) => {
-    setEditUser({
-      index: user,
-      editing: true,
-      // editing: !editUserId.editing,
-    });
-  };
+  // const editUserFunction = (user) => {
+  //   setEditUser({
+  //     index: user,
+  //     editing: true,
+  //     // editing: !editUserId.editing,
+  //   });
+  // };
 
   // get All products
   const getProducts = async () => {
@@ -188,14 +194,46 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // Get Transaction length
+  const getTrxLength = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/transactions/length`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      // console.log(
+      //   "🚀 ~ file: Overview.jsx ~ line 28 ~ getTrxLength ~ response",
+      //   response
+      // );
+      setLoading(false);
+      if (response.status === 200) {
+        setTrxLength(response.data.total);
+      }
+    } catch (err) {
+      error(err.response.data.message);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
   // fetch everything on startup
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       console.log("Fetch everything");
-      activeUser();
       getUsers();
+      activeUser();
       getProducts();
+      getTrxLength();
       setTransactions([]);
       // setPrinting(false);
     }
@@ -263,15 +301,26 @@ export const AppProvider = ({ children }) => {
         setDisplayByUnit,
 
         // Transactions
+        byUnit,
+        trxLength,
         chartData,
+        trxDisplay,
+        deptSummary,
+        unitSummary,
         transactions,
-        displayCustomer,
         showProductPage,
+        displayCustomer,
+        transactionsByProds,
 
+        setByUnit,
         setChartData,
+        setTrxDisplay,
+        setDeptSummary,
+        setUnitSummary,
         setTransactions,
         setDisplayCustomer,
         setShowProductPage,
+        setTransactionsByProds,
 
         // Invoice stuff
         endOfDay,

@@ -5,11 +5,11 @@ import { Wrapper } from "./UnitHistory.Styles";
 import List from "./list/List";
 import Panel from "./panel/Panel";
 
-const UnitHistory = ({ setByUnit }) => {
+const UnitHistory = () => {
   return (
     <>
       <Wrapper>
-        <List setByUnit={setByUnit} />
+        <List />
         <Panel />
       </Wrapper>
     </>

@@ -72,35 +72,26 @@ const List = () => {
           <CircleSpinner />
         ) : (
           <>
-            <table className="table table-hover caption-top text-center">
-              <caption>Invoice History: Products</caption>
+            <table className="table table-striped caption-top text-center">
+              <caption>Transaction History: Products</caption>
               <thead>
                 <tr>
                   <th scope="col">S/N</th>
-                  <th scope="col">Payment date</th>
-                  {/* <th scope="col">ID</th> */}
-                  <th scope="col">Customer</th>
-                  <th scope="col">Amount (₦)</th>
-                  <th scope="col">Status</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Price (₦)</th>
                 </tr>
               </thead>
               <tbody>
                 {invoiceProducts.map((item, i) => (
                   <tr key={i}>
                     <th scope="row">{(SN = SN + 1)}</th>
-                    <td>{item.createdAt.slice(0, 10)}</td>
-                    {/* <td>{item.id}</td> */}
-                    <td>
-                      {item.firstName} {item.lastName}
-                    </td>
-                    <td value={(totalPrice = totalPrice + item.total)}>
-                      {item.total.toLocaleString("en-US")}
-                    </td>
-                    <td>{item.status}</td>
-                    <td>
-                      <button onClick={() => getDetails(item.id)}>
-                        Details
-                      </button>
+                    <td>{item.date}</td>
+                    <td>{item.name}</td>
+                    <td>{item.quantity}</td>
+                    <td value={(totalPrice = totalPrice + item.price)}>
+                      {item.price.toLocaleString("en-US")}
                     </td>
                   </tr>
                 ))}
@@ -110,16 +101,13 @@ const List = () => {
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td></td>
                   <td></td>
-                  {/* <td></td> */}
+                  <td></td>
                   <th>Total</th>
                   <th>₦ {totalPrice.toLocaleString("en-US")}</th>
-                  <td></td>
-                  <td></td>
                 </tr>
               </tbody>
             </table>

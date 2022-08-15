@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import AppContext from "../../../../../../context/AppContext";
 import axios from "axios";
 import { success, error } from "../../../../../../helpers/Alert";
@@ -17,7 +16,7 @@ const List = ({ setIsCustomer }) => {
     transactions,
     setSavedInvoice,
     setDisplayCustomer,
-    setShowProductPage,
+    // setShowProductPage,
   } = useContext(AppContext);
 
   let SN = 0;
@@ -111,9 +110,17 @@ const List = ({ setIsCustomer }) => {
                     </td>
                   </tr>
                 ))}
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th>Total</th>
+                  <th colSpan={2}>₦ {totalPrice.toLocaleString("en-US")}</th>
+                  <th></th>
+                </tr>
               </tbody>
             </table>
-            <div className="bottom">
+            {/* <div className="bottom">
               <div className="moveToRight">
                 <div className="row">
                   <h5>Total</h5>
@@ -122,7 +129,7 @@ const List = ({ setIsCustomer }) => {
                   <h5>₦ {totalPrice.toLocaleString("en-US")}</h5>
                 </div>
               </div>
-            </div>
+            </div> */}
           </>
         )}
       </Wrapper>

@@ -10,7 +10,7 @@ import { CircleSpinner } from "../../../../../../components/circleSpinner/Circle
 import AppContext from "../../../../../../context/AppContext";
 
 const Panel = () => {
-  const { loading, setLoading } = useContext(AppContext);
+  const { loading, setLoading, setDeptSummary } = useContext(AppContext);
 
   const [filterParams, setFilterParams] = useState({
     From: "",
@@ -19,10 +19,10 @@ const Panel = () => {
 
   const filter = async (e) => {
     try {
-      // e.preventDefault();
+      e.preventDefault();
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/departments/summary`,
+        `https://hospital-ms-api.herokuapp.com/departments/summary?From=${filterParams.From}&To=${filterParams.To}`,
         {
           headers: {
             "content-type": "application/json",
@@ -35,6 +35,10 @@ const Panel = () => {
         "🚀 ~ file: Panel.jsx ~ line 27 ~ filter ~ response",
         response
       );
+      if (response.status === 200) {
+        success(response.messgae);
+        setDeptSummary(response.data.summary);
+      }
     } catch (err) {
       console.log(err);
       if (err.response.status === 401) {
@@ -45,27 +49,51 @@ const Panel = () => {
     }
   };
 
-  useEffect(() => {
-    filter();
-  }, []);
+  const onchangeHandler = async (e) => {
+    e.persist();
+    setFilterParams({
+      ...filterParams,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // useEffect(() => {
+  //   filter();
+  // }, []);
 
   return (
     <>
       <Wrapper>
         <h5>Panel</h5>
-        <Content>
-          <form>
-            <div className="pair">
-              <label>From:</label>
-              <input type="date" name="startDate" id="startDate" />
-            </div>
-            <div className="pair">
-              <label>To:</label>
-              <input type="date" name="endDate" id="endDate" />
-            </div>
-            <button>Filter</button>
-          </form>
-        </Content>
+        {loading ? (
+          <CircleSpinner />
+        ) : (
+          <Content>
+            <form onSubmit={filter}>
+              <div className="pair">
+                <label>From:</label>
+                <input
+                  type="date"
+                  name="From"
+                  id="From"
+                  onChange={onchangeHandler}
+                  defaultValue={filterParams.From}
+                />
+              </div>
+              <div className="pair">
+                <label>To:</label>
+                <input
+                  type="date"
+                  name="To"
+                  id="To"
+                  onChange={onchangeHandler}
+                  defaultValue={filterParams.To}
+                />
+              </div>
+              <button type="submit">Filter</button>
+            </form>
+          </Content>
+        )}
       </Wrapper>
     </>
   );

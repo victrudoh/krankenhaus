@@ -8,7 +8,7 @@ import { Wrapper, Top } from "./ProductHistoryList.Styles";
 import { CircleSpinner } from "../../../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const ProductHistoryList = ({ setIsCustomer }) => {
-  const { setDisplayCustomer, loading, setLoading, transactions } =
+  const { setDisplayCustomer, loading, transactionsByProds } =
     useContext(AppContext);
 
   let SN = 0;
@@ -47,11 +47,11 @@ const ProductHistoryList = ({ setIsCustomer }) => {
                   <th scope="col">Description</th>
                   <th scope="col">Qty</th>
                   <th scope="col">Price (₦)</th>
-                  <th scope="col">Status</th>
+                  {/* <th scope="col">Status</th> */}
                 </tr>
               </thead>
               <tbody>
-                {transactions.map((item, i) => (
+                {transactionsByProds.map((item, i) => (
                   <tr key={i}>
                     <th scope="row">{(SN = SN + 1)}</th>
                     <td>2022-03-12 17:53:49</td>
@@ -71,11 +71,19 @@ const ProductHistoryList = ({ setIsCustomer }) => {
                   <td>Andrenaline Inj</td>
                   <td>6</td>
                   <td>150.00</td>
-                  <td>paid</td>
+                  {/* <td>paid</td> */}
+                </tr>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th>Total</th>
+                  {/* <th></th> */}
+                  <th colSpan={2}>₦ {totalPrice.toLocaleString("en-US")}</th>
                 </tr>
               </tbody>
             </table>
-            <div className="bottom">
+            {/* <div className="bottom">
               <div className="moveToRight">
                 <div className="row">
                   <h5>Total</h5>
@@ -86,7 +94,7 @@ const ProductHistoryList = ({ setIsCustomer }) => {
                   <h5>₦ {totalPrice.toLocaleString("en-US")}</h5>
                 </div>
               </div>
-            </div>
+            </div> */}
           </>
         )}
       </Wrapper>

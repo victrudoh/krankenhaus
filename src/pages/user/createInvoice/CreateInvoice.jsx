@@ -8,7 +8,8 @@ import { Wrapper } from "./CreateInvoice.Styles";
 import ItemList from "./itemList/ItemList";
 import UserDetails from "./userDetails/UserDetails";
 import AddItem from "./addItem/AddItem";
-import ViewInvoice from "./viewInvoice/ViewInvoice";
+// import ViewInvoice from "./viewInvoice/ViewInvoice";
+import TransactionInvoice from "../../../templates/transactionInvoice/TransactionInvoice";
 
 const CreateInvoice = () => {
   const { invoiceUser, savedInvoice } = useContext(AppContext);
@@ -27,7 +28,7 @@ const CreateInvoice = () => {
           </>
         ) : (
           <>
-            <ViewInvoice />
+            <TransactionInvoice />
           </>
         )}
       </Wrapper>

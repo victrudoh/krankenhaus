@@ -28,10 +28,10 @@ const Transactions = () => {
       <Wrapper>
         <Top>
           <button onClick={() => setTransactionDisplayPage("products")}>
-            Invoices by Products
+            Transactions by Products
           </button>
           <button onClick={() => setTransactionDisplayPage("customers")}>
-            Invoices by Customers
+            Transactions by Customers
           </button>
           <button onClick={() => setTransactionDisplayPage("summary")}>
             End of Day Summary

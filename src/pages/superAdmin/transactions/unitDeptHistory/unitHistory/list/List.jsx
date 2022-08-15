@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import AppContext from "../../../../../../context/AppContext";
 
 // Styles
 import { Wrapper, Top } from "./List.Styles";
 
-const List = ({ setByUnit }) => {
+const List = () => {
+  const { unitSummary, setByUnit } = useContext(AppContext);
+
+  let SN = 0;
+  let grandTotal = 0;
   return (
     <>
       <Wrapper>
@@ -11,7 +16,7 @@ const List = ({ setByUnit }) => {
           <button onClick={() => setByUnit(false)}>
             View Department Transaction History
           </button>
-          <div className="pair">
+          {/* <div className="pair">
             <form>
               <input
                 type="search"
@@ -21,49 +26,37 @@ const List = ({ setByUnit }) => {
               />
               <button type="submit">Search</button>
             </form>
-          </div>
+          </div> */}
         </Top>
-        <table className="table table-striped caption-top">
-          <caption>Transaction History: Units</caption>
+        <table className="table table-striped caption-top text-center">
+          <caption>Transaction History by Units</caption>
           <thead>
             <tr>
               <th scope="col">S/N</th>
-              <th scope="col">Department/Unit</th>
+              <th scope="col">Unit</th>
               <th scope="col">No. of Produsts/Services sold</th>
               <th scope="col">Total Amount (₦)</th>
             </tr>
           </thead>
           <tbody>
+            {unitSummary.map((item, i) => (
+              <tr key={i}>
+                <th scope="row">{(SN = SN + 1)}</th>
+                <td>{item.unit}</td>
+                <td>{item.numberOfProducts}</td>
+                <td value={(grandTotal = grandTotal + item.total)}>
+                  {item.total.toLocaleString("en-US")}
+                </td>
+              </tr>
+            ))}
             <tr>
-              <th scope="row">1</th>
-              <td>A&E</td>
-              <td>6</td>
-              <td>1315.00</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>A&E</td>
-              <td>6</td>
-              <td>1315.00</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Pharmacy</td>
-              <td>6</td>
-              <td>1315.00</td>
+              <td></td>
+              <td></td>
+              <th>Grand total:</th>
+              <th>₦ {grandTotal.toLocaleString("en-US")}</th>
             </tr>
           </tbody>
         </table>
-        <div className="bottom">
-          <div className="moveToRight">
-            <div className="row">
-              <h5>Grand total</h5>
-            </div>
-            <div className="row">
-              <h5>1315.00</h5>
-            </div>
-          </div>
-        </div>
       </Wrapper>
     </>
   );
