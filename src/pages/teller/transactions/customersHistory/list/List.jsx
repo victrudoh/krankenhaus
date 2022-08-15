@@ -4,13 +4,13 @@ import axios from "axios";
 import { success, error } from "../../../../../helpers/Alert";
 
 // Styles
-import { Wrapper, Top } from "./List.Styles";
+import { Wrapper } from "./List.Styles";
 
 // components
 import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const List = () => {
-  const { loading, setLoading, invoiceCustomers, setSavedInvoice } =
+  const { loading, setLoading, invoiceCustomers, setGetDetails } =
     useContext(AppContext);
 
   let SN = 0;
@@ -33,7 +33,12 @@ const List = () => {
       if (response.status === 200) {
         success("Found payment");
         // show transaction details on screen
-        setSavedInvoice({
+        // setSavedInvoice({
+        //   display: true,
+        //   data: response.data.transaction,
+        //   items: response.data.products,
+        // });
+        setGetDetails({
           display: true,
           data: response.data.transaction,
           items: response.data.products,
@@ -43,6 +48,11 @@ const List = () => {
       error("Couldn't fetch details");
       console.log(err);
       setLoading(false);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
     }
   };
 

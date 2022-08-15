@@ -14,7 +14,7 @@ const List = ({ setIsCustomer }) => {
     loading,
     setLoading,
     transactions,
-    setSavedInvoice,
+    setGetDetails,
     setDisplayCustomer,
     // setShowProductPage,
   } = useContext(AppContext);
@@ -35,11 +35,10 @@ const List = ({ setIsCustomer }) => {
         }
       );
       setLoading(false);
-      // console.log("response", response);
       if (response.status === 200) {
         success("Found payment");
         // show transaction details on screen
-        setSavedInvoice({
+        setGetDetails({
           display: true,
           data: response.data.transaction,
           items: response.data.products,
@@ -97,7 +96,7 @@ const List = ({ setIsCustomer }) => {
                     <td>
                       {item.firstName} {item.lastName}
                     </td>
-                    <td>Bank Bank</td>
+                    <td>{item.teller ? item.teller : "No Teller"}</td>
                     <td value={(totalPrice = totalPrice + item.total)}>
                       {item.total.toLocaleString("en-US")}
                     </td>

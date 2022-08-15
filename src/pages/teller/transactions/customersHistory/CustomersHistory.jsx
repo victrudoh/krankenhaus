@@ -8,20 +8,22 @@ import { Wrapper } from "./CustomersHistory.Styles";
 import List from "./list/List";
 import Panel from "./panel/Panel";
 import ViewInvoice from "../../../user/createInvoice/viewInvoice/ViewInvoice";
+import ViewDetails from "../../../../templates/viewDetails/ViewDetails";
 
 const CustomersHistory = () => {
-  const { savedInvoice } = useContext(AppContext);
+  const { getDetails } = useContext(AppContext);
   return (
     <>
       <Wrapper>
-        {savedInvoice.display === false ? (
+        {getDetails.display === false ? (
           <>
             <List />
             <Panel />
           </>
         ) : (
           <>
-            <ViewInvoice />
+            {/* <ViewInvoice /> */}
+            <ViewDetails />
           </>
         )}
       </Wrapper>

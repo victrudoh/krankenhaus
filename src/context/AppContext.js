@@ -52,6 +52,11 @@ export const AppProvider = ({ children }) => {
   const [unitSummary, setUnitSummary] = useState([]);
   const [trxDisplay, setTrxDisplay] = useState("records");
   const [byUnit, setByUnit] = useState(false); //for display
+  const [getDetails, setGetDetails] = useState({
+    display: false,
+    data: {},
+    items: [],
+  });
 
   // Users Invoice stuff
   const [invoiceUser, setInvoiceUser] = useState({
@@ -305,6 +310,7 @@ export const AppProvider = ({ children }) => {
         trxLength,
         chartData,
         trxDisplay,
+        getDetails,
         deptSummary,
         unitSummary,
         transactions,
@@ -315,6 +321,7 @@ export const AppProvider = ({ children }) => {
         setByUnit,
         setChartData,
         setTrxDisplay,
+        setGetDetails,
         setDeptSummary,
         setUnitSummary,
         setTransactions,

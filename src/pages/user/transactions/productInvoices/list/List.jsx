@@ -4,7 +4,7 @@ import axios from "axios";
 import { success, error } from "../../../../../helpers/Alert";
 
 // Styles
-import { Wrapper, Top } from "./List.Styles";
+import { Wrapper } from "./List.Styles";
 
 // components
 import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";

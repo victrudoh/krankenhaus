@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import AppContext from "../../../../../../context/AppContext";
+import { success, error } from "../../../../../../helpers/Alert";
+import axios from "axios";
 
 // Styles
 import { Wrapper, Top } from "./ProductHistoryList.Styles";
@@ -8,11 +10,55 @@ import { Wrapper, Top } from "./ProductHistoryList.Styles";
 import { CircleSpinner } from "../../../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const ProductHistoryList = ({ setIsCustomer }) => {
-  const { setDisplayCustomer, loading, transactionsByProds } =
-    useContext(AppContext);
+  const {
+    setDisplayCustomer,
+    loading,
+    setLoading,
+    transactionsByProds,
+    setSavedInvoice,
+  } = useContext(AppContext);
+  console.log(
+    "🚀 ~ file: ProductHistoryList.jsx ~ line 12 ~ ProductHistoryList ~ transactionsByProds",
+    transactionsByProds
+  );
 
   let SN = 0;
   let totalPrice = 0;
+
+  const getDetails = async (id) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/transactions/${id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setLoading(false);
+      console.log("response", response);
+      if (response.status === 200) {
+        success("Found payment");
+        // show transaction details on screen
+        setSavedInvoice({
+          display: true,
+          data: response.data.transaction,
+          items: response.data.products,
+        });
+      }
+    } catch (err) {
+      error("Couldn't fetch details");
+      console.log(err);
+      setLoading(false);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
 
   return (
     <>
@@ -21,17 +67,6 @@ const ProductHistoryList = ({ setIsCustomer }) => {
           <button onClick={() => setDisplayCustomer(true)}>
             View Customer Transaction History
           </button>
-          {/* <div className="pair">
-            <form>
-              <input
-                type="search"
-                name="search"
-                id="search"
-                placeholder="Search record"
-              />
-              <button type="submit">Search</button>
-            </form>
-          </div> */}
         </Top>
         {loading ? (
           <CircleSpinner />
@@ -47,21 +82,19 @@ const ProductHistoryList = ({ setIsCustomer }) => {
                   <th scope="col">Description</th>
                   <th scope="col">Qty</th>
                   <th scope="col">Price (₦)</th>
-                  {/* <th scope="col">Status</th> */}
                 </tr>
               </thead>
               <tbody>
                 {transactionsByProds.map((item, i) => (
                   <tr key={i}>
                     <th scope="row">{(SN = SN + 1)}</th>
-                    <td>2022-03-12 17:53:49</td>
+                    <td>{item.date}</td>
                     <td>{item.department}</td>
                     <td>{item.name}</td>
                     <td>{item.quantity}</td>
-                    <td value={(totalPrice = totalPrice + item.total)}>
-                      {item.total.toLocaleString("en-US")}
+                    <td value={(totalPrice = totalPrice + item.price)}>
+                      {item.price.toLocaleString("en-US")}
                     </td>
-                    <td>{item.status}</td>
                   </tr>
                 ))}
                 <tr>
@@ -71,14 +104,12 @@ const ProductHistoryList = ({ setIsCustomer }) => {
                   <td>Andrenaline Inj</td>
                   <td>6</td>
                   <td>150.00</td>
-                  {/* <td>paid</td> */}
                 </tr>
                 <tr>
                   <th></th>
                   <th></th>
                   <th></th>
                   <th>Total</th>
-                  {/* <th></th> */}
                   <th colSpan={2}>₦ {totalPrice.toLocaleString("en-US")}</th>
                 </tr>
               </tbody>

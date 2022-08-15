@@ -54,7 +54,7 @@ const List = () => {
         ) : (
           <>
             <table className="table table-hover caption-top text-center">
-              <caption>Transaction History: Products</caption>
+              <caption>Transaction History: Customers</caption>
               <thead>
                 <tr>
                   <th scope="col">S/N</th>

@@ -1,22 +1,55 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import AppContext from "../../../../../../context/AppContext";
+// import axios from "axios";
+// import { error } from "../../../../../../helpers/Alert";
 
 // Styles
 import { Wrapper, Top, Head } from "./ViewDetails.Styles";
 
 const ViewDetails = () => {
-  const navigate = useNavigate();
+  const { getDetails, setGetDetails } = useContext(AppContext);
+  // const [invoiceCreator, setInvoiceCreator] = useState;
 
-  const goBack = () => {
-    navigate("/superadmin/transactions");
+  // Get active user
+  // const getInvoiceCreator = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://hospital-ms-api.herokuapp.com/users/${getDetails.data.creator}`,
+  //       {
+  //         headers: {
+  //           "content-type": "application/json",
+  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //         },
+  //       }
+  //     );
+  //     setInvoiceCreator(response.data);
+  //   } catch (err) {
+  //     error("Ooops! couldn't fetch invoice creator");
+  //     console.log("~ activeUser ~ error", error);
+  //   }
+  // };
+
+  const close = () => {
+    setGetDetails({
+      display: false,
+      data: {},
+      items: [],
+    });
   };
+
+  // useEffect(() => {
+  // getInvoiceCreator();
+  // });
 
   return (
     <>
       <Wrapper>
         <Head>
-          <h4>Transaction detail: Username</h4>
-          <i class="bx bx-x-circle" onClick={goBack}></i>
+          <h4>
+            Transaction detail: {getDetails.data.firstName}{" "}
+            {getDetails.data.lastName}
+          </h4>
+          <i className="bx bx-x-circle" onClick={close}></i>
         </Head>
         <hr />
         <Top>
