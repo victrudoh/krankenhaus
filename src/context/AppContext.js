@@ -25,6 +25,11 @@ export const AppProvider = ({ children }) => {
   // DEPARTMENTS
   const [departments, setDepartments] = useState([]);
   const [editDeptId, setEditDeptId] = useState();
+  const [editUnit, setEditUnit] = useState({
+    isEditingUnit: false,
+    unitId: "",
+    deptName: "",
+  });
   const [savedDeptId, setSavedDeptId] = useState(); //for privileges
   const [savedDeptName, setSavedDeptName] = useState(); //for department unit products/services
   // to trigger reload of department list
@@ -162,6 +167,7 @@ export const AppProvider = ({ children }) => {
       // );
       if (response.status === 200) {
         setProducts(response.data.products);
+        setProdsByDept(response.data.products);
       }
     } catch (err) {
       error(err.response.data.message);
@@ -279,6 +285,7 @@ export const AppProvider = ({ children }) => {
         // Departments
         addedDept,
         editDeptId,
+        editUnit,
         editedDept,
         departments,
         savedDeptId,
@@ -286,6 +293,7 @@ export const AppProvider = ({ children }) => {
 
         setAddedDept,
         setEditDeptId,
+        setEditUnit,
         SetEditedDept,
         setDepartments,
         getDepartments,

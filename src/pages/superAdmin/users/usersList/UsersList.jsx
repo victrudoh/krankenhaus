@@ -17,10 +17,6 @@ const UsersList = () => {
 
   // Edit user
   const editHandler = (index) => {
-    console.log(
-      "🚀 ~ file: UsersList.jsx ~ line 20 ~ editHandler ~ index",
-      index
-    );
     setEditUser({
       index: index,
       editing: true,
@@ -49,9 +45,7 @@ const UsersList = () => {
     <>
       <Wrapper>
         <Top>
-          <NavLink exact to="/superadmin/userlogs">
-            User logs
-          </NavLink>
+          <NavLink to="/superadmin/userlogs">User logs</NavLink>
           <div className="pair">
             <form>
               <input

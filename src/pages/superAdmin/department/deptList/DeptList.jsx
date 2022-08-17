@@ -31,7 +31,7 @@ const DeptList = ({ setIsEditing }) => {
         {loading ? (
           <CircleSpinner />
         ) : (
-          <table className="table caption-top">
+          <table className="table caption-top text-center">
             <caption>List of departments</caption>
             <thead>
               <tr>
@@ -42,24 +42,34 @@ const DeptList = ({ setIsEditing }) => {
               </tr>
             </thead>
             <tbody>
-              {departments.map((item, i) => (
-                <tr key={i}>
-                  <th scope="row">{(SN = SN + 1)}</th>
-                  <td>{item.department.name}</td>
-                  <td>{item.department.publish === true ? "Yes" : "No"}</td>
-                  <td>
-                    <button onClick={() => editHandler(i)}>
-                      Edit department
-                    </button>
-                    <button
-                      className="mx-3"
-                      onClick={() => gotoPrivilegeHandler(i)}
-                    >
-                      Teller privileges
-                    </button>
-                  </td>
+              {departments.length < 1 ? (
+                <tr>
+                  <td></td>
+                  <td colSpan={2}>No Department to show</td>
+                  <td></td>
                 </tr>
-              ))}
+              ) : (
+                <>
+                  {departments.map((item, i) => (
+                    <tr key={i}>
+                      <th scope="row">{(SN = SN + 1)}</th>
+                      <td>{item.department.name}</td>
+                      <td>{item.department.publish === true ? "Yes" : "No"}</td>
+                      <td>
+                        <button onClick={() => editHandler(i)}>
+                          Edit department
+                        </button>
+                        <button
+                          className="mx-3"
+                          onClick={() => gotoPrivilegeHandler(i)}
+                        >
+                          Teller privileges
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </>
+              )}
             </tbody>
           </table>
         )}

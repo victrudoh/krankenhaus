@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 
 // Styles
 import { Wrapper } from "./DeptUnits.Styles";
@@ -7,19 +7,14 @@ import { Wrapper } from "./DeptUnits.Styles";
 import UnitList from "./unitList/UnitList";
 import AddUnit from "./addUnit/AddUnit";
 import EditUnit from "./editUnit/EditUnit";
+import AppContext from "../../../../context/AppContext";
 
 const DeptUnits = () => {
-  const [isEditing, setIsEditing] = useState(false);
+  const { editUnit } = useContext(AppContext);
   return (
     <Wrapper>
-      <UnitList setIsEditing={setIsEditing} />
-      {isEditing ? (
-        <>
-          <EditUnit isEditing={isEditing} setIsEditing={setIsEditing} />
-        </>
-      ) : (
-        <AddUnit />
-      )}
+      <UnitList />
+      {editUnit.isEditingUnit ? <EditUnit /> : <AddUnit />}
     </Wrapper>
   );
 };

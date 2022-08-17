@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import AppContext from "../../../../context/AppContext";
-import { success, error } from "../../../../helpers/Alert";
+import { error } from "../../../../helpers/Alert";
 import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
 
 // Styles
@@ -17,8 +17,16 @@ const ProductList = () => {
     setEditProduct,
     setDisplayByUnit,
   } = useContext(AppContext);
+  console.log(
+    "🚀 ~ file: ProductList.jsx ~ line 20 ~ ProductList ~ prodsByDept",
+    prodsByDept
+  );
 
   const [sortBy, setSortBy] = useState("");
+  console.log(
+    "🚀 ~ file: ProductList.jsx ~ line 22 ~ ProductList ~ sortBy",
+    sortBy
+  );
 
   let SN = 0;
 
