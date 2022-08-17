@@ -135,6 +135,7 @@ const AddProduct = () => {
                     name="name"
                     id="name"
                     placeholder="Name"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={newUnit.name}
                   />
@@ -146,6 +147,7 @@ const AddProduct = () => {
                     name="price"
                     id="price"
                     placeholder="Price"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={newUnit.price}
                   />
@@ -156,6 +158,7 @@ const AddProduct = () => {
                   <select
                     name="NHIS"
                     id="NHIS"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={newUnit.NHIS}
                   >
@@ -169,6 +172,7 @@ const AddProduct = () => {
                   <select
                     name="publish"
                     id="publish"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={newUnit.publish}
                   >

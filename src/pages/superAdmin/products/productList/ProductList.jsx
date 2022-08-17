@@ -9,6 +9,7 @@ import { Wrapper, Top } from "./ProductList.Styles";
 
 const ProductList = () => {
   const {
+    user,
     loading,
     setLoading,
     departments,
@@ -18,15 +19,11 @@ const ProductList = () => {
     setDisplayByUnit,
   } = useContext(AppContext);
   console.log(
-    "🚀 ~ file: ProductList.jsx ~ line 20 ~ ProductList ~ prodsByDept",
-    prodsByDept
+    "🚀 ~ file: ProductList.jsx ~ line 21 ~ ProductList ~ user",
+    user
   );
 
   const [sortBy, setSortBy] = useState("");
-  console.log(
-    "🚀 ~ file: ProductList.jsx ~ line 22 ~ ProductList ~ sortBy",
-    sortBy
-  );
 
   let SN = 0;
 
@@ -104,7 +101,7 @@ const ProductList = () => {
           <CircleSpinner />
         ) : (
           <>
-            <table className="table table-hover">
+            <table className="table table-striped text-center">
               <thead>
                 <tr>
                   <th scope="col">S/N</th>
@@ -112,6 +109,7 @@ const ProductList = () => {
                   <th scope="col">Product/Service</th>
                   <th scope="col">Price</th>
                   <th scope="col">Publish</th>
+                  {user.role !== "super-admin" && <th scope="col">Action</th>}
                 </tr>
               </thead>
               <tbody>
@@ -119,19 +117,24 @@ const ProductList = () => {
                   <tr>
                     <td></td>
                     <td></td>
-                    <td>No products to show</td>
+                    <td colSpan={2}>No products to show</td>
                     <td></td>
                     <td></td>
                   </tr>
                 ) : (
                   <>
                     {prodsByDept.map((item, i) => (
-                      <tr key={i} onClick={() => editHandler(i)}>
+                      <tr key={i}>
                         <th scope="row">{(SN = SN + 1)}</th>
-                        <td>{foundDept[0].department.name}</td>
+                        <td>{item.department}</td>
                         <td>{item.name}</td>
                         <td>{item.price}</td>
                         <td>{item.publish ? "Yes" : "No"}</td>
+                        {user.role !== "super-admin" && (
+                          <td>
+                            <button onClick={() => editHandler(i)}>Edit</button>
+                          </td>
+                        )}
                       </tr>
                     ))}
                   </>

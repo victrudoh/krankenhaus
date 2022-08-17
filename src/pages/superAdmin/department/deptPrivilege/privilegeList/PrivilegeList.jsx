@@ -32,7 +32,10 @@ const PrivilegeList = () => {
           },
         }
       );
-      // console.log("response", response);
+      // console.log(
+      //   "🚀 ~ file: PrivilegeList.jsx ~ line 39 ~ getPriv ~ response",
+      //   response
+      // );
       if (response.status === 200) {
         success("Fetched privileges");
         setPrivs(response.data.privileges);

@@ -174,7 +174,7 @@ const AddItem = () => {
             <CircleSpinner />
           ) : (
             <form onSubmit={addItem}>
-              <div className="pair">
+              {/* <div className="pair">
                 <label>Auto add product:</label>
                 <input
                   type="text"
@@ -184,7 +184,7 @@ const AddItem = () => {
                   onChange={onchangeHandler}
                   // defaultValue={newItem.userName}
                 />
-              </div>
+              </div> */}
               <div className="pair">
                 <label>Department:</label>
                 <select

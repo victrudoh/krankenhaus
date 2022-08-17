@@ -12,6 +12,11 @@ const ViewUnit = () => {
   const { savedDeptName, loading, setLoading, prodsByUnit, setProdsByUnit } =
     useContext(AppContext);
 
+  console.log(
+    "🚀 ~ file: ViewUnit.jsx ~ line 13 ~ ViewUnit ~ prodsByUnit",
+    prodsByUnit
+  );
+
   const [units, setUnits] = useState([]);
   const [sortParams, setSortParams] = useState({
     unit: "",
@@ -63,10 +68,10 @@ const ViewUnit = () => {
           },
         }
       );
-      // console.log(
-      //   "🚀 ~ file: ViewUnit.jsx ~ line 63 ~ getProducts ~ response",
-      //   response
-      // );
+      console.log(
+        "🚀 ~ file: ViewUnit.jsx ~ line 63 ~ getProducts ~ response",
+        response
+      );
       setLoading(false);
       if (response.status === 200) {
         success("fetched products successfully");
@@ -149,7 +154,7 @@ const ViewUnit = () => {
                   </tr>
                 ) : (
                   <>
-                    {prodsByUnit.map((item, i) => (
+                    {prodsByUnit.products.map((item, i) => (
                       <tr key={i}>
                         <th scope="row">{(SN = SN + 1)}</th>
                         <td>{savedDeptName}</td>

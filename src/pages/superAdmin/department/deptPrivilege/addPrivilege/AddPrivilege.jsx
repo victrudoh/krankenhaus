@@ -80,9 +80,10 @@ const AddPrivilege = () => {
   const addPriv = async (e) => {
     e.preventDefault();
     try {
-      // setLoading(true);
+      setLoading(true);
       const response = await axios.post(
-        `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
+        `https://hospital-ms-api.herokuapp.com/departments/unit/new?departmentId=4${foundDept.id}`,
+        // `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
         {
           headers: {
             "content-type": "application/json",
@@ -90,14 +91,21 @@ const AddPrivilege = () => {
           },
         }
       );
+      console.log(
+        "🚀 ~ file: AddPrivilege.jsx ~ line 93 ~ addPriv ~ response",
+        response
+      );
       setLoading(false);
-      console.log("response", response);
       if (response.status === 200) {
         success(`Added privilege`);
-        // setAllPrivs(response.data.privileges);
+        setAllPrivs(response.data.privileges);
       }
     } catch (err) {
-      console.log("🚀 ~ file: AddPrivilege.jsx ~ line 72 ~ addPriv ~ err", err);
+      setLoading(false);
+      console.log(
+        "🚀 ~ file: AddPrivilege.jsx ~ line 103 ~ addPriv ~ err",
+        err
+      );
       error("Couldn't fetch privileges");
       // if (err.response.status === 401) {
       //   error(err.response.data.message);

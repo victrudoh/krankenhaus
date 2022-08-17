@@ -77,7 +77,7 @@ const ProductHistoryList = ({ setIsCustomer }) => {
               <thead>
                 <tr>
                   <th scope="col">S/N</th>
-                  <th scope="col">Payment date</th>
+                  {/* <th scope="col">Payment date</th> */}
                   <th scope="col">Department</th>
                   <th scope="col">Description</th>
                   <th scope="col">Qty</th>
@@ -88,7 +88,7 @@ const ProductHistoryList = ({ setIsCustomer }) => {
                 {transactionsByProds.map((item, i) => (
                   <tr key={i}>
                     <th scope="row">{(SN = SN + 1)}</th>
-                    <td>{item.date}</td>
+                    {/* <td>{item.date}</td> */}
                     <td>{item.department}</td>
                     <td>{item.name}</td>
                     <td>{item.quantity}</td>
@@ -99,7 +99,7 @@ const ProductHistoryList = ({ setIsCustomer }) => {
                 ))}
                 <tr>
                   <th scope="row">2</th>
-                  <td>2022-03-12 19:33:03</td>
+                  {/* <td>2022-03-12 19:33:03</td> */}
                   <td>Pharmacy</td>
                   <td>Andrenaline Inj</td>
                   <td>6</td>

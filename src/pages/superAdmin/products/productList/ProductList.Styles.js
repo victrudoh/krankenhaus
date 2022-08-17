@@ -13,6 +13,26 @@ export const Wrapper = styled.div`
     cursor: pointer;
   }
 
+  button {
+    background-color: var(--accent-color);
+    box-shadow: var(--box-shadow);
+    padding: 0.3rem 1rem;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: var(--text-white);
+    font-weight: 500;
+
+    &:hover {
+      background-color: var(--secondary-color);
+      color: var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+      padding: 0.3rem;
+      font-weight: 300;
+    }
+  }
+
   @media (max-width: 1024px) {
     width: 95%;
     margin: 0 auto;
