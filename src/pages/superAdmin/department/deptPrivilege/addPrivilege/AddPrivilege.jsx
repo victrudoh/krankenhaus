@@ -51,30 +51,27 @@ const AddPrivilege = () => {
     }
   };
 
-  // const addPriv = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     setLoading(true);
-  //     const response = await axios.post(
-  //       `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
-  //       {
-  //         headers: {
-  //           "content-type": "application/json",
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       }
-  //     );
-  //     // console.log("getDepartments ~ response", response);
-  //     setLoading(false);
-  //   } catch (err) {
-  //     error(err.response.data.message);
-  //     // if (err.response.status === 401) {
-  //     //   error("Unauthorized");
-  //     //   localStorage.removeItem("token");
-  //     //   window.location.reload(false);
-  //     // }
-  //   }
-  // };
+  const submit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: AddPrivilege.jsx ~ line 66 ~ submit ~ response",
+        response
+      );
+    } catch (err) {
+      console.log("🚀 ~ file: AddPrivilege.jsx ~ line 71 ~ submit ~ err", err);
+      error("Couldn't add privilege");
+    }
+  };
 
   // Add privilege
   const addPriv = async (e) => {
@@ -82,8 +79,7 @@ const AddPrivilege = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `https://hospital-ms-api.herokuapp.com/departments/unit/new?departmentId=4${foundDept.id}`,
-        // `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
+        `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
         {
           headers: {
             "content-type": "application/json",
@@ -135,7 +131,7 @@ const AddPrivilege = () => {
           <CircleSpinner />
         ) : (
           <>
-            <form onSubmit={addPriv}>
+            <form onSubmit={submit}>
               <div className="pair">
                 <label>Privilege:</label>
                 <select
