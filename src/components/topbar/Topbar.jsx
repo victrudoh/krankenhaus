@@ -15,7 +15,7 @@ import {
 } from "./Topbar.Styles";
 
 const Topbar = ({ title, setTitle }) => {
-  const { user } = useContext(AppContext);
+  const { user, topbarName } = useContext(AppContext);
 
   const notifications = "Scribble scribble";
 
@@ -36,7 +36,7 @@ const Topbar = ({ title, setTitle }) => {
   return (
     <Wrapper>
       <TopbarLeft>
-        {title}
+        {topbarName}
         {/* || {test} */}
         {/* <span
           className="bx bx-menu"

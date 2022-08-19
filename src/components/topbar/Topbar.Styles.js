@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     font-size: 0.7rem;
-    width: 100%;
+    /* width: 100%; */
   }
 `;
 
@@ -80,9 +80,9 @@ export const User = styled.div`
   flex-direction: column;
   align-items: end;
 
-  @media screen and (max-width: 768px) {
+  /* @media screen and (max-width: 768px) {
     display: none;
-  }
+  } */
 `;
 
 export const UserName = styled.div`

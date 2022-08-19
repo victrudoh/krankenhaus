@@ -10,6 +10,7 @@ export const AppProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState({});
   const [printing, setPrinting] = useState(false);
+  const [topbarName, setTopbarName] = useState("");
 
   // USERS
   const [users, setUsers] = useState([]);
@@ -264,11 +265,13 @@ export const AppProvider = ({ children }) => {
         token,
         loading,
         printing,
+        topbarName,
 
         setUser,
         setToken,
         setLoading,
         setPrinting,
+        setTopbarName,
 
         // Users
         users,

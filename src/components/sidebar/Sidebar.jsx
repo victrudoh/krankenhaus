@@ -16,7 +16,7 @@ import "./sidebar.css";
 import AppContext from "../../context/AppContext";
 
 const Sidebar = () => {
-  const { user } = useContext(AppContext);
+  const { user, setTopbarName } = useContext(AppContext);
   // const [superAdmin, setSuperAdmin] = useState(false);
   // const [revenue, setRevenue] = useState(false);
 
@@ -61,22 +61,31 @@ const Sidebar = () => {
             {user.access === "full" ? (
               <CDBSidebarContent className="sidebar-content">
                 <CDBSidebarMenu>
-                  <NavLink to="/">
+                  <NavLink to="/" onClick={() => setTopbarName("Dashboard")}>
                     <CDBSidebarMenuItem icon="table" className="onHover">
                       Dashboard
                     </CDBSidebarMenuItem>
                   </NavLink>
-                  <NavLink to="/superadmin/users">
+                  <NavLink
+                    to="/superadmin/users"
+                    onClick={() => setTopbarName("Users")}
+                  >
                     <CDBSidebarMenuItem icon="users" className="onHover">
                       Users
                     </CDBSidebarMenuItem>
                   </NavLink>
-                  <NavLink to="/superadmin/department">
+                  <NavLink
+                    to="/superadmin/department"
+                    onClick={() => setTopbarName("Departments")}
+                  >
                     <CDBSidebarMenuItem icon="building" className="onHover">
                       Departments
                     </CDBSidebarMenuItem>
                   </NavLink>
-                  <NavLink to="/superadmin/products">
+                  <NavLink
+                    to="/superadmin/products"
+                    onClick={() => setTopbarName("Products")}
+                  >
                     <CDBSidebarMenuItem
                       icon="box"
                       /*cross*/ className="onHover"
@@ -84,12 +93,18 @@ const Sidebar = () => {
                       Products/Services
                     </CDBSidebarMenuItem>
                   </NavLink>
-                  <NavLink to="/superadmin/transactions">
+                  <NavLink
+                    to="/superadmin/transactions"
+                    onClick={() => setTopbarName("Transactions")}
+                  >
                     <CDBSidebarMenuItem icon="wallet" className="onHover">
                       Transactions
                     </CDBSidebarMenuItem>
                   </NavLink>
-                  <NavLink to="/superadmin/config">
+                  <NavLink
+                    to="/superadmin/config"
+                    onClick={() => setTopbarName("Configurations")}
+                  >
                     <CDBSidebarMenuItem icon="flag" className="onHover">
                       Config
                     </CDBSidebarMenuItem>
@@ -108,21 +123,30 @@ const Sidebar = () => {
                   <>
                     <CDBSidebarContent className="sidebar-content">
                       <CDBSidebarMenu>
-                        <NavLink to="/teller/payment">
+                        <NavLink
+                          to="/teller/payment"
+                          onClick={() => setTopbarName("Make Payment")}
+                        >
                           <CDBSidebarMenuItem icon="pen" className="onHover">
                             Make Payment
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenu>
                       <CDBSidebarMenu>
-                        <NavLink to="/teller/transactions">
+                        <NavLink
+                          to="/teller/transactions"
+                          onClick={() => setTopbarName("Transactions")}
+                        >
                           <CDBSidebarMenuItem icon="wallet" className="onHover">
                             Transaction History
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenu>
                       <CDBSidebarMenu>
-                        <NavLink to="/teller/config">
+                        <NavLink
+                          to="/teller/config"
+                          onClick={() => setTopbarName("Configurations")}
+                        >
                           <CDBSidebarMenuItem icon="flag" className="onHover">
                             Config
                           </CDBSidebarMenuItem>
@@ -134,28 +158,40 @@ const Sidebar = () => {
                   <>
                     <CDBSidebarContent className="sidebar-content">
                       <CDBSidebarMenu>
-                        <NavLink to="/user/invoice">
+                        <NavLink
+                          to="/user/invoice"
+                          onClick={() => setTopbarName("Create Invoice")}
+                        >
                           <CDBSidebarMenuItem icon="pen" className="onHover">
                             Create Invoice
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenu>
                       <CDBSidebarMenu>
-                        <NavLink to="/user/payment">
+                        <NavLink
+                          to="/user/payment"
+                          onClick={() => setTopbarName("Track Payment")}
+                        >
                           <CDBSidebarMenuItem icon="wallet" className="onHover">
                             Track Payment
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenu>
                       <CDBSidebarMenu>
-                        <NavLink to="/user/transactions">
+                        <NavLink
+                          to="/user/transactions"
+                          onClick={() => setTopbarName("Transactions")}
+                        >
                           <CDBSidebarMenuItem icon="list" className="onHover">
                             Transaction History
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenu>
                       <CDBSidebarMenu>
-                        <NavLink to="/user/config">
+                        <NavLink
+                          to="/user/config"
+                          onClick={() => setTopbarName("Configuration")}
+                        >
                           <CDBSidebarMenuItem icon="flag" className="onHover">
                             Config
                           </CDBSidebarMenuItem>
