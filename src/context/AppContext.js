@@ -117,7 +117,7 @@ export const AppProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://hospital-ms-api.herokuapp.com/users",
+        "https://hospital-ms-api.herokuapp.com/users?page=1&size=5",
         {
           headers: {
             "content-type": "application/json",

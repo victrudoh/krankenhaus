@@ -24,6 +24,7 @@ const AddPrivilege = () => {
   const getAllPrivs = async () => {
     try {
       // console.log("privs", privs);
+      // setLoading(true);
       const response = await axios.get(
         `https://hospital-ms-api.herokuapp.com/departments/privileges/all`,
         {
@@ -37,11 +38,13 @@ const AddPrivilege = () => {
       //   "🚀 ~ file: AddPrivilege.jsx ~ line 36 ~ getAllPrivs ~ response",
       //   response
       // );
+      // setLoading(false);
       if (response.status === 200) {
         success("Fetched all privileges");
         setAllPrivs(response.data.privileges);
       }
     } catch (err) {
+      setLoading(false);
       error("Couldn't fetch privileges");
       if (err.response.status === 401) {
         error(err.response.data.message);
@@ -54,8 +57,10 @@ const AddPrivilege = () => {
   const submit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post(
         `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
+        {},
         {
           headers: {
             "content-type": "application/json",
@@ -63,11 +68,17 @@ const AddPrivilege = () => {
           },
         }
       );
+      setLoading(false);
       console.log(
         "🚀 ~ file: AddPrivilege.jsx ~ line 66 ~ submit ~ response",
         response
       );
+      if (response.status === 200) {
+        success("Added privilege");
+        getAllPrivs();
+      }
     } catch (err) {
+      setLoading(false);
       console.log("🚀 ~ file: AddPrivilege.jsx ~ line 71 ~ submit ~ err", err);
       error("Couldn't add privilege");
     }
@@ -80,6 +91,7 @@ const AddPrivilege = () => {
       setLoading(true);
       const response = await axios.post(
         `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
+        {},
         {
           headers: {
             "content-type": "application/json",
@@ -131,7 +143,7 @@ const AddPrivilege = () => {
           <CircleSpinner />
         ) : (
           <>
-            <form onSubmit={submit}>
+            <form onSubmit={addPriv}>
               <div className="pair">
                 <label>Privilege:</label>
                 <select

@@ -10,14 +10,9 @@ import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinne
 import { Content, Wrapper } from "./AddUser.Styles";
 
 const AddUser = () => {
-  const {
-    loading,
-    getUsers,
-    setLoading,
-    departments,
-    setAddedUser,
-    getDepartments,
-  } = useContext(AppContext);
+  const { user, loading, getUsers, setLoading, departments, setAddedUser } =
+    useContext(AppContext);
+  console.log("🚀 ~ file: AddUser.jsx ~ line 22 ~ AddUser ~ user", user.role);
 
   const [unit, setUnit] = useState([]);
 
@@ -123,6 +118,7 @@ const AddUser = () => {
             <CircleSpinner />
           ) : (
             <form onSubmit={addUser}>
+              {/* firstname */}
               <div className="pair">
                 <label>First name:</label>
                 <input
@@ -135,6 +131,7 @@ const AddUser = () => {
                   defaultValue={newUser.firstName}
                 />
               </div>
+              {/* lastname */}
               <div className="pair">
                 <label>Last name:</label>
                 <input
@@ -147,6 +144,7 @@ const AddUser = () => {
                   defaultValue={newUser.lastName}
                 />
               </div>
+              {/* username */}
               <div className="pair">
                 <label>Username:</label>
                 <input
@@ -159,88 +157,389 @@ const AddUser = () => {
                   defaultValue={newUser.userName}
                 />
               </div>
-              <div className="pair">
-                <label>Department:</label>
-                <select
-                  name="department"
-                  id="department"
-                  required
-                  onChange={onchangeHandler}
-                  defaultValue={newUser.department}
-                >
-                  <option value="">Select department</option>
-                  {departments.map((item, i) => (
-                    <option key={i} value={item.department.name}>
-                      {item.department.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              {newUser.department && (
+
+              {/* HOSPITAL ADMIN */}
+              {user.role === "hospital-admin" ? (
                 <>
+                  {/* department */}
                   <div className="pair">
-                    <label>Unit:</label>
+                    <label>Department:</label>
                     <select
-                      name="unit"
-                      id="unit"
+                      name="department"
+                      id="department"
                       required
                       onChange={onchangeHandler}
-                      defaultValue={newUser.unit}
+                      defaultValue={newUser.department}
                     >
-                      <option value="">Select unit</option>
-                      {unit.map((item, i) => (
-                        <option key={i} value={item.name}>
-                          {item.name}
+                      <option value="">Select department</option>
+                      {departments.map((item, i) => (
+                        <>
+                          {item.department.name === "Bank" ? (
+                            ""
+                          ) : (
+                            <option key={i} value={item.department.name}>
+                              {item.department.name}
+                            </option>
+                          )}
+                        </>
+                      ))}
+                    </select>
+                  </div>
+                  {/* unit */}
+                  {newUser.department && (
+                    <>
+                      <div className="pair">
+                        <label>Unit:</label>
+                        <select
+                          name="unit"
+                          id="unit"
+                          required
+                          onChange={onchangeHandler}
+                          defaultValue={newUser.unit}
+                        >
+                          <option value="">Select unit</option>
+                          {unit.map((item, i) => (
+                            <option key={i} value={item.name}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </>
+                  )}
+                  {/* password */}
+                  <div className="pair">
+                    <label>Password:</label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      required
+                      placeholder="password"
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.password}
+                    />
+                  </div>
+                  {/* role */}
+                  <div className="pair">
+                    <label>Account type:</label>
+                    <select
+                      name="role"
+                      id="role"
+                      required
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.password}
+                    >
+                      <option>Select role</option>
+                      <option value="hospital-admin">Admin</option>
+                      <option value="user">User</option>
+                    </select>
+                  </div>
+                  {/* privilege */}
+                  <div className="pair">
+                    <label>Privilege:</label>
+                    <select
+                      name="access"
+                      id="access"
+                      required
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.access}
+                    >
+                      <option>Select privilege</option>
+                      <option value="full">Full</option>
+                      <option value="limited">Limited</option>
+                    </select>
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
+
+              {/* BANK ADMIN */}
+              {user.role === "bank-admin" ? (
+                <>
+                  {/* department */}
+                  <div className="pair">
+                    <label>Department:</label>
+                    <select
+                      name="department"
+                      id="department"
+                      required
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.department}
+                    >
+                      <option value="">Select department</option>
+                      {departments.map((item, i) => (
+                        <>
+                          {item.department.name === "Bank" ? (
+                            <option key={i} value={item.department.name}>
+                              {item.department.name}
+                            </option>
+                          ) : (
+                            ""
+                          )}
+                        </>
+                      ))}
+                    </select>
+                  </div>
+                  {/* unit */}
+                  {newUser.department && (
+                    <>
+                      <div className="pair">
+                        <label>Unit:</label>
+                        <select
+                          name="unit"
+                          id="unit"
+                          required
+                          onChange={onchangeHandler}
+                          defaultValue={newUser.unit}
+                        >
+                          <option value="">Select unit</option>
+                          {unit.map((item, i) => (
+                            <option key={i} value={item.name}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </>
+                  )}
+                  {/* password */}
+                  <div className="pair">
+                    <label>Password:</label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      required
+                      placeholder="password"
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.password}
+                    />
+                  </div>
+                  {/* role */}
+                  <div className="pair">
+                    <label>Account type:</label>
+                    <select
+                      name="role"
+                      id="role"
+                      required
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.password}
+                    >
+                      <option>Select role</option>
+                      <option value="bank-admin">Admin</option>
+                      <option value="teller">User</option>
+                    </select>
+                  </div>
+                  {/* privilege */}
+                  <div className="pair">
+                    <label>Privilege:</label>
+                    <select
+                      name="access"
+                      id="access"
+                      required
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.access}
+                    >
+                      <option>Select privilege</option>
+                      <option value="full">Full</option>
+                      <option value="limited">Limited</option>
+                    </select>
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
+
+              {/* SUPER ADMIN */}
+              {user.role === "super-admin" ? (
+                <>
+                  {/* department */}
+                  <div className="pair">
+                    <label>Department:</label>
+                    <select
+                      name="department"
+                      id="department"
+                      required
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.department}
+                    >
+                      <option value="">Select department</option>
+                      {departments.map((item, i) => (
+                        <option key={i} value={item.department.name}>
+                          {item.department.name}
                         </option>
                       ))}
                     </select>
                   </div>
+                  {/* unit */}
+                  {newUser.department && (
+                    <>
+                      <div className="pair">
+                        <label>Unit:</label>
+                        <select
+                          name="unit"
+                          id="unit"
+                          required
+                          onChange={onchangeHandler}
+                          defaultValue={newUser.unit}
+                        >
+                          <option value="">Select unit</option>
+                          {unit.map((item, i) => (
+                            <option key={i} value={item.name}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </>
+                  )}
+                  {/* password */}
+                  <div className="pair">
+                    <label>Password:</label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      required
+                      placeholder="password"
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.password}
+                    />
+                  </div>
+                  {/* role */}
+                  <div className="pair">
+                    <label>Account type:</label>
+                    <select
+                      name="role"
+                      id="role"
+                      required
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.password}
+                    >
+                      <option>Select role</option>
+                      <option value="super-admin">Super admin</option>
+                      <option value="bank-admin">Bank admin</option>
+                      <option value="hospital-admin">Hospital admin</option>
+                      <option value="admin">Admin</option>
+                      <option value="teller">Teller</option>
+                      <option value="user">User</option>
+                    </select>
+                  </div>
+                  {/* privilege */}
+                  <div className="pair">
+                    <label>Privilege:</label>
+                    <select
+                      name="access"
+                      id="access"
+                      required
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.access}
+                    >
+                      <option>Select privilege</option>
+                      <option value="full">Full</option>
+                      <option value="limited">Limited</option>
+                    </select>
+                  </div>
                 </>
+              ) : (
+                ""
               )}
-              <div className="pair">
-                <label>Password:</label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  required
-                  placeholder="password"
-                  onChange={onchangeHandler}
-                  defaultValue={newUser.password}
-                />
-              </div>
-              <div className="pair">
-                <label>Account type:</label>
-                <select
-                  name="role"
-                  id="role"
-                  required
-                  onChange={onchangeHandler}
-                  defaultValue={newUser.password}
-                >
-                  <option>Select role</option>
-                  <option value="super-admin">Super admin</option>
-                  <option value="bank-admin">Bank admin</option>
-                  <option value="hospital-admin">Hospital admin</option>
-                  <option value="admin">Admin</option>
-                  <option value="teller">Teller</option>
-                  <option value="user">User</option>
-                </select>
-              </div>
-              <div className="pair">
-                <label>Privilege:</label>
-                <select
-                  name="access"
-                  id="access"
-                  required
-                  onChange={onchangeHandler}
-                  defaultValue={newUser.access}
-                >
-                  <option>Select privilege</option>
-                  <option value="full">Full</option>
-                  <option value="limited">Limited</option>
-                </select>
-              </div>
+
+              {/* ADMIN */}
+              {user.role === "admin" ? (
+                <>
+                  {/* department */}
+                  <div className="pair">
+                    <label>Department:</label>
+                    <select
+                      name="department"
+                      id="department"
+                      required
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.department}
+                    >
+                      <option value="">Select department</option>
+                      {departments.map((item, i) => (
+                        <option key={i} value={item.department.name}>
+                          {item.department.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  {/* unit */}
+                  {newUser.department && (
+                    <>
+                      <div className="pair">
+                        <label>Unit:</label>
+                        <select
+                          name="unit"
+                          id="unit"
+                          required
+                          onChange={onchangeHandler}
+                          defaultValue={newUser.unit}
+                        >
+                          <option value="">Select unit</option>
+                          {unit.map((item, i) => (
+                            <option key={i} value={item.name}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </>
+                  )}
+                  {/* password */}
+                  <div className="pair">
+                    <label>Password:</label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      required
+                      placeholder="password"
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.password}
+                    />
+                  </div>
+                  {/* role */}
+                  <div className="pair">
+                    <label>Account type:</label>
+                    <select
+                      name="role"
+                      id="role"
+                      required
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.password}
+                    >
+                      <option>Select role</option>
+                      <option value="admin">Admin</option>
+                      <option value="bank-admin">Bank admin</option>
+                      <option value="hospital-admin">Hospital admin</option>
+                      <option value="teller">Teller</option>
+                      <option value="user">User</option>
+                    </select>
+                  </div>
+                  {/* privilege */}
+                  <div className="pair">
+                    <label>Privilege:</label>
+                    <select
+                      name="access"
+                      id="access"
+                      required
+                      onChange={onchangeHandler}
+                      defaultValue={newUser.access}
+                    >
+                      <option>Select privilege</option>
+                      <option value="full">Full</option>
+                      <option value="limited">Limited</option>
+                    </select>
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
               <button type="submit">Add user</button>
             </form>
           )}
