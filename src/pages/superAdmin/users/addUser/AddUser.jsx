@@ -422,6 +422,7 @@ const AddUser = () => {
                       <option value="super-admin">Super admin</option>
                       <option value="bank-admin">Bank admin</option>
                       <option value="hospital-admin">Hospital admin</option>
+                      <option value="pharmacy-admin">Pharmacy admin</option>
                       <option value="admin">Admin</option>
                       <option value="teller">Teller</option>
                       <option value="user">User</option>

@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppContext from "./context/AppContext";
-import { success } from "./helpers/Alert";
 
 // Components
 import Layout from "./components/layout/Layout";
 import AuthLayout from "./components/appLayouts/AuthLayout";
 import UserLayout from "./components/appLayouts/UserLayout";
 import TellerLayout from "./components/appLayouts/TellerLayout";
+import PharmacyLayout from "./components/appLayouts/PharmacyLayout";
 
 const SwitchLayout = () => {
   const token = localStorage.getItem("token");
@@ -19,6 +19,9 @@ const SwitchLayout = () => {
       return <AuthLayout />;
     } else {
       if (user.access === "full") {
+        if (user.role === "pharmacy-admin") {
+          return <PharmacyLayout />;
+        }
         return <Layout />;
       } else if (user.access === "limited") {
         if (user.role === "teller") {

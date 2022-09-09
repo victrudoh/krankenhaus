@@ -59,61 +59,137 @@ const Sidebar = () => {
 
             {/* SUPER ADMIN */}
             {user.access === "full" ? (
-              <CDBSidebarContent className="sidebar-content">
-                <CDBSidebarMenu>
-                  <NavLink to="/" onClick={() => setTopbarName("Dashboard")}>
-                    <CDBSidebarMenuItem icon="table" className="onHover">
-                      Dashboard
-                    </CDBSidebarMenuItem>
-                  </NavLink>
-                  <NavLink
-                    to="/superadmin/users"
-                    onClick={() => setTopbarName("Users")}
-                  >
-                    <CDBSidebarMenuItem icon="users" className="onHover">
-                      Users
-                    </CDBSidebarMenuItem>
-                  </NavLink>
-                  <NavLink
-                    to="/superadmin/department"
-                    onClick={() => setTopbarName("Departments")}
-                  >
-                    <CDBSidebarMenuItem icon="building" className="onHover">
-                      Departments
-                    </CDBSidebarMenuItem>
-                  </NavLink>
-                  <NavLink
-                    to="/superadmin/products"
-                    onClick={() => setTopbarName("Products")}
-                  >
-                    <CDBSidebarMenuItem
-                      icon="box"
-                      /*cross*/ className="onHover"
-                    >
-                      Products/Services
-                    </CDBSidebarMenuItem>
-                  </NavLink>
-                  <NavLink
-                    to="/superadmin/transactions"
+              <>
+                {user.role === "pharmacy-admin" ? (
+                  <>
+                    <CDBSidebarContent className="sidebar-content">
+                      <CDBSidebarMenu>
+                        <NavLink
+                          to="/"
+                          onClick={() => setTopbarName("Dashboard")}
+                        >
+                          <CDBSidebarMenuItem icon="table" className="onHover">
+                            Dashboard
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink
+                          to="/pharmacyadmin/products"
+                          onClick={() => setTopbarName("Pharmacy Products")}
+                        >
+                          <CDBSidebarMenuItem icon="box" className="onHover">
+                            Products
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink
+                          to="/pharmacyadmin/stores"
+                          onClick={() => setTopbarName("Pharmacy Stores")}
+                        >
+                          <CDBSidebarMenuItem
+                            icon="building"
+                            className="onHover"
+                          >
+                            Stores
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink
+                          to="/pharmacyadmin/suppliers"
+                          onClick={() => setTopbarName("Pharmacy Suppliers")}
+                        >
+                          <CDBSidebarMenuItem
+                            icon="box"
+                            /*cross*/ className="onHover"
+                          >
+                            Suppliers
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                        {/* <NavLink
+                    to="/pharmacyadmin/transactions"
                     onClick={() => setTopbarName("Transactions")}
                   >
                     <CDBSidebarMenuItem icon="wallet" className="onHover">
                       Transactions
                     </CDBSidebarMenuItem>
-                  </NavLink>
-                  <NavLink
-                    to="/superadmin/config"
-                    onClick={() => setTopbarName("Configurations")}
-                  >
-                    <CDBSidebarMenuItem icon="flag" className="onHover">
-                      Config
-                    </CDBSidebarMenuItem>
-                  </NavLink>
-                </CDBSidebarMenu>
-              </CDBSidebarContent>
+                  </NavLink> */}
+                        <NavLink
+                          to="/pharmacyadmin/config"
+                          onClick={() => setTopbarName("Configurations")}
+                        >
+                          <CDBSidebarMenuItem icon="flag" className="onHover">
+                            Config
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                    </CDBSidebarContent>
+                  </>
+                ) : (
+                  <>
+                    <CDBSidebarContent className="sidebar-content">
+                      <CDBSidebarMenu>
+                        <NavLink
+                          to="/"
+                          onClick={() => setTopbarName("Dashboard")}
+                        >
+                          <CDBSidebarMenuItem icon="table" className="onHover">
+                            Dashboard
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink
+                          to="/superadmin/users"
+                          onClick={() => setTopbarName("Users")}
+                        >
+                          <CDBSidebarMenuItem icon="users" className="onHover">
+                            Users
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink
+                          to="/superadmin/department"
+                          onClick={() => setTopbarName("Departments")}
+                        >
+                          <CDBSidebarMenuItem
+                            icon="building"
+                            className="onHover"
+                          >
+                            Departments
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink
+                          to="/superadmin/products"
+                          onClick={() => setTopbarName("Products")}
+                        >
+                          <CDBSidebarMenuItem
+                            icon="box"
+                            /*cross*/ className="onHover"
+                          >
+                            Products/Services
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink
+                          to="/superadmin/transactions"
+                          onClick={() => setTopbarName("Transactions")}
+                        >
+                          <CDBSidebarMenuItem icon="wallet" className="onHover">
+                            Transactions
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink
+                          to="/superadmin/config"
+                          onClick={() => setTopbarName("Configurations")}
+                        >
+                          <CDBSidebarMenuItem icon="flag" className="onHover">
+                            Config
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                    </CDBSidebarContent>
+                  </>
+                )}
+              </>
             ) : (
               ""
             )}
+
+            {/* PHARMACY ADMIN */}
+            {user.access === "full" && user.role === "pharmacy-admin" ? "" : ""}
 
             {/* USER */}
             {user.access === "limited" ? (

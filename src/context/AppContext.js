@@ -89,6 +89,9 @@ export const AppProvider = ({ children }) => {
     transactions: [],
   });
 
+  // PHARMACY ADMIN
+  const [pharmProdDisplay, setPharmProdDisplay] = "available";
+
   // **************** //
   //*** FUNCTIONS ***//
   // **************** //
@@ -117,7 +120,7 @@ export const AppProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://hospital-ms-api.herokuapp.com/users?page=1&size=5",
+        "https://hospital-ms-api.herokuapp.com/users?page=0&size=15",
         {
           headers: {
             "content-type": "application/json",
@@ -360,6 +363,11 @@ export const AppProvider = ({ children }) => {
         // setSavedProductInvoice,
         // setSavedCustomerInvoice,
         setTransactionDisplayPage,
+
+        // Pharmacy Admin
+        pharmProdDisplay,
+
+        setPharmProdDisplay,
       }}
     >
       {children}
