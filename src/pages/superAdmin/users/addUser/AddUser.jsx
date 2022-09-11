@@ -12,7 +12,6 @@ import { Content, Wrapper } from "./AddUser.Styles";
 const AddUser = () => {
   const { user, loading, getUsers, setLoading, departments, setAddedUser } =
     useContext(AppContext);
-  console.log("🚀 ~ file: AddUser.jsx ~ line 22 ~ AddUser ~ user", user.role);
 
   const [unit, setUnit] = useState([]);
 

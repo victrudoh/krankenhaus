@@ -94,8 +94,13 @@ export const AppProvider = ({ children }) => {
   // INVENTORY STUFF (Pharmacy admin)
   //************/
   //*******/
-  const [pharmProdDisplay, setPharmProdDisplay] = "available";
+  const [pharmProdDisplay, setPharmProdDisplay] = useState("available");
   const [inventoryProds, setInventoryProds] = useState([]);
+  const [inventorySuppliers, setInventorySuppliers] = useState([]);
+  const [editSupplier, setEditSupplier] = useState({
+    index: "",
+    editing: false,
+  });
 
   // **************** //
   //*** FUNCTIONS ***//
@@ -253,6 +258,7 @@ export const AppProvider = ({ children }) => {
 
   // get All products
   const getInventoryProducts = async () => {
+    getInventorySuppliers();
     try {
       setLoading(true);
       const response = await axios.get(
@@ -282,6 +288,33 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const getInventorySuppliers = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/inventory/suppliers/all?page=0&size=15`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setLoading(false);
+      console.log("getSuppliers ~ response", response);
+      if (response.status === 200) {
+        setInventorySuppliers(response.data);
+      }
+    } catch (err) {
+      error(err.response.data.message);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
   // fetch everything on startup
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -293,6 +326,7 @@ export const AppProvider = ({ children }) => {
       getTrxLength();
       setTransactions([]);
       getInventoryProducts();
+      getInventorySuppliers();
       // setPrinting(false);
     }
   }, []);
@@ -407,10 +441,17 @@ export const AppProvider = ({ children }) => {
         // setSavedCustomerInvoice,
         setTransactionDisplayPage,
 
-        // Pharmacy Admin
+        // INVENTORY (Pharmacy Admin)
+        editSupplier,
+        inventoryProds,
         pharmProdDisplay,
+        inventorySuppliers,
 
+        setEditSupplier,
+        setInventoryProds,
         setPharmProdDisplay,
+        setInventorySuppliers,
+        getInventorySuppliers,
       }}
     >
       {children}
