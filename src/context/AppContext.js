@@ -89,8 +89,13 @@ export const AppProvider = ({ children }) => {
     transactions: [],
   });
 
-  // PHARMACY ADMIN
+  //*******/
+  //************/
+  // INVENTORY STUFF (Pharmacy admin)
+  //************/
+  //*******/
   const [pharmProdDisplay, setPharmProdDisplay] = "available";
+  const [inventoryProds, setInventoryProds] = useState([]);
 
   // **************** //
   //*** FUNCTIONS ***//
@@ -240,6 +245,43 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  //*******/
+  //************/
+  // INVENTORY STUFF (Pharmacy admin)
+  //************/
+  //*******/
+
+  // get All products
+  const getInventoryProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/inventory/products/add`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setLoading(false);
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 152 ~ getProducts ~ response",
+        response
+      );
+      if (response.status === 200) {
+        setInventoryProds(response.data.products);
+      }
+    } catch (err) {
+      error(err.response.data.message);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
   // fetch everything on startup
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -250,6 +292,7 @@ export const AppProvider = ({ children }) => {
       getProducts();
       getTrxLength();
       setTransactions([]);
+      getInventoryProducts();
       // setPrinting(false);
     }
   }, []);
