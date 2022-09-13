@@ -8,7 +8,8 @@ import { CircleSpinner } from "../../../../../../components/circleSpinner/Circle
 import { Wrapper, Content } from "./AddProduct.Styles";
 
 const AddProduct = () => {
-  const { loading, setLoading } = useContext(AppContext);
+  const { loading, setLoading, setInventoryProds, inventorySuppliers } =
+    useContext(AppContext);
 
   const [newProduct, setNewProduct] = useState({
     name: "",
@@ -36,10 +37,10 @@ const AddProduct = () => {
           },
         }
       );
-      console.log("~ response", response);
       setLoading(false);
       if (response.status === 200) {
         success("Created new product successfully");
+        setInventoryProds(response.data.product);
       }
     } catch (err) {
       error("Psych! couldn't add product");
@@ -95,7 +96,7 @@ const AddProduct = () => {
                     defaultValue={newProduct.brand}
                   />
                 </div>
-                <div className="pair">
+                {/* <div className="pair">
                   <label>Supplier:</label>
                   <input
                     type="text"
@@ -106,6 +107,24 @@ const AddProduct = () => {
                     onChange={onchangeHandler}
                     defaultValue={newProduct.supplier}
                   />
+                </div> */}
+                {/* supplier */}
+                <div className="pair">
+                  <label>Supplier:</label>
+                  <select
+                    name="supplier"
+                    id="supplier"
+                    required
+                    onChange={onchangeHandler}
+                    defaultValue={newProduct.supplier}
+                  >
+                    <option value="">Select supplier</option>
+                    {inventorySuppliers.map((item, i) => (
+                      <option key={i} value={item.name}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="pair">
                   <label>Cost Price:</label>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 // styles
 import { Wrapper, Top } from "./AvailableList.Styles";
@@ -8,10 +8,29 @@ import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpi
 import AppContext from "../../../../../context/AppContext";
 
 const AvailableList = () => {
-  const { loading, setLoading } = useContext(AppContext);
+  const { loading, setLoading, inventoryProds } = useContext(AppContext);
 
-  setLoading(false);
   const [filtered, setFiltered] = useState([]);
+
+  let SN = 1;
+
+  // SearchBar Handler
+  const onSearchCangeHandler = async (e) => {
+    try {
+      e.preventDefault();
+      const filteredUser = inventoryProds.filter((item) =>
+        item.userName.toLowerCase().includes(e.target.value.toLocaleLowerCase())
+      );
+      setFiltered(filteredUser);
+    } catch (err) {
+      return err;
+    }
+  };
+
+  // populate filtered with inventoryProds on page load
+  useEffect(() => {
+    setFiltered(inventoryProds);
+  }, []);
 
   return (
     <>

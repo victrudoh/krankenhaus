@@ -262,7 +262,7 @@ export const AppProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/inventory/products/add`,
+        `https://hospital-ms-api.herokuapp.com/inventory/products/all?page=0&size=15`,
         {
           headers: {
             "content-type": "application/json",
