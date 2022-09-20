@@ -60,6 +60,7 @@ const Sidebar = () => {
             {/* SUPER ADMIN */}
             {user.access === "full" ? (
               <>
+                {/* Pharmacy Admin */}
                 {user.role === "pharmacy-admin" ? (
                   <>
                     <CDBSidebarContent className="sidebar-content">
@@ -81,14 +82,14 @@ const Sidebar = () => {
                           </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink
-                          to="/pharmacyadmin/stores"
+                          to="/pharmacyadmin/units"
                           onClick={() => setTopbarName("Pharmacy Stores")}
                         >
                           <CDBSidebarMenuItem
                             icon="building"
                             className="onHover"
                           >
-                            Stores
+                            Stores/Units
                           </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink
@@ -123,6 +124,7 @@ const Sidebar = () => {
                   </>
                 ) : (
                   <>
+                    {/* Super Admin */}
                     <CDBSidebarContent className="sidebar-content">
                       <CDBSidebarMenu>
                         <NavLink

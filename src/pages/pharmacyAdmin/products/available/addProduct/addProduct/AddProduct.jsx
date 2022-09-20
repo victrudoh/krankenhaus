@@ -24,7 +24,7 @@ const AddProduct = () => {
 
   const addProduct = async (e) => {
     try {
-      console.log("newProduct: ", newProduct);
+      // console.log("newProduct: ", newProduct);
       e.preventDefault();
       setLoading(true);
       const response = await axios.post(
@@ -44,7 +44,7 @@ const AddProduct = () => {
       }
     } catch (err) {
       error("Psych! couldn't add product");
-      console.log(err);
+      // console.log(err);
       setLoading(false);
       if (err.response.status === 401) {
         error("Unauthorized");

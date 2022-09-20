@@ -20,6 +20,7 @@ const EditSupplier = () => {
   const [updateSupplier, setUpdateSupplier] = useState({
     name: "",
     contact: "",
+    account: "",
     address: "",
   });
 
@@ -27,16 +28,20 @@ const EditSupplier = () => {
   const foundSupplier = inventorySuppliers[editSupplier.index];
 
   const submit = async (e) => {
-    console.log("updateSupplier", updateSupplier);
+    // console.log("updateSupplier", updateSupplier);
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.put(`#${foundSupplier.id}`, updateSupplier, {
-        headers: {
-          "content-type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.put(
+        `https://hospital-ms-api.herokuapp.com/inventory/suppliers/edit?id=${foundSupplier.id}`,
+        updateSupplier,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       setLoading(false);
       if (response.status === 200) {
         success("Updated supplier successfully");
@@ -70,7 +75,7 @@ const EditSupplier = () => {
     setUpdateSupplier(() => ({
       ...foundSupplier,
     }));
-    console.log(updateSupplier);
+    // console.log(updateSupplier);
   }, [foundSupplier]);
 
   return (
@@ -101,6 +106,18 @@ const EditSupplier = () => {
                 placeholder="Supplier contact"
                 onChange={onchangeHandler}
                 defaultValue={foundSupplier.contact}
+              />
+            </div>
+            <div className="pair">
+              <label>Account Details:</label>
+              <input
+                type="text"
+                name="account"
+                id="account"
+                required
+                placeholder="Account Details"
+                onChange={onchangeHandler}
+                defaultValue={foundSupplier.account}
               />
             </div>
             <div className="pair">

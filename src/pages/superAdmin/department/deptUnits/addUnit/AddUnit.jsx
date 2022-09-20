@@ -19,10 +19,7 @@ const AddUnit = () => {
 
   const addunit = async (e) => {
     e.preventDefault();
-    console.log(
-      "🚀 ~ file: AddUnit.jsx ~ line 19 ~ AddUnit ~ newUnit",
-      newUnit
-    );
+    console.log("newUnit", newUnit);
     try {
       setLoading(true);
       const response = await axios.post(
@@ -41,7 +38,7 @@ const AddUnit = () => {
       );
       setLoading(false);
       if (response.status === 200) {
-        success("Creeated new department successfully");
+        success("Created new department successfully");
         getDepartments();
         // setAddedDept(response.status);
       }

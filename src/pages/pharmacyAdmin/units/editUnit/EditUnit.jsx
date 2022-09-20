@@ -1,54 +1,34 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import AppContext from "../../../../../context/AppContext";
-import { success, error, info } from "../../../../../helpers/Alert";
-import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
+import AppContext from "../../../../context/AppContext";
+import { success, error, info } from "../../../../helpers/Alert";
+import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
 
-// Styles
+// styles
 import { Wrapper, Content } from "./EditUnit.Styles";
 
 const EditUnit = () => {
-  const { loading, setLoading, editUnit, setEditUnit, getDepartments } =
-    useContext(AppContext);
+  const {
+    loading,
+    setLoading,
+    getDepartments,
+    getPharmacyUnits,
+    editInventoryUnit,
+    setEditInventoryUnit,
+  } = useContext(AppContext);
 
-  const [foundUnit, setFoundUnit] = useState({});
   const [updateUnit, setUpdateUnit] = useState({
     name: "",
-    // account: "none",
+    // account: "",
     publish: "",
   });
-
-  const fetchUnits = async () => {
-    try {
-      const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/departments/units?name=${editUnit.deptName}`,
-        {
-          headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      const matchFound = response.data.units.filter(
-        (unit) => unit.id === editUnit.unitId
-      );
-      setFoundUnit(matchFound[0]);
-    } catch (err) {
-      err("Couldn't fetch units");
-      if (err.response.status === 401) {
-        error("Unauthorized");
-        localStorage.removeItem("token");
-        window.location.reload(false);
-      }
-    }
-  };
 
   const submit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
       const response = await axios.put(
-        `https://hospital-ms-api.herokuapp.com/departments/units/edit?id=${foundUnit.id}`,
+        `https://hospital-ms-api.herokuapp.com/departments/units/edit?id=${editInventoryUnit.unit.id}`,
         updateUnit,
         {
           headers: {
@@ -60,12 +40,14 @@ const EditUnit = () => {
       setLoading(false);
       if (response.status === 200) {
         success("Updated unit successfully");
-        setEditUnit({
+        setEditInventoryUnit({
           isEditingUnit: false,
-          unitId: "",
+          unit: {},
           deptName: "",
         });
         getDepartments();
+        getPharmacyUnits();
+        setLoading(false);
       }
     } catch (err) {
       error("Psych! can't update unit");
@@ -88,17 +70,12 @@ const EditUnit = () => {
   };
 
   const cancelEditHandler = () => {
-    setEditUnit({
+    setEditInventoryUnit({
       isEditingUnit: false,
-      unitId: "",
+      unit: {},
       deptName: "",
     });
   };
-
-  useEffect(() => {
-    info("Fetching unit data, please wait");
-    fetchUnits();
-  }, []);
 
   return (
     <Wrapper>
@@ -111,7 +88,7 @@ const EditUnit = () => {
             <form onSubmit={submit}>
               <div className="pair">
                 <label>Department:</label>
-                <h4>{editUnit.deptName}</h4>
+                <h4>{editInventoryUnit.deptName}</h4>
               </div>
               <div className="pair">
                 <label>Unit:</label>
@@ -121,16 +98,27 @@ const EditUnit = () => {
                   id="name"
                   placeholder="Unit name"
                   onChange={onchangeHandler}
-                  defaultValue={foundUnit.name}
+                  defaultValue={editInventoryUnit.unit.name}
                 />
               </div>
+              {/* <div className="pair">
+                <label>Account:</label>
+                <input
+                  type="text"
+                  name="account"
+                  id="account"
+                  placeholder="Account Details"
+                  onChange={onchangeHandler}
+                  defaultValue={editInventoryUnit.unit.account}
+                />
+              </div> */}
               <div className="pair">
                 <label>Publish:</label>
                 <select
                   name="publish"
                   id="publish"
                   onChange={onchangeHandler}
-                  defaultValue={foundUnit.publish}
+                  defaultValue={editInventoryUnit.unit.publish}
                 >
                   <option>Publish</option>
                   <option value="true">True</option>

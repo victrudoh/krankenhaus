@@ -13,7 +13,7 @@ const SwitchLayout = () => {
   const token = localStorage.getItem("token");
   const { user } = useContext(AppContext);
 
-  console.log("Switch Layout");
+  // console.log("Switch Layout");
   const SelectedDisplay = () => {
     if (!token) {
       return <AuthLayout />;

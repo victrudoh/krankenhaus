@@ -11,7 +11,7 @@ import SwitchLayout from "./SwitchLayout";
 // import Layout from "./components/layout/Layout";
 
 function App() {
-  console.log("App.js");
+  // console.log("App.js");
   // const token = localStorage.getItem("token");
   return (
     <div className="App">

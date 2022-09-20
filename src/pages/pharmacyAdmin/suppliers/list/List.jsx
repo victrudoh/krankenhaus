@@ -69,6 +69,7 @@ const List = () => {
                   <th scope="col">S/N</th>
                   <th scope="col">Name</th>
                   <th scope="col">Contact</th>
+                  <th scope="col">Account</th>
                   <th scope="col">Address</th>
                 </tr>
               </thead>
@@ -78,6 +79,7 @@ const List = () => {
                     <th scope="row">{SN++}</th>
                     <td>{item.name}</td>
                     <td>{item.contact}</td>
+                    <td>{!item.account ? "No account" : item.account}</td>
                     <td>{item.address}</td>
                   </tr>
                 ))}

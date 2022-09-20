@@ -15,6 +15,7 @@ const Panel = () => {
   const [newSupplier, setNewSupplier] = useState({
     name: "",
     contact: "",
+    account: "",
     address: "",
   });
 
@@ -85,6 +86,18 @@ const Panel = () => {
                   placeholder="Contact"
                   onChange={onchangeHandler}
                   defaultValue={newSupplier.contact}
+                />
+              </div>
+              <div className="pair">
+                <label>Account Details:</label>
+                <input
+                  type="text"
+                  name="account"
+                  id="account"
+                  required
+                  placeholder="Account Details"
+                  onChange={onchangeHandler}
+                  defaultValue={newSupplier.account}
                 />
               </div>
               {/* address */}

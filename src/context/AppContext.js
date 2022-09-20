@@ -97,9 +97,16 @@ export const AppProvider = ({ children }) => {
   const [pharmProdDisplay, setPharmProdDisplay] = useState("available");
   const [inventoryProds, setInventoryProds] = useState([]);
   const [inventorySuppliers, setInventorySuppliers] = useState([]);
+  const [deptForInventory, setDeptForInventory] = useState([]);
+  const [pharmacyUnits, setPharmacyUnits] = useState([]);
   const [editSupplier, setEditSupplier] = useState({
     index: "",
     editing: false,
+  });
+  const [editInventoryUnit, setEditInventoryUnit] = useState({
+    isEditingUnit: false,
+    unit: {},
+    deptName: "",
   });
 
   // **************** //
@@ -138,7 +145,7 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log("getUsers ~ response", response);
+      // console.log("getUsers ~ response", response);
       setLoading(false);
       setUsers(response.data);
     } catch (err) {
@@ -258,11 +265,11 @@ export const AppProvider = ({ children }) => {
 
   // get All products
   const getInventoryProducts = async () => {
-    getInventorySuppliers();
+    // getInventorySuppliers();
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/inventory/products/all?page=0&size=15`,
+        `https://hospital-ms-api.herokuapp.com/inventory/products/all?size=2&page=0`,
         {
           headers: {
             "content-type": "application/json",
@@ -279,6 +286,7 @@ export const AppProvider = ({ children }) => {
         setInventoryProds(response.data.products);
       }
     } catch (err) {
+      setLoading(false);
       error(err.response.data.message);
       if (err.response.status === 401) {
         error("Unauthorized");
@@ -301,7 +309,7 @@ export const AppProvider = ({ children }) => {
         }
       );
       setLoading(false);
-      console.log("getSuppliers ~ response", response);
+      // console.log("getSuppliers ~ response", response);
       if (response.status === 200) {
         setInventorySuppliers(response.data);
       }
@@ -315,7 +323,70 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const getPharmacyUnits = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/departments/units?name=Pharmacy`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setLoading(false);
+      // console.log("getPharmacyUnits ~ response", response);
+      if (response.status === 200) {
+        setPharmacyUnits(response.data.units);
+      }
+    } catch (err) {
+      error(err.response.data.message);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
+  const getInventoryDept = async () => {
+    try {
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/departments/`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setLoading(false);
+      // console.log(
+      //   "🚀 ~ file: AddUnit.jsx ~ line 36 ~ getDept ~ response",
+      //   response
+      // );
+
+      if (response.status === 200) {
+        setDeptForInventory(response.data.departments);
+      }
+    } catch (err) {
+      setLoading(false);
+      error(err.response.data.message);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
+  //*******/
+  //************/
   // fetch everything on startup
+  //************/
+  //*******/
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -325,14 +396,17 @@ export const AppProvider = ({ children }) => {
       getProducts();
       getTrxLength();
       setTransactions([]);
+
+      // INVENTORY STUFF
+      getInventoryDept();
+      getPharmacyUnits();
       getInventoryProducts();
       getInventorySuppliers();
-      // setPrinting(false);
     }
   }, []);
 
   useEffect(() => {
-    if (user.access === "full") {
+    if (user.role === "super-admin") {
       getDepartments();
     }
   }, [user]);
@@ -443,13 +517,20 @@ export const AppProvider = ({ children }) => {
 
         // INVENTORY (Pharmacy Admin)
         editSupplier,
+        pharmacyUnits,
         inventoryProds,
         pharmProdDisplay,
+        deptForInventory,
+        editInventoryUnit,
         inventorySuppliers,
 
         setEditSupplier,
+        setPharmacyUnits,
+        getPharmacyUnits,
         setInventoryProds,
         setPharmProdDisplay,
+        setDeptForInventory,
+        setEditInventoryUnit,
         setInventorySuppliers,
         getInventorySuppliers,
       }}
