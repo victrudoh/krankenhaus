@@ -97,10 +97,15 @@ export const AppProvider = ({ children }) => {
   const [pharmProdDisplay, setPharmProdDisplay] = useState("available");
   const [inventoryProds, setInventoryProds] = useState([]);
   const [inventorySuppliers, setInventorySuppliers] = useState([]);
+  const [inventoryMeasuringUnit, setInventoryMeasuringUnit] = useState([]);
   const [deptForInventory, setDeptForInventory] = useState([]);
   const [pharmacyUnits, setPharmacyUnits] = useState([]);
   const [editSupplier, setEditSupplier] = useState({
     index: "",
+    editing: false,
+  });
+  const [editMeasuringUnit, setEditMeasuringUnit] = useState({
+    unit: {},
     editing: false,
   });
   const [editInventoryUnit, setEditInventoryUnit] = useState({
@@ -278,10 +283,10 @@ export const AppProvider = ({ children }) => {
         }
       );
       setLoading(false);
-      console.log(
-        "🚀 ~ file: AppContext.js ~ line 152 ~ getProducts ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.js ~ line 152 ~ getProducts ~ response",
+      //   response
+      // );
       if (response.status === 200) {
         setInventoryProds(response.data.products);
       }
@@ -381,6 +386,37 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const getInventoryMeasuringUnit = async () => {
+    try {
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/inventory/measuring-unit/all`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 396 ~ getInventoryMeasuringUnit ~ response",
+        response
+      );
+      setLoading(false);
+
+      if (response.status === 200) {
+        setInventoryMeasuringUnit(response.data);
+      }
+    } catch (err) {
+      setLoading(false);
+      error(err.response.data.message);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
   //*******/
   //************/
   // fetch everything on startup
@@ -402,6 +438,7 @@ export const AppProvider = ({ children }) => {
       getPharmacyUnits();
       getInventoryProducts();
       getInventorySuppliers();
+      getInventoryMeasuringUnit();
     }
   }, []);
 
@@ -521,8 +558,10 @@ export const AppProvider = ({ children }) => {
         inventoryProds,
         pharmProdDisplay,
         deptForInventory,
+        editMeasuringUnit,
         editInventoryUnit,
         inventorySuppliers,
+        inventoryMeasuringUnit,
 
         setEditSupplier,
         setPharmacyUnits,
@@ -531,8 +570,11 @@ export const AppProvider = ({ children }) => {
         setPharmProdDisplay,
         setDeptForInventory,
         setEditInventoryUnit,
+        setEditMeasuringUnit,
         setInventorySuppliers,
         getInventorySuppliers,
+        getInventoryMeasuringUnit,
+        setInventoryMeasuringUnit,
       }}
     >
       {children}

@@ -89,7 +89,7 @@ const Sidebar = () => {
                             icon="building"
                             className="onHover"
                           >
-                            Stores/Units
+                            Stores
                           </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink
@@ -103,14 +103,14 @@ const Sidebar = () => {
                             Suppliers
                           </CDBSidebarMenuItem>
                         </NavLink>
-                        {/* <NavLink
-                    to="/pharmacyadmin/transactions"
-                    onClick={() => setTopbarName("Transactions")}
-                  >
-                    <CDBSidebarMenuItem icon="wallet" className="onHover">
-                      Transactions
-                    </CDBSidebarMenuItem>
-                  </NavLink> */}
+                        <NavLink
+                          to="/pharmacyadmin/measuring_units"
+                          onClick={() => setTopbarName("Measuring Units")}
+                        >
+                          <CDBSidebarMenuItem icon="jar" className="onHover">
+                            Measuring Units
+                          </CDBSidebarMenuItem>
+                        </NavLink>
                         <NavLink
                           to="/pharmacyadmin/config"
                           onClick={() => setTopbarName("Configurations")}
