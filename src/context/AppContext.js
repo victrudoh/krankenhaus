@@ -100,6 +100,10 @@ export const AppProvider = ({ children }) => {
   const [inventoryMeasuringUnit, setInventoryMeasuringUnit] = useState([]);
   const [deptForInventory, setDeptForInventory] = useState([]);
   const [pharmacyUnits, setPharmacyUnits] = useState([]);
+  const [editInventoryProduct, setEditInventoryProduct] = useState({
+    product: {},
+    action: "", //edit, view, "" for none
+  });
   const [editSupplier, setEditSupplier] = useState({
     index: "",
     editing: false,
@@ -282,13 +286,10 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
+      // console.log("getInventoryProducts ~ response", response);
       setLoading(false);
-      // console.log(
-      //   "🚀 ~ file: AppContext.js ~ line 152 ~ getProducts ~ response",
-      //   response
-      // );
       if (response.status === 200) {
-        setInventoryProds(response.data.products);
+        setInventoryProds(response.data);
       }
     } catch (err) {
       setLoading(false);
@@ -341,7 +342,7 @@ export const AppProvider = ({ children }) => {
         }
       );
       setLoading(false);
-      // console.log("getPharmacyUnits ~ response", response);
+      console.log("getPharmacyUnits ~ response", response);
       if (response.status === 200) {
         setPharmacyUnits(response.data.units);
       }
@@ -397,14 +398,14 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: AppContext.js ~ line 396 ~ getInventoryMeasuringUnit ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.js ~ line 396 ~ getInventoryMeasuringUnit ~ response",
+      //   response
+      // );
       setLoading(false);
 
       if (response.status === 200) {
-        setInventoryMeasuringUnit(response.data);
+        setInventoryMeasuringUnit(response.data.measuringUnits);
       }
     } catch (err) {
       setLoading(false);
@@ -561,6 +562,7 @@ export const AppProvider = ({ children }) => {
         editMeasuringUnit,
         editInventoryUnit,
         inventorySuppliers,
+        editInventoryProduct,
         inventoryMeasuringUnit,
 
         setEditSupplier,
@@ -571,8 +573,10 @@ export const AppProvider = ({ children }) => {
         setDeptForInventory,
         setEditInventoryUnit,
         setEditMeasuringUnit,
+        getInventoryProducts,
         setInventorySuppliers,
         getInventorySuppliers,
+        setEditInventoryProduct,
         getInventoryMeasuringUnit,
         setInventoryMeasuringUnit,
       }}

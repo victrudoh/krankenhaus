@@ -13,6 +13,8 @@ const List = () => {
   const { loading, inventoryMeasuringUnit, setEditMeasuringUnit } =
     useContext(AppContext);
 
+  console.log("inventoryMeasuringUnit", inventoryMeasuringUnit);
+
   let SN = 1;
 
   // Edit user

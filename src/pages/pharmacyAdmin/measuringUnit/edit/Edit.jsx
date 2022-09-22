@@ -38,6 +38,10 @@ const Edit = () => {
       setLoading(false);
       if (response.status === 200) {
         success("Updated measuring unit successfully");
+        setEditMeasuringUnit({
+          unit: "",
+          editing: false,
+        });
         getInventoryMeasuringUnit();
       }
     } catch (err) {
@@ -73,11 +77,11 @@ const Edit = () => {
   return (
     <>
       <Wrapper>
-        <h5>Edit User</h5>
+        <h5>Edit Unit</h5>
         <Content>
           <form onSubmit={submit}>
             <div className="pair">
-              <label>Supplier ame:</label>
+              <label>Measuring unit name:</label>
               <input
                 type="text"
                 name="name"

@@ -45,6 +45,10 @@ const EditSupplier = () => {
       setLoading(false);
       if (response.status === 200) {
         success("Updated supplier successfully");
+        setEditSupplier({
+          index: "",
+          editing: false,
+        });
         getInventorySuppliers();
       }
     } catch (err) {

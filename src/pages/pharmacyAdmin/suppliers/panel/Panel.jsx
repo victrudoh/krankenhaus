@@ -113,7 +113,7 @@ const Panel = () => {
                   defaultValue={newSupplier.address}
                 />
               </div>
-              <button type="submit">Add user</button>
+              <button type="submit">Add Supplier</button>
             </form>
           )}
         </Content>

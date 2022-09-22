@@ -82,7 +82,7 @@ const Sidebar = () => {
                           </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink
-                          to="/pharmacyadmin/units"
+                          to="/pharmacyadmin/stores"
                           onClick={() => setTopbarName("Pharmacy Stores")}
                         >
                           <CDBSidebarMenuItem
@@ -107,7 +107,7 @@ const Sidebar = () => {
                           to="/pharmacyadmin/measuring_units"
                           onClick={() => setTopbarName("Measuring Units")}
                         >
-                          <CDBSidebarMenuItem icon="jar" className="onHover">
+                          <CDBSidebarMenuItem icon="box" className="onHover">
                             Measuring Units
                           </CDBSidebarMenuItem>
                         </NavLink>

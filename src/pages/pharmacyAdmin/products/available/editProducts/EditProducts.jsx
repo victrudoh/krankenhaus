@@ -1,22 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import AppContext from "../../../../../context/AppContext";
+import { success, error } from "../../../../../helpers/Alert";
+import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
 import axios from "axios";
-import AppContext from "../../../../../../context/AppContext";
-import { success, error } from "../../../../../../helpers/Alert";
-import { CircleSpinner } from "../../../../../../components/circleSpinner/CircleSpinner.Styles";
 
-// styles
-import { Wrapper, Content } from "./AddProduct.Styles";
+//styles
+import { Wrapper, Content } from "./EditProducts.Styles";
 
-const AddProduct = () => {
+const EditProducts = () => {
   const {
     loading,
     setLoading,
-    setInventoryProds,
     inventorySuppliers,
+    getInventoryProducts,
+    editInventoryProduct,
     inventoryMeasuringUnit,
+    setEditInventoryProduct,
   } = useContext(AppContext);
 
-  const [newProduct, setNewProduct] = useState({
+  const [updateProducts, setUpdateProducts] = useState({
     name: "",
     brand: "",
     supplier: "",
@@ -27,14 +29,14 @@ const AddProduct = () => {
     expiryDate: "",
   });
 
-  const addProduct = async (e) => {
+  const submit = async (e) => {
+    // console.log("updateProducts", updateProducts);
+    e.preventDefault();
     try {
-      // console.log("newProduct: ", newProduct);
-      e.preventDefault();
       setLoading(true);
-      const response = await axios.post(
-        "https://hospital-ms-api.herokuapp.com/inventory/products/add",
-        newProduct,
+      const response = await axios.put(
+        `https://hospital-ms-api.herokuapp.com/inventory/products/edit?id=${editInventoryProduct.product.id}`,
+        updateProducts,
         {
           headers: {
             "content-type": "application/json",
@@ -44,39 +46,53 @@ const AddProduct = () => {
       );
       setLoading(false);
       if (response.status === 200) {
-        success("Created new product successfully");
-        setInventoryProds(response.data.product);
+        success("Updated product successfully");
+        setEditInventoryProduct({
+          product: "",
+          action: "",
+        });
+        getInventoryProducts();
       }
     } catch (err) {
-      error("Psych! couldn't add product");
-      // console.log(err);
+      error("Psych! can't update Product");
+      console.log(err);
       setLoading(false);
-      if (err.response.status === 401) {
-        error("Unauthorized");
-        localStorage.removeItem("token");
-        window.location.reload(false);
-      }
     }
+  };
+
+  // onclick "cancel"
+  const quitEditHandler = () => {
+    setEditInventoryProduct({
+      product: "",
+      action: "",
+    });
   };
 
   const onchangeHandler = (e) => {
     e.persist();
-    setNewProduct(() => ({
-      ...newProduct,
+    setUpdateProducts((item) => ({
+      ...item,
       [e.target.name]: e.target.value,
     }));
   };
 
+  // populate fields
+  useEffect(() => {
+    setUpdateProducts(() => ({
+      ...editInventoryProduct.product,
+    }));
+  }, []);
+
   return (
     <>
       <Wrapper>
-        <h5>Add Product</h5>
+        <h5>Edit Product</h5>
         <Content>
           {loading ? (
             <CircleSpinner />
           ) : (
             <>
-              <form onSubmit={addProduct}>
+              <form onSubmit={submit}>
                 <div className="pair">
                   <label>Name:</label>
                   <input
@@ -86,7 +102,7 @@ const AddProduct = () => {
                     placeholder="Name"
                     required
                     onChange={onchangeHandler}
-                    defaultValue={newProduct.name}
+                    defaultValue={editInventoryProduct.product.name}
                   />
                 </div>
                 <div className="pair">
@@ -98,10 +114,9 @@ const AddProduct = () => {
                     placeholder="Brand"
                     required
                     onChange={onchangeHandler}
-                    defaultValue={newProduct.brand}
+                    defaultValue={editInventoryProduct.product.brand}
                   />
                 </div>
-                {/* supplier */}
                 <div className="pair">
                   <label>Supplier:</label>
                   <select
@@ -109,7 +124,7 @@ const AddProduct = () => {
                     id="supplier"
                     required
                     onChange={onchangeHandler}
-                    defaultValue={newProduct.supplier}
+                    defaultValue={editInventoryProduct.product.supplier}
                   >
                     <option>Select supplier</option>
                     {inventorySuppliers.map((item, i) => (
@@ -128,7 +143,7 @@ const AddProduct = () => {
                     placeholder="Quantity"
                     required
                     onChange={onchangeHandler}
-                    defaultValue={newProduct.quantity}
+                    defaultValue={editInventoryProduct.product.quantity}
                   />
                 </div>
                 <div className="pair">
@@ -140,7 +155,7 @@ const AddProduct = () => {
                     placeholder="Cost Price"
                     required
                     onChange={onchangeHandler}
-                    defaultValue={newProduct.costPrice}
+                    defaultValue={editInventoryProduct.product.costPrice}
                   />
                 </div>
                 <div className="pair">
@@ -152,7 +167,7 @@ const AddProduct = () => {
                     placeholder="Sell Price"
                     required
                     onChange={onchangeHandler}
-                    defaultValue={newProduct.sellPrice}
+                    defaultValue={editInventoryProduct.product.sellPrice}
                   />
                 </div>
 
@@ -163,7 +178,7 @@ const AddProduct = () => {
                     id="measuringUnit"
                     required
                     onChange={onchangeHandler}
-                    defaultValue={newProduct.measuringUnit}
+                    defaultValue={editInventoryProduct.product.measuringUnit}
                   >
                     <option>Select option</option>
                     {inventoryMeasuringUnit.map((item, i) => (
@@ -182,10 +197,13 @@ const AddProduct = () => {
                     placeholder="Expiry Date"
                     required
                     onChange={onchangeHandler}
-                    defaultValue={newProduct.expiryDate}
+                    defaultValue={editInventoryProduct.product.expiryDate}
                   />
                 </div>
-                <button type="submit">Add Product</button>
+                <button type="submit">Edit Product</button>
+                <button className="mx-3" onClick={quitEditHandler}>
+                  Cancel
+                </button>
               </form>
             </>
           )}
@@ -195,4 +213,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProducts;

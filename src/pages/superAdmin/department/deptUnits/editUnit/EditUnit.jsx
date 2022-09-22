@@ -14,7 +14,6 @@ const EditUnit = () => {
   const [foundUnit, setFoundUnit] = useState({});
   const [updateUnit, setUpdateUnit] = useState({
     name: "",
-    // account: "none",
     publish: "",
   });
 
@@ -46,6 +45,7 @@ const EditUnit = () => {
   const submit = async (e) => {
     e.preventDefault();
     try {
+      console.log("updateUnit, Super Admin: ", updateUnit);
       setLoading(true);
       const response = await axios.put(
         `https://hospital-ms-api.herokuapp.com/departments/units/edit?id=${foundUnit.id}`,
@@ -119,6 +119,7 @@ const EditUnit = () => {
                   type="text"
                   name="name"
                   id="name"
+                  required
                   placeholder="Unit name"
                   onChange={onchangeHandler}
                   defaultValue={foundUnit.name}
@@ -129,6 +130,7 @@ const EditUnit = () => {
                 <select
                   name="publish"
                   id="publish"
+                  required
                   onChange={onchangeHandler}
                   defaultValue={foundUnit.publish}
                 >

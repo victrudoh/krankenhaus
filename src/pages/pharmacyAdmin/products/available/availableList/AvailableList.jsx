@@ -8,18 +8,33 @@ import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpi
 import AppContext from "../../../../../context/AppContext";
 
 const AvailableList = () => {
-  const { loading, setLoading, inventoryProds } = useContext(AppContext);
+  const { loading, inventoryProds, setEditInventoryProduct } =
+    useContext(AppContext);
 
   const [filtered, setFiltered] = useState([]);
 
   let SN = 1;
+
+  const editHandler = (item) => {
+    setEditInventoryProduct({
+      product: item,
+      action: "edit",
+    });
+  };
+
+  const viewHandler = (item) => {
+    setEditInventoryProduct({
+      product: item,
+      action: "view",
+    });
+  };
 
   // SearchBar Handler
   const onSearchCangeHandler = async (e) => {
     try {
       e.preventDefault();
       const filteredUser = inventoryProds.filter((item) =>
-        item.userName.toLowerCase().includes(e.target.value.toLocaleLowerCase())
+        item.name.toLowerCase().includes(e.target.value.toLocaleLowerCase())
       );
       setFiltered(filteredUser);
     } catch (err) {
@@ -44,7 +59,7 @@ const AvailableList = () => {
                 name="search"
                 id="search"
                 placeholder="Search Product Name"
-                // onChange={onSearchCangeHandler}
+                onChange={onSearchCangeHandler}
               />
               <button type="submit">Search</button>
             </form>
@@ -53,33 +68,38 @@ const AvailableList = () => {
         {loading ? (
           <CircleSpinner />
         ) : (
-          <table className="table table-hover">
+          <table className="table table-striped text-center">
             <>
               <thead>
                 <tr>
                   <th scope="col">S/N</th>
                   <th scope="col">Name</th>
                   <th scope="col">Brand</th>
-                  <th scope="col">Supplier</th>
+                  {/* <th scope="col">Supplier</th> */}
                   <th scope="col">Quantity</th>
-                  <th scope="col">Cost Price</th>
+                  {/* <th scope="col">Cost Price</th> */}
                   <th scope="col">Sell Price</th>
-                  <th scope="col">Unit</th>
+                  {/* <th scope="col">Unit</th> */}
+                  <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {/* {filtered.map((item, i) => (
-                  <tr key={i} onClick={() => editHandler(i)}>
+                {filtered.map((item, i) => (
+                  <tr key={i}>
                     <th scope="row">{SN++}</th>
+                    <td>{item.name}</td>
+                    <td>{item.brand}</td>
+                    {/* <td>{item.supplier}</td> */}
+                    <td>{item.quantity}</td>
+                    {/* <td>{item.costPrice}</td> */}
+                    <td>{item.sellPrice}</td>
+                    {/* <td>{item.unit}</td> */}
                     <td>
-                      {item.firstName} {item.lastName}
+                      <button onClick={() => editHandler(item)}>Edit</button>
+                      <button onClick={() => viewHandler(item)}>View</button>
                     </td>
-                    <td>{item.userName}</td>
-                    <td>{item.department}</td>
-                    <td>{item.role}</td>
-                    <td>{item.access}</td>
                   </tr>
-                ))} */}
+                ))}
               </tbody>
             </>
           </table>

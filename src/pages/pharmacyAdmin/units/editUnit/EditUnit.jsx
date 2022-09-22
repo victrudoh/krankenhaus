@@ -19,13 +19,13 @@ const EditUnit = () => {
 
   const [updateUnit, setUpdateUnit] = useState({
     name: "",
-    // account: "",
     publish: "",
   });
 
   const submit = async (e) => {
     e.preventDefault();
     try {
+      console.log("updateUnit", updateUnit);
       setLoading(true);
       const response = await axios.put(
         `https://hospital-ms-api.herokuapp.com/departments/units/edit?id=${editInventoryUnit.unit.id}`,
@@ -36,6 +36,10 @@ const EditUnit = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
+      );
+      console.log(
+        "🚀 ~ file: EditUnit.jsx ~ line 39 ~ submit ~ response",
+        response
       );
       setLoading(false);
       if (response.status === 200) {
@@ -96,29 +100,20 @@ const EditUnit = () => {
                   type="text"
                   name="name"
                   id="name"
+                  required
                   placeholder="Unit name"
                   onChange={onchangeHandler}
                   defaultValue={editInventoryUnit.unit.name}
                 />
               </div>
-              {/* <div className="pair">
-                <label>Account:</label>
-                <input
-                  type="text"
-                  name="account"
-                  id="account"
-                  placeholder="Account Details"
-                  onChange={onchangeHandler}
-                  defaultValue={editInventoryUnit.unit.account}
-                />
-              </div> */}
               <div className="pair">
                 <label>Publish:</label>
                 <select
                   name="publish"
                   id="publish"
+                  required
                   onChange={onchangeHandler}
-                  defaultValue={editInventoryUnit.unit.publish}
+                  // defaultValue={editInventoryUnit.unit.publish}
                 >
                   <option>Publish</option>
                   <option value="true">True</option>

@@ -10,8 +10,17 @@ export const Wrapper = styled.div`
   overflow-y: auto;
   margin-bottom: 2rem;
 
-  tr {
-    cursor: pointer;
+  button {
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--border-radius);
+    background-color: var(--accent-color);
+    color: var(--text-white);
+    margin: 0 0.2rem;
+
+    &:hover {
+      color: var(--accent-color);
+      background-color: var(--secondary-color);
+    }
   }
 
   @media (max-width: 1024px) {
