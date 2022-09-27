@@ -233,6 +233,61 @@ const Sidebar = () => {
                     </CDBSidebarContent>
                   </>
                 ) : (
+                  ""
+                )}
+
+                {/* PHARMACY USER */}
+                {user.department === "Pharmacy" && user.role === "user" ? (
+                  <>
+                    <CDBSidebarContent className="sidebar-content">
+                      <CDBSidebarMenu>
+                        <NavLink
+                          to="/pharm-unit/products"
+                          onClick={() => setTopbarName("All Products")}
+                        >
+                          <CDBSidebarMenuItem icon="pen" className="onHover">
+                            All Products
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                      <CDBSidebarMenu>
+                        <NavLink
+                          to="/pharm-unit/pending"
+                          onClick={() => setTopbarName("Pending Products")}
+                        >
+                          <CDBSidebarMenuItem icon="wallet" className="onHover">
+                            Pending Products
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                      <CDBSidebarMenu>
+                        <NavLink
+                          to="/pharm-unit/invoice"
+                          onClick={() => setTopbarName("Create Invoice")}
+                        >
+                          <CDBSidebarMenuItem icon="flag" className="onHover">
+                            Create invoice
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                      <CDBSidebarMenu>
+                        <NavLink
+                          to="/pharm-unit/payment"
+                          onClick={() => setTopbarName("Track Payment")}
+                        >
+                          <CDBSidebarMenuItem icon="flag" className="onHover">
+                            Track Payment
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                      </CDBSidebarMenu>
+                    </CDBSidebarContent>
+                  </>
+                ) : (
+                  ""
+                )}
+
+                {/* OTHER USERS */}
+                {user.role !== "teller" && user.department !== "Pharmacy" ? (
                   <>
                     <CDBSidebarContent className="sidebar-content">
                       <CDBSidebarMenu>
@@ -277,6 +332,8 @@ const Sidebar = () => {
                       </CDBSidebarMenu>
                     </CDBSidebarContent>
                   </>
+                ) : (
+                  ""
                 )}
               </>
             ) : (

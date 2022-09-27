@@ -100,6 +100,7 @@ export const AppProvider = ({ children }) => {
   const [inventoryMeasuringUnit, setInventoryMeasuringUnit] = useState([]);
   const [deptForInventory, setDeptForInventory] = useState([]);
   const [pharmacyUnits, setPharmacyUnits] = useState([]);
+  const [inventoryPendingProducts, setInventoryPendingProducts] = useState([]);
   const [editInventoryProduct, setEditInventoryProduct] = useState({
     product: {},
     action: "", //edit, view, "" for none
@@ -418,6 +419,38 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // get pending products
+  const getPendingProducts = async () => {
+    try {
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/inventory/products/pending`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 433 ~ getPendingProducts ~ response",
+        response
+      );
+      setLoading(false);
+
+      if (response.status === 200) {
+        setInventoryPendingProducts(response.data.products);
+      }
+    } catch (err) {
+      setLoading(false);
+      error(err.response.data.message);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
   //*******/
   //************/
   // fetch everything on startup
@@ -437,6 +470,7 @@ export const AppProvider = ({ children }) => {
       // INVENTORY STUFF
       getInventoryDept();
       getPharmacyUnits();
+      getPendingProducts();
       getInventoryProducts();
       getInventorySuppliers();
       getInventoryMeasuringUnit();
@@ -564,6 +598,7 @@ export const AppProvider = ({ children }) => {
         inventorySuppliers,
         editInventoryProduct,
         inventoryMeasuringUnit,
+        inventoryPendingProducts,
 
         setEditSupplier,
         setPharmacyUnits,
@@ -579,6 +614,7 @@ export const AppProvider = ({ children }) => {
         setEditInventoryProduct,
         getInventoryMeasuringUnit,
         setInventoryMeasuringUnit,
+        setInventoryPendingProducts,
       }}
     >
       {children}

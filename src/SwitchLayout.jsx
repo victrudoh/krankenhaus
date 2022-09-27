@@ -27,6 +27,9 @@ const SwitchLayout = () => {
         if (user.role === "teller") {
           return <TellerLayout />;
         }
+        if (user.department === "Pharmacy") {
+          return <PharmacyLayout />;
+        }
         return <UserLayout />;
       }
       return <AuthLayout />;

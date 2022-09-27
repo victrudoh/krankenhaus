@@ -12,9 +12,13 @@ const EditUnit = () => {
     useContext(AppContext);
 
   const [foundUnit, setFoundUnit] = useState({});
+  // console.log(
+  //   "🚀 ~ file: EditUnit.jsx ~ line 15 ~ EditUnit ~ foundUnit",
+  //   foundUnit
+  // );
   const [updateUnit, setUpdateUnit] = useState({
-    name: "",
-    publish: "",
+    name: foundUnit.name,
+    publish: foundUnit.publish,
   });
 
   const fetchUnits = async () => {
