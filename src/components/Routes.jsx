@@ -8,7 +8,7 @@ import UnAuth from "../pages/unAuth/UnAuth";
 import Error404 from "../pages/error404/Error404";
 
 // Login
-import Login from "../pages/login/Login";
+// import Login from "../pages/login/Login";
 
 // Super Admin
 import Dashboard from "../pages/superAdmin/dashboard/Dashboard";
@@ -24,7 +24,7 @@ import Transactions from "../pages/superAdmin/transactions/Transactions";
 import ViewDetails from "../pages/superAdmin/transactions/productsCustomerHistory/customerHistory/viewDetails/ViewDetails";
 
 const MainRouter = () => {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
 
   return (
     <Routes>

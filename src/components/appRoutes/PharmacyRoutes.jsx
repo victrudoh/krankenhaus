@@ -12,6 +12,7 @@ import Products from "../../pages/pharmacyAdmin/products/Products";
 import Suppliers from "../../pages/pharmacyAdmin/suppliers/Suppliers";
 import Units from "../../pages/pharmacyAdmin/units/Units";
 import MeasuringUnit from "../../pages/pharmacyAdmin/measuringUnit/MeasuringUnit";
+import Users from "../../pages/pharmacyAdmin/users/Users";
 
 // User
 import PendingProducts from "../../pages/pharmacyUser/pendingProducts/PendingProducts";
@@ -25,6 +26,7 @@ const PharmacyRoutes = () => {
       <Route path="/" element={<Layed />}>
         {user.role === "user" ? (
           <>
+            {/* USER */}
             <Route index element={<Dashboard />} />
             <Route path="/pharm-unit/products" element={<Products />} />
             <Route path="/pharm-unit/pending" element={<PendingProducts />} />
@@ -34,8 +36,10 @@ const PharmacyRoutes = () => {
           </>
         ) : (
           <>
+            {/* ADMIN */}
             <Route index element={<Dashboard />} />
             <Route path="/pharmacyadmin/products" element={<Products />} />
+            <Route path="/pharmacyadmin/users" element={<Users />} />
             <Route path="/pharmacyadmin/suppliers" element={<Suppliers />} />
             <Route path="/pharmacyadmin/stores" element={<Units />} />
             <Route

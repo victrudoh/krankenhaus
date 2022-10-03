@@ -1,4 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
+import axios from "axios";
+import { success, error } from "../../../helpers/Alert";
 
 // styles
 import { Wrapper, Top } from "./PendingProducts.Styles";
@@ -8,18 +10,51 @@ import { CircleSpinner } from "../../../components/circleSpinner/CircleSpinner.S
 import AppContext from "../../../context/AppContext";
 
 const PendingProducts = () => {
-  const { loading, setEditInventoryProduct, inventoryPendingProducts } =
-    useContext(AppContext);
+  const {
+    loading,
+    setLoading,
+    setEditInventoryProduct,
+    inventoryPendingProducts,
+  } = useContext(AppContext);
 
   const [filtered, setFiltered] = useState([]);
 
   let SN = 1;
 
-  const editHandler = (item) => {
-    setEditInventoryProduct({
-      product: item,
-      action: "edit",
-    });
+  const acceptHandler = async (item) => {
+    console.log("item", item);
+    try {
+      setLoading(true);
+      const response = await axios.put(
+        `https://hospital-ms-api.herokuapp.com/inventory/products/accept?product=${item.id}`,
+        {},
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      // console.log(
+      //   "🚀 ~ file: PendingProducts.jsx ~ line 33 ~ acceptHandler ~ response",
+      //   response
+      // );
+      setLoading(false);
+      if (response.status === 200) {
+        success(
+          `Accepted ${item.quantity} ${item.measuringUnit} of ${item.name}`
+        );
+      }
+    } catch (err) {
+      error("Psych! Couldn't accept product");
+      console.log(err);
+      setLoading(false);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
   };
 
   const viewHandler = (item) => {
@@ -61,7 +96,7 @@ const PendingProducts = () => {
                 placeholder="Search Product Name"
                 onChange={onSearchCangeHandler}
               />
-              <button type="submit">Search</button>
+              {/* <button type="submit">Search</button> */}
             </form>
           </div>
         </Top>
@@ -78,30 +113,46 @@ const PendingProducts = () => {
                   {/* <th scope="col">Supplier</th> */}
                   <th scope="col">Quantity</th>
                   <th scope="col">Unit</th>
-                  <th scope="col">Sell Price</th>
+                  <th scope="col">Sell Price(₦)</th>
                   {/* <th scope="col">Unit</th> */}
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
-              <tbody>
-                {filtered.map((item, i) => (
-                  <tr key={i}>
-                    <th scope="row">{SN++}</th>
-                    <td>{item.name}</td>
-                    <td>{item.brand}</td>
-                    {/* <td>{item.supplier}</td> */}
-                    <td>{item.quantity}</td>
-                    {/* <td>{item.costPrice}</td> */}
-                    <td>{item.sellPrice}</td>
-                    <td>{item.sellPrice}</td>
-                    {/* <td>{item.unit}</td> */}
-                    <td>
-                      <button onClick={() => editHandler(item)}>Accept</button>
-                      <button onClick={() => viewHandler(item)}>Reject</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+              {filtered.length > 0 ? (
+                <tbody>
+                  {filtered.map((item, i) => (
+                    <tr key={i}>
+                      <th scope="row">{SN++}</th>
+                      <td>{item.name}</td>
+                      <td>{item.brand}</td>
+                      {/* <td>{item.supplier}</td> */}
+                      <td>{item.quantity}</td>
+                      {/* <td>{item.costPrice}</td> */}
+                      <td>{item.measuringUnit}</td>
+                      <td>{item.sellPrice.toLocaleString("en-US")}</td>
+                      {/* <td>{item.unit}</td> */}
+                      <td>
+                        <button onClick={() => acceptHandler(item)}>
+                          Accept
+                        </button>
+                        <button onClick={() => viewHandler(item)}>
+                          Reject
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              ) : (
+                <tbody>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>No Pending Products</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tbody>
+              )}
             </>
           </table>
         )}

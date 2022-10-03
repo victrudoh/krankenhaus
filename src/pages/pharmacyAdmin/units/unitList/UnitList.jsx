@@ -15,14 +15,20 @@ const UnitList = () => {
 
   const editHandler = (item) => {
     setEditInventoryUnit({
-      isEditingUnit: true,
+      action: "edit",
       unit: item,
       deptName: "Pharmacy",
     });
     // collect user ID and pass it to the edit page, use state to carry the ID or something
   };
 
-  const sendProductHandler = (e) => {};
+  const sendProductHandler = (item) => {
+    setEditInventoryUnit({
+      action: "send",
+      unit: item,
+      deptName: "Pharmacy",
+    });
+  };
 
   return (
     <>

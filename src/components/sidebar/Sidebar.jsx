@@ -74,6 +74,14 @@ const Sidebar = () => {
                           </CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink
+                          to="/pharmacyadmin/users"
+                          onClick={() => setTopbarName("Users")}
+                        >
+                          <CDBSidebarMenuItem icon="user" className="onHover">
+                            Users
+                          </CDBSidebarMenuItem>
+                        </NavLink>
+                        <NavLink
                           to="/pharmacyadmin/products"
                           onClick={() => setTopbarName("Pharmacy Products")}
                         >

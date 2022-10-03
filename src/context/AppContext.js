@@ -14,6 +14,7 @@ export const AppProvider = ({ children }) => {
 
   // USERS
   const [users, setUsers] = useState([]);
+  const [usersByDept, setUsersByDept] = useState([]);
   const [editUser, setEditUser] = useState({
     index: "",
     editing: false,
@@ -114,7 +115,7 @@ export const AppProvider = ({ children }) => {
     editing: false,
   });
   const [editInventoryUnit, setEditInventoryUnit] = useState({
-    isEditingUnit: false,
+    action: "add",
     unit: {},
     deptName: "",
   });
@@ -158,6 +159,35 @@ export const AppProvider = ({ children }) => {
       // console.log("getUsers ~ response", response);
       setLoading(false);
       setUsers(response.data);
+    } catch (err) {
+      // console.log(err);
+      error(err.response.data.message);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+  // Get Users Under Current User's Department
+  const getUsersByDept = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        "https://hospital-ms-api.herokuapp.com/users/department?page=0&limit=100",
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 185 ~ getUsersByDept ~ response",
+        response
+      );
+      setLoading(false);
+      // setUsersByDept(response.data.users);
     } catch (err) {
       // console.log(err);
       error(err.response.data.message);
@@ -343,7 +373,7 @@ export const AppProvider = ({ children }) => {
         }
       );
       setLoading(false);
-      console.log("getPharmacyUnits ~ response", response);
+      // console.log("getPharmacyUnits ~ response", response);
       if (response.status === 200) {
         setPharmacyUnits(response.data.units);
       }
@@ -462,6 +492,7 @@ export const AppProvider = ({ children }) => {
     if (token) {
       console.log("Fetch everything");
       getUsers();
+      getUsersByDept();
       activeUser();
       getProducts();
       getTrxLength();
@@ -504,12 +535,14 @@ export const AppProvider = ({ children }) => {
         editUser,
         addedUser,
         editedUser,
+        usersByDept,
 
         setUsers,
         getUsers,
         setEditUser,
         setAddedUser,
         setEditedUser,
+        setUsersByDept,
 
         // Departments
         addedDept,

@@ -8,15 +8,26 @@ import { Wrapper } from "./Units.Styles";
 import UnitList from "./unitList/UnitList";
 import AddUnit from "./addUnit/AddUnit";
 import EditUnit from "./editUnit/EditUnit";
+import SendProducts from "./sendProducts/SendProducts";
 
 const Units = () => {
   const { editInventoryUnit } = useContext(AppContext);
+
+  const SelectedDisplay = () => {
+    if (editInventoryUnit.action === "add") {
+      return <AddUnit />;
+    } else if (editInventoryUnit.action === "edit") {
+      return <EditUnit />;
+    } else if (editInventoryUnit.action === "send") {
+      return <SendProducts />;
+    }
+  };
 
   return (
     <>
       <Wrapper>
         <UnitList />
-        {editInventoryUnit.isEditingUnit ? <EditUnit /> : <AddUnit />}
+        <SelectedDisplay />
       </Wrapper>
     </>
   );

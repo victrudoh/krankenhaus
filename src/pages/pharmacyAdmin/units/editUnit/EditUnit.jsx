@@ -75,7 +75,7 @@ const EditUnit = () => {
 
   const cancelEditHandler = () => {
     setEditInventoryUnit({
-      isEditingUnit: false,
+      action: "add",
       unit: {},
       deptName: "",
     });
