@@ -12,7 +12,7 @@ import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinne
 const AddItem = () => {
   const { loading, setLoading, invoiceUser, setInvoiceUser } =
     useContext(AppContext);
-  console.log("InvoiceUser: ", invoiceUser);
+  // console.log("InvoiceUser: ", invoiceUser);
 
   const [newItem, setNewItem] = useState({
     id: 0,
@@ -25,7 +25,7 @@ const AddItem = () => {
   const [deptByPriv, setDeptByPriv] = useState([]);
   const [deptId, setDeptId] = useState();
   const [item, setItem] = useState([]);
-  console.log(" item", item);
+  // console.log(" item", item);
 
   // get department by privilege
   const getDeptByPriv = async () => {
@@ -66,7 +66,7 @@ const AddItem = () => {
           },
         }
       );
-      console.log("getDeptId ~ response", response);
+      // console.log("getDeptId ~ response", response);
       setItem(response.data.products);
     } catch (error) {
       console.log(error);
@@ -79,7 +79,7 @@ const AddItem = () => {
   };
 
   const addItem = async (e) => {
-    console.log("newItem", newItem);
+    // console.log("newItem", newItem);
     e.preventDefault();
     try {
       setLoading(true);
@@ -94,7 +94,7 @@ const AddItem = () => {
         }
       );
       setLoading(false);
-      console.log("response", response);
+      // console.log("response", response);
       if (response.status === 200) {
         success("Added new item");
         const itemExists = invoiceUser.items.filter((item) =>
@@ -139,10 +139,15 @@ const AddItem = () => {
       [e.target.name]: e.target.value,
     }));
     // Get ID
-    deptByPriv.filter((item) => {
-      item.name.includes(e.target.value);
-      setDeptId(item.id);
+    deptByPriv.map((item) => {
+      if (item.name === e.target.value) {
+        setDeptId(item.id);
+      }
     });
+    // deptByPriv.filter((item) => {
+    //   item.name.includes(e.target.value);
+    //   setDeptId(item.id);
+    // });
   };
 
   // select item and set name, price and Id

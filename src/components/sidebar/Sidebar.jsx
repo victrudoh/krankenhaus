@@ -65,14 +65,14 @@ const Sidebar = () => {
                   <>
                     <CDBSidebarContent className="sidebar-content">
                       <CDBSidebarMenu>
-                        <NavLink
+                        {/* <NavLink
                           to="/"
                           onClick={() => setTopbarName("Dashboard")}
                         >
                           <CDBSidebarMenuItem icon="table" className="onHover">
                             Dashboard
                           </CDBSidebarMenuItem>
-                        </NavLink>
+                        </NavLink> */}
                         <NavLink
                           to="/pharmacyadmin/users"
                           onClick={() => setTopbarName("Users")}
@@ -119,14 +119,14 @@ const Sidebar = () => {
                             Measuring Units
                           </CDBSidebarMenuItem>
                         </NavLink>
-                        <NavLink
+                        {/* <NavLink
                           to="/pharmacyadmin/config"
                           onClick={() => setTopbarName("Configurations")}
                         >
                           <CDBSidebarMenuItem icon="flag" className="onHover">
                             Config
                           </CDBSidebarMenuItem>
-                        </NavLink>
+                        </NavLink> */}
                       </CDBSidebarMenu>
                     </CDBSidebarContent>
                   </>
@@ -181,14 +181,14 @@ const Sidebar = () => {
                             Transactions
                           </CDBSidebarMenuItem>
                         </NavLink>
-                        <NavLink
+                        {/* <NavLink
                           to="/superadmin/config"
                           onClick={() => setTopbarName("Configurations")}
                         >
                           <CDBSidebarMenuItem icon="flag" className="onHover">
                             Config
                           </CDBSidebarMenuItem>
-                        </NavLink>
+                        </NavLink> */}
                       </CDBSidebarMenu>
                     </CDBSidebarContent>
                   </>
@@ -228,7 +228,7 @@ const Sidebar = () => {
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenu>
-                      <CDBSidebarMenu>
+                      {/* <CDBSidebarMenu>
                         <NavLink
                           to="/teller/config"
                           onClick={() => setTopbarName("Configurations")}
@@ -237,7 +237,7 @@ const Sidebar = () => {
                             Config
                           </CDBSidebarMenuItem>
                         </NavLink>
-                      </CDBSidebarMenu>
+                      </CDBSidebarMenu> */}
                     </CDBSidebarContent>
                   </>
                 ) : (
@@ -250,11 +250,16 @@ const Sidebar = () => {
                     <CDBSidebarContent className="sidebar-content">
                       <CDBSidebarMenu>
                         <NavLink
-                          to="/pharm-unit/products"
-                          onClick={() => setTopbarName("All Products")}
+                          to="/pharm-unit/accepted"
+                          onClick={() =>
+                            setTopbarName("Accepted/Available Products")
+                          }
                         >
-                          <CDBSidebarMenuItem icon="pen" className="onHover">
-                            All Products
+                          <CDBSidebarMenuItem
+                            icon="box"
+                            /* pen */ className="onHover"
+                          >
+                            Accepted Products
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenu>
@@ -328,7 +333,7 @@ const Sidebar = () => {
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenu>
-                      <CDBSidebarMenu>
+                      {/* <CDBSidebarMenu>
                         <NavLink
                           to="/user/config"
                           onClick={() => setTopbarName("Configuration")}
@@ -337,7 +342,7 @@ const Sidebar = () => {
                             Config
                           </CDBSidebarMenuItem>
                         </NavLink>
-                      </CDBSidebarMenu>
+                      </CDBSidebarMenu> */}
                     </CDBSidebarContent>
                   </>
                 ) : (
@@ -370,6 +375,7 @@ const Sidebar = () => {
               <div
                 style={{
                   padding: "20px 5px",
+                  wordBreak: "break-word",
                 }}
               >
                 &copy; Krankenhaus 2022

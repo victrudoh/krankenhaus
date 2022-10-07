@@ -12,6 +12,10 @@ import { CircleSpinner } from "../../../../../../components/circleSpinner/Circle
 const ProductHistoryPanel = () => {
   const { loading, users, setLoading, departments, setTransactionsByProds } =
     useContext(AppContext);
+  console.log(
+    "🚀 ~ file: ProductHistoryPanel.jsx ~ line 14 ~ ProductHistoryPanel ~ users",
+    users
+  );
 
   const [filterParams, setFilterParams] = useState({
     From: "",
@@ -25,9 +29,9 @@ const ProductHistoryPanel = () => {
 
   const fetchTellers = async () => {
     try {
-      const foundTellers = await users.filter((item) =>
-        item.department.includes("Bank")
-      );
+      const foundTellers = await users.filter((item) => {
+        return item.department === "Bank";
+      });
       setTellers(foundTellers);
     } catch (err) {
       error("Couldn't fetch tellers");

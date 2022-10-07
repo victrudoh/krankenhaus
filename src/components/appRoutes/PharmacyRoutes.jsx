@@ -16,6 +16,7 @@ import Users from "../../pages/pharmacyAdmin/users/Users";
 
 // User
 import PendingProducts from "../../pages/pharmacyUser/pendingProducts/PendingProducts";
+import AcceptedProducts from "../../pages/pharmacyUser/acceptedProducts/AcceptedProducts";
 import CreateInvoice from "../../pages/user/createInvoice/CreateInvoice";
 import TrackPayment from "../../pages/user/trackPayment/TrackPayment";
 
@@ -27,8 +28,8 @@ const PharmacyRoutes = () => {
         {user.role === "user" ? (
           <>
             {/* USER */}
-            <Route index element={<Dashboard />} />
-            <Route path="/pharm-unit/products" element={<Products />} />
+            <Route index element={<AcceptedProducts />} />
+            <Route path="/pharm-unit/accepted" element={<AcceptedProducts />} />
             <Route path="/pharm-unit/pending" element={<PendingProducts />} />
             <Route path="/pharm-unit/invoice" element={<CreateInvoice />} />
             <Route path="/pharm-unit/payment" element={<TrackPayment />} />
@@ -37,9 +38,9 @@ const PharmacyRoutes = () => {
         ) : (
           <>
             {/* ADMIN */}
-            <Route index element={<Dashboard />} />
-            <Route path="/pharmacyadmin/products" element={<Products />} />
+            <Route index element={<Users />} />
             <Route path="/pharmacyadmin/users" element={<Users />} />
+            <Route path="/pharmacyadmin/products" element={<Products />} />
             <Route path="/pharmacyadmin/suppliers" element={<Suppliers />} />
             <Route path="/pharmacyadmin/stores" element={<Units />} />
             <Route

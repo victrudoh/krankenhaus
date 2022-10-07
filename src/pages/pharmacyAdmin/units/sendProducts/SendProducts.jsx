@@ -17,13 +17,9 @@ const SendProducts = () => {
     editInventoryUnit,
     setEditInventoryUnit,
   } = useContext(AppContext);
-  console.log(
-    "🚀 ~ file: SendProducts.jsx ~ line 20 ~ SendProducts ~ inventoryProds",
-    inventoryProds
-  );
 
   const [sendProducts, setSendProducts] = useState({
-    id: 0,
+    name: "",
     quantity: 0,
   });
 
@@ -42,10 +38,10 @@ const SendProducts = () => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: SendProducts.jsx ~ line 44 ~ submit ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: SendProducts.jsx ~ line 44 ~ submit ~ response",
+      //   response
+      // );
       setLoading(false);
       if (response.status === 200) {
         success(`Sent products to ${editInventoryUnit.unit.id}`);
@@ -111,14 +107,14 @@ const SendProducts = () => {
                 <div className="pair">
                   <label>Product to Send:</label>
                   <select
-                    name="id"
-                    id="id"
+                    name="name"
+                    id="name"
                     onChange={onchangeHandler}
                     defaultValue={sendProducts.id}
                   >
                     <option>Select Product</option>
                     {inventoryProds.map((item, i) => (
-                      <option key={i} value={item.id}>
+                      <option key={i} value={item.name}>
                         {item.name} : {item.quantity} available
                       </option>
                     ))}

@@ -10,7 +10,7 @@ export const AppProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState({});
   const [printing, setPrinting] = useState(false);
-  const [topbarName, setTopbarName] = useState("");
+  const [topbarName, setTopbarName] = useState("Welcome!");
 
   // USERS
   const [users, setUsers] = useState([]);
@@ -102,6 +102,9 @@ export const AppProvider = ({ children }) => {
   const [deptForInventory, setDeptForInventory] = useState([]);
   const [pharmacyUnits, setPharmacyUnits] = useState([]);
   const [inventoryPendingProducts, setInventoryPendingProducts] = useState([]);
+  const [inventoryAcceptedProducts, setInventoryAcceptedProducts] = useState(
+    []
+  );
   const [editInventoryProduct, setEditInventoryProduct] = useState({
     product: {},
     action: "", //edit, view, "" for none
@@ -182,10 +185,10 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: AppContext.js ~ line 185 ~ getUsersByDept ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.js ~ line 185 ~ getUsersByDept ~ response",
+      //   response
+      // );
       setLoading(false);
       // setUsersByDept(response.data.users);
     } catch (err) {
@@ -461,14 +464,45 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: AppContext.js ~ line 433 ~ getPendingProducts ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.js ~ line 433 ~ getPendingProducts ~ response",
+      //   response
+      // );
       setLoading(false);
 
       if (response.status === 200) {
         setInventoryPendingProducts(response.data.products);
+      }
+    } catch (err) {
+      setLoading(false);
+      error(err.response.data.message);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
+  // get Accepted products
+  const getAcceptedProducts = async () => {
+    try {
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/inventory/products/accepted`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.js ~ line 499 ~ getAcceptedProducts ~ response",
+      //   response
+      // );
+      setLoading(false);
+      if (response.status === 200) {
+        setInventoryAcceptedProducts(response.data.products);
       }
     } catch (err) {
       setLoading(false);
@@ -502,6 +536,7 @@ export const AppProvider = ({ children }) => {
       getInventoryDept();
       getPharmacyUnits();
       getPendingProducts();
+      getAcceptedProducts();
       getInventoryProducts();
       getInventorySuppliers();
       getInventoryMeasuringUnit();
@@ -632,11 +667,14 @@ export const AppProvider = ({ children }) => {
         editInventoryProduct,
         inventoryMeasuringUnit,
         inventoryPendingProducts,
+        inventoryAcceptedProducts,
 
         setEditSupplier,
         setPharmacyUnits,
         getPharmacyUnits,
         setInventoryProds,
+        getPendingProducts,
+        getAcceptedProducts,
         setPharmProdDisplay,
         setDeptForInventory,
         setEditInventoryUnit,
@@ -648,6 +686,7 @@ export const AppProvider = ({ children }) => {
         getInventoryMeasuringUnit,
         setInventoryMeasuringUnit,
         setInventoryPendingProducts,
+        setInventoryAcceptedProducts,
       }}
     >
       {children}

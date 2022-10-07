@@ -22,7 +22,7 @@ const Dashboard = () => {
           <>
             <Overview />
             <ActivityLog />
-            <Chart />
+            {/* <Chart /> */}
           </>
         )}
       </Wrapper>

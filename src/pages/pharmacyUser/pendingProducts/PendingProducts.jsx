@@ -13,6 +13,8 @@ const PendingProducts = () => {
   const {
     loading,
     setLoading,
+    getPendingProducts,
+    getAcceptedProducts,
     setEditInventoryProduct,
     inventoryPendingProducts,
   } = useContext(AppContext);
@@ -22,7 +24,7 @@ const PendingProducts = () => {
   let SN = 1;
 
   const acceptHandler = async (item) => {
-    console.log("item", item);
+    // console.log("Accept item", item);
     try {
       setLoading(true);
       const response = await axios.put(
@@ -41,12 +43,51 @@ const PendingProducts = () => {
       // );
       setLoading(false);
       if (response.status === 200) {
+        getPendingProducts();
+        getAcceptedProducts();
         success(
           `Accepted ${item.quantity} ${item.measuringUnit} of ${item.name}`
         );
       }
     } catch (err) {
       error("Psych! Couldn't accept product");
+      console.log(err);
+      setLoading(false);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
+  const rejectHandler = async (item) => {
+    // console.log("reject item", item);
+    try {
+      setLoading(true);
+      const response = await axios.delete(
+        `https://hospital-ms-api.herokuapp.com/inventory/products/reject?product=${item.id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      // console.log(
+      //   "🚀 ~ file: PendingProducts.jsx ~ line 78 ~ rejectHandler ~ response",
+      //   response
+      // );
+      setLoading(false);
+      if (response.status === 200) {
+        getPendingProducts();
+        getAcceptedProducts();
+        error(
+          `Rejected ${item.quantity} ${item.measuringUnit} of ${item.name}`
+        );
+      }
+    } catch (err) {
+      error("Psych! Couldn't reject product");
       console.log(err);
       setLoading(false);
       if (err.response.status === 401) {
@@ -135,7 +176,7 @@ const PendingProducts = () => {
                         <button onClick={() => acceptHandler(item)}>
                           Accept
                         </button>
-                        <button onClick={() => viewHandler(item)}>
+                        <button onClick={() => rejectHandler(item)}>
                           Reject
                         </button>
                       </td>
@@ -144,13 +185,15 @@ const PendingProducts = () => {
                 </tbody>
               ) : (
                 <tbody>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>No Pending Products</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>No Pending Products</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
                 </tbody>
               )}
             </>
