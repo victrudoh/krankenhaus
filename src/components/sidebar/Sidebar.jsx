@@ -16,7 +16,8 @@ import "./sidebar.css";
 import AppContext from "../../context/AppContext";
 
 const Sidebar = () => {
-  const { user, setTopbarName } = useContext(AppContext);
+  const { user, setTopbarName, inventoryPendingProducts } =
+    useContext(AppContext);
   // const [superAdmin, setSuperAdmin] = useState(false);
   // const [revenue, setRevenue] = useState(false);
 
@@ -269,7 +270,12 @@ const Sidebar = () => {
                           onClick={() => setTopbarName("Pending Products")}
                         >
                           <CDBSidebarMenuItem icon="wallet" className="onHover">
-                            Pending Products
+                            Pending Products{" "}
+                            {inventoryPendingProducts.length ? (
+                              <>({inventoryPendingProducts.length})</>
+                            ) : (
+                              ""
+                            )}
                           </CDBSidebarMenuItem>
                         </NavLink>
                       </CDBSidebarMenu>

@@ -54,7 +54,7 @@ const AddUser = () => {
         getUsers();
       }
     } catch (err) {
-      error("Psych");
+      error("Error: Couldn't add user");
       console.log(err);
       setLoading(false);
     }

@@ -4,13 +4,13 @@ export const Wrapper = styled.div`
   width: 30%;
   background-color: white;
   box-shadow: var(--box-shadow);
-  padding: 1rem;
+  padding: 1rem 0 1rem 1rem;
   border-radius: var(--border-radius);
   display: flex;
   /* justify-content: center; */
   align-items: center;
   flex-direction: column;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 
   @media (max-width: 1024px) {
     width: 80%;
@@ -21,6 +21,28 @@ export const Wrapper = styled.div`
 export const Content = styled.div`
   /* background-color: red; */
   width: 95%;
+  height: 75vh;
+  padding-right: 0.3rem;
+  overflow-y: hidden;
+
+  &:hover {
+    overflow-y: scroll;
+  }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    margin: 0 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px var(--accent-color);
+    border-radius: 10px;
+  }
 
   .pair {
     display: flex;

@@ -7,8 +7,8 @@ export const Wrapper = styled.div`
   padding: 1rem;
   border-radius: var(--border-radius);
   /* max-height: 108vh; */
-  overflow-y: auto;
-  margin-bottom: 2rem;
+  /* overflow-y: auto; */
+  margin-bottom: 1rem;
 
   button {
     padding: 0.2rem 0.5rem;
@@ -86,5 +86,29 @@ export const Top = styled.div`
   }
 
   @media (max-width: 1024px) {
+  }
+`;
+
+export const Bottom = styled.div`
+  overflow-y: hidden;
+  height: 85%;
+
+  &:hover {
+    overflow-y: scroll;
+  }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    margin: 0 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px var(--accent-color);
+    border-radius: 10px;
   }
 `;

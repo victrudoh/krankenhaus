@@ -7,6 +7,7 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
+  const [leftPanelLoading, setLeftPanelLoading] = useState(false);
   const [token, setToken] = useState(null);
   const [user, setUser] = useState({});
   const [printing, setPrinting] = useState(false);
@@ -15,6 +16,7 @@ export const AppProvider = ({ children }) => {
   // USERS
   const [users, setUsers] = useState([]);
   const [usersByDept, setUsersByDept] = useState([]);
+  const [userLogs, setUserLogs] = useState([]);
   const [editUser, setEditUser] = useState({
     index: "",
     editing: false,
@@ -105,6 +107,9 @@ export const AppProvider = ({ children }) => {
   const [inventoryAcceptedProducts, setInventoryAcceptedProducts] = useState(
     []
   );
+  const [inventoryExpiredProducts, setInventoryExpiredProducts] = useState([]);
+  const [inventoryOutOfStockProducts, setInventoryOutOfStockProducts] =
+    useState([]);
   const [editInventoryProduct, setEditInventoryProduct] = useState({
     product: {},
     action: "", //edit, view, "" for none
@@ -122,6 +127,72 @@ export const AppProvider = ({ children }) => {
     unit: {},
     deptName: "",
   });
+
+  //*******/
+  //************/
+  // Reload States
+  // Super Admin (SA)
+  // const [userListReloadSA, setUserListReloadSA] = useState(false);
+  // const [userLogListReloadSA, setUserLogListReloadSA] = useState(false);
+  // const [deptListReloadSA, setdeptListReloadSA] = useState(false);
+  // const [deptPrivListReloadSA, setDeptPrivListReloadSA] = useState(false);
+  // const [deptUnitListReloadSA, setDeptUnitListReloadSA] = useState(false);
+  // const [deptProdByUnitListReloadSA, setDeptProdByUnitListReloadSA] =
+  //   useState(false);
+  // const [prodListReloadSA, setProdListReloadSA] = useState(false);
+  // const [trxListReloadSA, settrxListReloadSA] = useState(false);
+  // // ...Right side ...//
+  // const [addUserReloadSA, setAddUserReloadSA] = useState(false);
+  // const [userLogPanelReloadSA, setUserLogPanelReloadSA] = useState(false);
+  // const [addDeptReloadSA, setAddDeptReloadSA] = useState(false);
+  // const [addDeptPrivReloadSA, setAddDeptPrivReloadSA] = useState(false);
+  // const [addDeptUnitReloadSA, setAddDeptUnitReloadSA] = useState(false);
+  // const [addProdReloadSA, setAddProdReloadSA] = useState(false);
+  // const [trxPanelReloadSA, settrxPanelReloadSA] = useState(false);
+
+  // // Regular User [Revenue, etc] (RU)
+  // const [createInvoiceListRU, setCreateInvoiceListRU] = useState(false);
+  // const [trackPaymentListRU, setTrackPaymentListRU] = useState(false);
+  // const [trxListRU, setTrxListRU] = useState(false);
+  // // ...Right side ...//
+  // const [createInvoicePanelRU, setCreateInvoicePanelRU] = useState(false);
+  // const [trackPaymentPanelRU, setTrackPaymentPanelRU] = useState(false);
+  // const [trxPanelRU, setTrxPanelRU] = useState(false);
+
+  // // Bank User [Teller] (BU)
+  // const [makePaymentListBU, setMakePaymentListBU] = useState(false);
+  // const [trxListBU, setTrxListBU] = useState(false);
+  // // ...Right side ...//
+  // const [makePaymentPanelBU, setMakePaymentPanelBU] = useState(false);
+  // const [trxPanelBU, setTrxPanelBU] = useState(false);
+
+  // // Pharmacy Admin (PA)
+  // const [userListReloadPA, setUserListReloadPA] = useState(false);
+  // const [productListReloadPA, setProductListReloadPA] = useState(false);
+  // const [unitListReloadPA, setUnitListReloadPA] = useState(false);
+  // const [supplierListReloadPA, setSupplierListReloadPA] = useState(false);
+  // const [measuringUnitReloadPA, setMeasuringUnitReloadPA] = useState(false);
+  // // ...Right side ...//
+  // const [addUserReloadPA, setAddUserReloadPA] = useState(false);
+  // const [addProductReloadPA, setAddProductReloadPA] = useState(false);
+  // const [addUnitReloadPA, setAddUnitReloadPA] = useState(false);
+  // const [addSupplierReloadPA, setAddSupplierReloadPA] = useState(false);
+  // const [addMeasuringUnitReloadPA, setAddMeasuringUnitReloadPA] =
+  //   useState(false);
+
+  // // Pharmacy User (PU)
+  // const [acceptedProductReloadPU, setAcceptedProductReloadPU] = useState(false);
+  // const [pendingProductsReloadPU, setPendingProductsReloadPU] = useState(false);
+  // const [invoiceListReloadPU, setInvoiceListReloadPU] = useState(false);
+  // const [trackPaymentListReloadPU, setTrackPaymentListReloadPU] =
+  //   useState(false);
+  // // ...Right side ...//
+  // const [invoicePanelReloadPU, setInvoicePanelReloadPU] = useState(false);
+  // const [trackPaymentPanelReloadPU, setTrackPaymentPanelReloadPU] =
+  //   useState(false);
+
+  //************/
+  //*******/
 
   // **************** //
   //*** FUNCTIONS ***//
@@ -166,12 +237,13 @@ export const AppProvider = ({ children }) => {
       // console.log(err);
       error(err.response.data.message);
       if (err.response.status === 401) {
-        error("Unauthorized");
+        // error("Unauthorized");
         localStorage.removeItem("token");
         window.location.reload(false);
       }
     }
   };
+
   // Get Users Under Current User's Department
   const getUsersByDept = async () => {
     try {
@@ -190,12 +262,44 @@ export const AppProvider = ({ children }) => {
       //   response
       // );
       setLoading(false);
-      // setUsersByDept(response.data.users);
+      setUsersByDept(response.data.users);
     } catch (err) {
       // console.log(err);
-      error(err.response.data.message);
+      // error(err.response.data.message);
       if (err.response.status === 401) {
-        error("Unauthorized");
+        // error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
+  // Get User logs
+  const getUserLogs = async () => {
+    try {
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/auth/logs?From=2022-05-11&To=2022-10-10&page=0&size=20`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 219 ~ getUserLogs ~ response",
+        response
+      );
+      setLoading(false);
+      if (response.status === 200) {
+        setUserLogs(response.data.logs);
+      }
+    } catch (err) {
+      // error("Couldn't fetch logs");
+      console.log(err);
+      setLoading(false);
+      if (err.response.status === 401) {
+        // error("Unauthorized");
         localStorage.removeItem("token");
         window.location.reload(false);
       }
@@ -260,9 +364,13 @@ export const AppProvider = ({ children }) => {
       setDepartments(response.data);
       setLoading(false);
     } catch (err) {
-      error(err.response.data.message);
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 367 ~ getDepartments ~ err",
+        err
+      );
+      // error(err.response.data.message);
       if (err.response.status === 401) {
-        error("Unauthorized");
+        // error("Unauthorized");
         localStorage.removeItem("token");
         window.location.reload(false);
       }
@@ -300,6 +408,38 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // Get Transaction Chart
+  const getTrxChart = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/transactions/monthly`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.js ~ line 350 ~ getTrxChart ~ response",
+      //   response
+      // );
+      setLoading(false);
+      if (response.status === 200) {
+        setChartData(response.data.chart);
+      }
+    } catch (err) {
+      error(err.response.data.message);
+      setLoading(false);
+      // if (err.response.status === 401) {
+      //   error("Unauthorized");
+      //   localStorage.removeItem("token");
+      //   window.location.reload(false);
+      // }
+    }
+  };
+
   //*******/
   //************/
   // INVENTORY STUFF (Pharmacy admin)
@@ -312,7 +452,7 @@ export const AppProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/inventory/products/all?size=2&page=0`,
+        `https://hospital-ms-api.herokuapp.com/inventory/products/all?size=10&page=0`,
         {
           headers: {
             "content-type": "application/json",
@@ -515,6 +655,68 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // get Expired products
+  const getExpiredProducts = async () => {
+    try {
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/inventory/products/expired`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 663 ~ getExpiredProducts ~ response",
+        response
+      );
+      setLoading(false);
+      if (response.status === 200) {
+        setInventoryExpiredProducts(response.data.products);
+      }
+    } catch (err) {
+      setLoading(false);
+      error(err.response.data.message);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
+  // get Out of Stock products
+  const getOutOfStockProducts = async () => {
+    try {
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/inventory/products/finished`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 697 ~ getOutOfStockProducts ~ response",
+        response
+      );
+      setLoading(false);
+      if (response.status === 200) {
+        setInventoryOutOfStockProducts(response.data.products);
+      }
+    } catch (err) {
+      setLoading(false);
+      error(err.response.data.message);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
+    }
+  };
+
   //*******/
   //************/
   // fetch everything on startup
@@ -526,9 +728,11 @@ export const AppProvider = ({ children }) => {
     if (token) {
       console.log("Fetch everything");
       getUsers();
+      getUserLogs();
       getUsersByDept();
       activeUser();
       getProducts();
+      getTrxChart();
       getTrxLength();
       setTransactions([]);
 
@@ -536,9 +740,11 @@ export const AppProvider = ({ children }) => {
       getInventoryDept();
       getPharmacyUnits();
       getPendingProducts();
+      getExpiredProducts();
       getAcceptedProducts();
       getInventoryProducts();
       getInventorySuppliers();
+      getOutOfStockProducts();
       getInventoryMeasuringUnit();
     }
   }, []);
@@ -558,22 +764,26 @@ export const AppProvider = ({ children }) => {
         loading,
         printing,
         topbarName,
+        leftPanelLoading,
 
         setUser,
         setToken,
         setLoading,
         setPrinting,
         setTopbarName,
+        setLeftPanelLoading,
 
         // Users
         users,
         editUser,
+        userLogs,
         addedUser,
         editedUser,
         usersByDept,
 
         setUsers,
         getUsers,
+        setUserLogs,
         setEditUser,
         setAddedUser,
         setEditedUser,
@@ -667,7 +877,9 @@ export const AppProvider = ({ children }) => {
         editInventoryProduct,
         inventoryMeasuringUnit,
         inventoryPendingProducts,
+        inventoryExpiredProducts,
         inventoryAcceptedProducts,
+        inventoryOutOfStockProducts,
 
         setEditSupplier,
         setPharmacyUnits,
@@ -686,7 +898,15 @@ export const AppProvider = ({ children }) => {
         getInventoryMeasuringUnit,
         setInventoryMeasuringUnit,
         setInventoryPendingProducts,
+        setInventoryExpiredProducts,
         setInventoryAcceptedProducts,
+        setInventoryOutOfStockProducts,
+
+        // ***RELOAD STATES*** //
+        // Pharmacy Admin
+        // addUserReloadPA,
+
+        // setAddUserReloadPA,
       }}
     >
       {children}

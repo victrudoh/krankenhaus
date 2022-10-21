@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import AppContext from "../../../../context/AppContext";
-import { success, error, info } from "../../../../helpers/Alert";
+import { success, error } from "../../../../helpers/Alert";
 import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
 
 // styles
@@ -9,8 +9,8 @@ import { Wrapper, Content } from "./EditUnit.Styles";
 
 const EditUnit = () => {
   const {
-    loading,
-    setLoading,
+    leftPanelLoading,
+    setLeftPanelLoading,
     getDepartments,
     getPharmacyUnits,
     editInventoryUnit,
@@ -26,7 +26,7 @@ const EditUnit = () => {
     e.preventDefault();
     try {
       console.log("updateUnit", updateUnit);
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.put(
         `https://hospital-ms-api.herokuapp.com/departments/units/edit?id=${editInventoryUnit.unit.id}`,
         updateUnit,
@@ -41,7 +41,7 @@ const EditUnit = () => {
         "🚀 ~ file: EditUnit.jsx ~ line 39 ~ submit ~ response",
         response
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success("Updated unit successfully");
         setEditInventoryUnit({
@@ -51,12 +51,12 @@ const EditUnit = () => {
         });
         getDepartments();
         getPharmacyUnits();
-        setLoading(false);
+        setLeftPanelLoading(false);
       }
     } catch (err) {
-      error("Psych! can't update unit");
+      error("Couldn't update unit");
       console.log(err);
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (err.response.status === 401) {
         error("Unauthorized");
         localStorage.removeItem("token");
@@ -85,7 +85,7 @@ const EditUnit = () => {
     <Wrapper>
       <h5>Edit Unit</h5>
       <Content>
-        {loading ? (
+        {leftPanelLoading ? (
           <CircleSpinner />
         ) : (
           <>

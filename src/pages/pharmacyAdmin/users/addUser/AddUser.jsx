@@ -11,9 +11,9 @@ import { Content, Wrapper } from "./AddUser.Styles";
 
 const AddUser = () => {
   const {
-    loading,
     getUsers,
-    setLoading,
+    leftPanelLoading,
+    setLeftPanelLoading,
     setAddedUser,
     pharmacyUnits,
     deptForInventory,
@@ -40,7 +40,7 @@ const AddUser = () => {
     console.log("newUser", newUser);
     e.preventDefault();
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.post(
         "https://hospital-ms-api.herokuapp.com/users/create",
         newUser,
@@ -51,17 +51,17 @@ const AddUser = () => {
           },
         }
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success("Created new user successfully");
         setAddedUser(response.status);
         getUsers();
       }
     } catch (err) {
+      setLeftPanelLoading(false);
       error("Couldn't create user");
       error(err.response.data.error);
       console.log(err);
-      setLoading(false);
     }
   };
 
@@ -85,7 +85,7 @@ const AddUser = () => {
       <Wrapper>
         <h5>Add User</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <CircleSpinner />
           ) : (
             <form onSubmit={addUser}>
@@ -152,17 +152,15 @@ const AddUser = () => {
                   defaultValue={newUser.department}
                 >
                   <option value="">Select department</option>
-                  {deptForInventory.map((item, i) => (
-                    <>
-                      {item.name === "Pharmacy" ? (
-                        <option key={i} value={item.name}>
-                          {item.name}
-                        </option>
-                      ) : (
-                        ""
-                      )}
-                    </>
-                  ))}
+                  {deptForInventory.map((item, i) =>
+                    item.name === "Pharmacy" ? (
+                      <option key={i} value={item.name}>
+                        {item.name}
+                      </option>
+                    ) : (
+                      ""
+                    )
+                  )}
                 </select>
               </div>
               {/* unit */}
@@ -217,6 +215,7 @@ const AddUser = () => {
                   <option value="limited">Limited</option>
                 </select>
               </div>
+
               <button type="submit">Add user</button>
             </form>
           )}

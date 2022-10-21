@@ -9,8 +9,8 @@ import { Wrapper, Content } from "./AddProduct.Styles";
 
 const AddProduct = () => {
   const {
-    loading,
-    setLoading,
+    leftPanelLoading,
+    setLeftPanelLoading,
     setInventoryProds,
     inventorySuppliers,
     inventoryMeasuringUnit,
@@ -25,13 +25,14 @@ const AddProduct = () => {
     sellPrice: 0,
     measuringUnit: "",
     expiryDate: "",
+    daysToExpire: 0,
   });
 
   const addProduct = async (e) => {
     try {
       // console.log("newProduct: ", newProduct);
       e.preventDefault();
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.post(
         "https://hospital-ms-api.herokuapp.com/inventory/products/add",
         newProduct,
@@ -42,7 +43,7 @@ const AddProduct = () => {
           },
         }
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success("Created new product successfully");
         setInventoryProds(response.data.product);
@@ -50,7 +51,7 @@ const AddProduct = () => {
     } catch (err) {
       error("Psych! couldn't add product");
       // console.log(err);
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (err.response.status === 401) {
         error("Unauthorized");
         localStorage.removeItem("token");
@@ -72,7 +73,7 @@ const AddProduct = () => {
       <Wrapper>
         <h5>Add Product</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <CircleSpinner />
           ) : (
             <>
@@ -183,6 +184,18 @@ const AddProduct = () => {
                     required
                     onChange={onchangeHandler}
                     defaultValue={newProduct.expiryDate}
+                  />
+                </div>
+                <div className="pair">
+                  <label>Days to Expiration Alert: </label>
+                  <input
+                    type="number"
+                    name="daysToExpire"
+                    id="daysToExpire"
+                    placeholder="Days before expiration alert"
+                    required
+                    onChange={onchangeHandler}
+                    defaultValue={newProduct.daysToExpire}
                   />
                 </div>
                 <button type="submit">Add Product</button>

@@ -42,7 +42,7 @@ const ViewUnit = () => {
         }
       );
       if (response.status === 200) {
-        success("fetched units successfully");
+        // success("fetched units successfully");
         setUnits(response.data.units);
       }
     } catch (err) {

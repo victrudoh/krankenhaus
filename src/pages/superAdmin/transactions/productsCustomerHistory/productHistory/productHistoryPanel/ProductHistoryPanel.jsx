@@ -12,10 +12,6 @@ import { CircleSpinner } from "../../../../../../components/circleSpinner/Circle
 const ProductHistoryPanel = () => {
   const { loading, users, setLoading, departments, setTransactionsByProds } =
     useContext(AppContext);
-  console.log(
-    "🚀 ~ file: ProductHistoryPanel.jsx ~ line 14 ~ ProductHistoryPanel ~ users",
-    users
-  );
 
   const [filterParams, setFilterParams] = useState({
     From: "",

@@ -6,18 +6,20 @@ import { Top, Wrapper } from "./Products.Styles";
 // components
 import AppContext from "../../../context/AppContext";
 import Available from "./available/Available";
+import ExpiredProducts from "./expiredProducts/ExpiredProducts";
+import OutOfStockProducts from "./outOfStock/OutOfStockProducts";
 
 const Products = () => {
   const { pharmProdDisplay, setPharmProdDisplay } = useContext(AppContext);
 
   const SelectedDisplay = () => {
-    //   if (pharmProdDisplay === "available") {
-    return <Available />;
-    //   } else if (trxDisplay === "expired") {
-    //     return <Invoices />;
-    //   } else if (trxDisplay === "outofstock") {
-    //     return <UnitDeptHistory />;
-    //   }
+    if (pharmProdDisplay === "available") {
+      return <Available />;
+    } else if (pharmProdDisplay === "expired") {
+      return <ExpiredProducts />;
+    } else if (pharmProdDisplay === "outofstock") {
+      return <OutOfStockProducts />;
+    }
   };
 
   return (

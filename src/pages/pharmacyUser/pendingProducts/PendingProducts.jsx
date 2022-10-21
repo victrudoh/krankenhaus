@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
-import { success, error } from "../../../helpers/Alert";
+import { success, error, info } from "../../../helpers/Alert";
 
 // styles
 import { Wrapper, Top } from "./PendingProducts.Styles";
@@ -82,9 +82,7 @@ const PendingProducts = () => {
       if (response.status === 200) {
         getPendingProducts();
         getAcceptedProducts();
-        error(
-          `Rejected ${item.quantity} ${item.measuringUnit} of ${item.name}`
-        );
+        info(`Rejected ${item.quantity} ${item.measuringUnit} of ${item.name}`);
       }
     } catch (err) {
       error("Psych! Couldn't reject product");

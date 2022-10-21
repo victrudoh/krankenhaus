@@ -9,6 +9,11 @@ const ViewProduct = () => {
   const { loading, setLoading, editInventoryProduct, setEditInventoryProduct } =
     useContext(AppContext);
 
+  console.log(
+    "🚀 ~ file: ViewProduct.jsx ~ line 10 ~ ViewProduct ~ editInventoryProduct",
+    editInventoryProduct
+  );
+
   // onclick "cancel"
   const quitEditHandler = () => {
     setEditInventoryProduct({

@@ -37,12 +37,14 @@ export const Content = styled.div`
       width: 100%;
       padding: 0.5rem;
       border-radius: var(--border-radius);
+      border: 1px solid;
     }
 
     select {
       width: 100%;
       padding: 0.5rem;
       border-radius: var(--border-radius);
+      border: 1px solid;
 
       &:focus {
         border-radius: 10px 10px 0 0;

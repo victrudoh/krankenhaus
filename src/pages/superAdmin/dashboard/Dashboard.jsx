@@ -8,6 +8,7 @@ import Overview from "./overview/Overview";
 import ActivityLog from "../users/userLogs/activityLog/ActivityLog";
 import Chart from "./chart/Chart";
 import Spinner from "../../../components/spinner/Spinner";
+import TrxChart from "../../../components/trxChart/TrxChart";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(false);
@@ -22,6 +23,7 @@ const Dashboard = () => {
           <>
             <Overview />
             <ActivityLog />
+            {/* <TrxChart /> */}
             {/* <Chart /> */}
           </>
         )}

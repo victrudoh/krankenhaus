@@ -21,3 +21,11 @@
     margin: 0;
     padding: 0;
 }
+
+input {
+    border: 1px solid;
+}
+
+select {
+    border: 1px solid;
+}

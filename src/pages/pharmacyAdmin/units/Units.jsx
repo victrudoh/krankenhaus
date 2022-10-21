@@ -20,6 +20,8 @@ const Units = () => {
       return <EditUnit />;
     } else if (editInventoryUnit.action === "send") {
       return <SendProducts />;
+    } else {
+      return <AddUnit />;
     }
   };
 

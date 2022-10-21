@@ -17,7 +17,8 @@ import Users from "../../pages/pharmacyAdmin/users/Users";
 // User
 import PendingProducts from "../../pages/pharmacyUser/pendingProducts/PendingProducts";
 import AcceptedProducts from "../../pages/pharmacyUser/acceptedProducts/AcceptedProducts";
-import CreateInvoice from "../../pages/user/createInvoice/CreateInvoice";
+import CreateInvoice from "../../pages/pharmacyUser/createInvoice/CreateInvoice";
+// import CreateInvoice from "../../pages/user/createInvoice/CreateInvoice";
 import TrackPayment from "../../pages/user/trackPayment/TrackPayment";
 
 const PharmacyRoutes = () => {

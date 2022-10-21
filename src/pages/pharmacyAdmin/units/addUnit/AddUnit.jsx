@@ -9,8 +9,8 @@ import { Wrapper, Content } from "./AddUnit.Styles";
 
 const AddUnit = () => {
   const {
-    loading,
-    setLoading,
+    leftPanelLoading,
+    setLeftPanelLoading,
     getDepartments,
     deptForInventory,
     getPharmacyUnits,
@@ -34,7 +34,7 @@ const AddUnit = () => {
     e.preventDefault();
     console.log("newUnit", newUnit);
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.post(
         `https://hospital-ms-api.herokuapp.com/departments/unit/new?departmentId=${pharmacy[0].id}`,
         newUnit,
@@ -49,7 +49,7 @@ const AddUnit = () => {
         "🚀 ~ file: AddUnit.jsx ~ line 34 ~ addunit ~ response",
         response
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success("Created new department successfully");
         getDepartments();
@@ -59,7 +59,7 @@ const AddUnit = () => {
     } catch (err) {
       error("Psych! Couldn't add unit");
       console.log(err);
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (err.response.status === 401) {
         error("Unauthorized");
         localStorage.removeItem("token");
@@ -81,7 +81,7 @@ const AddUnit = () => {
       <Wrapper>
         <h5>Add Unit</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <>
               <CircleSpinner />
             </>

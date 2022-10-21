@@ -62,7 +62,7 @@ const UsersList = () => {
         {loading ? (
           <CircleSpinner />
         ) : (
-          <table className="table table-hover">
+          <table className="table table-hove text-centerr">
             <>
               <thead>
                 <tr>
