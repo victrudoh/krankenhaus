@@ -96,23 +96,29 @@ const List = () => {
                     </td>
                   </tr>
                 ))}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  {/* <td></td> */}
-                  <th>Total</th>
-                  <th>₦ {totalPrice.toLocaleString("en-US")}</th>
-                  <td></td>
-                  <td></td>
-                </tr>
+                {invoiceCustomers.length > 0 ? (
+                  <>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      {/* <td></td> */}
+                      <th>Total</th>
+                      <th>₦ {totalPrice.toLocaleString("en-US")}</th>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </>
+                ) : (
+                  ""
+                )}
               </tbody>
             </table>
           </>

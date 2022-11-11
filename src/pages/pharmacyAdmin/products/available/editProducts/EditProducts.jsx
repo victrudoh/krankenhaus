@@ -9,8 +9,8 @@ import { Wrapper, Content } from "./EditProducts.Styles";
 
 const EditProducts = () => {
   const {
-    loading,
-    setLoading,
+    leftPanelLoading,
+    setLeftPanelLoading,
     inventorySuppliers,
     getInventoryProducts,
     editInventoryProduct,
@@ -33,7 +33,7 @@ const EditProducts = () => {
     // console.log("updateProducts", updateProducts);
     e.preventDefault();
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.put(
         `https://hospital-ms-api.herokuapp.com/inventory/products/edit?id=${editInventoryProduct.product.id}`,
         updateProducts,
@@ -44,7 +44,7 @@ const EditProducts = () => {
           },
         }
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success("Updated product successfully");
         setEditInventoryProduct({
@@ -54,9 +54,14 @@ const EditProducts = () => {
         getInventoryProducts();
       }
     } catch (err) {
-      error("Psych! can't update Product");
+      error("  can't update Product");
       console.log(err);
-      setLoading(false);
+      setLeftPanelLoading(false);
+      if (err.response.status === 401) {
+        error("Unauthorized");
+        localStorage.removeItem("token");
+        window.location.reload(false);
+      }
     }
   };
 
@@ -88,7 +93,7 @@ const EditProducts = () => {
       <Wrapper>
         <h5>Edit Product</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <CircleSpinner />
           ) : (
             <>

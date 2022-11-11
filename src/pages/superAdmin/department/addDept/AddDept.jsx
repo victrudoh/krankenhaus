@@ -10,8 +10,12 @@ import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinne
 import { Wrapper, Content } from "./AddDept.Styles";
 
 const AddDept = () => {
-  const { loading, setLoading, setAddedDept, getDepartments } =
-    useContext(AppContext);
+  const {
+    leftPanelLoading,
+    setLeftPanelLoading,
+    setAddedDept,
+    getDepartments,
+  } = useContext(AppContext);
 
   const [newDept, setNewDept] = useState({
     name: "",
@@ -21,7 +25,7 @@ const AddDept = () => {
   const addDept = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.post(
         "https://hospital-ms-api.herokuapp.com/departments/new",
         newDept,
@@ -32,16 +36,16 @@ const AddDept = () => {
           },
         }
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success("Creeated new department successfully");
         getDepartments();
         setAddedDept(response.status);
       }
     } catch (err) {
-      error("Psych! Couldn't add department");
+      error("  Couldn't add department");
       console.log(err);
-      setLoading(false);
+      setLeftPanelLoading(false);
     }
   };
 
@@ -58,7 +62,7 @@ const AddDept = () => {
       <Wrapper>
         <h5>Add department</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <CircleSpinner />
           ) : (
             <form onSubmit={addDept}>

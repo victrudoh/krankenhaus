@@ -9,8 +9,8 @@ import { Wrapper, Content } from "./EditDept.Styles";
 
 const EditDept = ({ setIsEditing }) => {
   const {
-    loading,
-    setLoading,
+    leftPanelLoading,
+    setLeftPanelLoading,
     departments,
     getDepartments,
     editDeptId,
@@ -28,7 +28,7 @@ const EditDept = ({ setIsEditing }) => {
   const editDeptFunction = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.put(
         `https://hospital-ms-api.herokuapp.com/departments/edit/${foundDept.id}`,
         editDept,
@@ -39,7 +39,7 @@ const EditDept = ({ setIsEditing }) => {
           },
         }
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success("Updated department successfully!");
         SetEditedDept(response.status);
@@ -47,9 +47,9 @@ const EditDept = ({ setIsEditing }) => {
         getDepartments();
       }
     } catch (err) {
-      error("Psych! Couldn't edit department");
+      error("  Couldn't edit department");
       console.log(err);
-      setLoading(false);
+      setLeftPanelLoading(false);
     }
   };
 
@@ -79,7 +79,7 @@ const EditDept = ({ setIsEditing }) => {
                 <option value="false">False</option>
               </select>
             </div>
-            {loading ? (
+            {leftPanelLoading ? (
               <CircleSpinner />
             ) : (
               <>

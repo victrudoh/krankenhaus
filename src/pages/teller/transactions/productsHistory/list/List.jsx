@@ -43,20 +43,26 @@ const List = () => {
                     </td>
                   </tr>
                 ))}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <th>Total</th>
-                  <th>₦ {totalPrice.toLocaleString("en-US")}</th>
-                </tr>
+                {invoiceProducts.length > 0 ? (
+                  <>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <th>Total</th>
+                      <th>₦ {totalPrice.toLocaleString("en-US")}</th>
+                    </tr>
+                  </>
+                ) : (
+                  ""
+                )}
               </tbody>
             </table>
           </>

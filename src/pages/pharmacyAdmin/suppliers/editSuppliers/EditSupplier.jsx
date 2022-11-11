@@ -52,7 +52,7 @@ const EditSupplier = () => {
         getInventorySuppliers();
       }
     } catch (err) {
-      error("Psych! can't update supplier");
+      error("  can't update supplier");
       console.log(err);
       setLoading(false);
     }

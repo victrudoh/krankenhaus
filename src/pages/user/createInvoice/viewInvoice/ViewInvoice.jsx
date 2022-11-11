@@ -11,10 +11,10 @@ import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinne
 
 const ViewInvoice = () => {
   const { user, savedInvoice, setSavedInvoice } = useContext(AppContext);
-  console.log(
-    "🚀 ~ file: ViewInvoice.jsx ~ line 13 ~ ViewInvoice ~ user",
-    user
-  );
+  // console.log(
+  //   "🚀 ~ file: ViewInvoice.jsx ~ line 13 ~ ViewInvoice ~ user",
+  //   user
+  // );
 
   let totalPrice = 0;
   let SN = 0;

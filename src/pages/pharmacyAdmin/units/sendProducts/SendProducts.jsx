@@ -76,7 +76,7 @@ const SendProducts = () => {
         // setAddedDept(response.status);
       }
     } catch (err) {
-      error("Psych! Couldn't send product");
+      error("  Couldn't send product");
       console.log(err);
       setLeftPanelLoading(false);
       if (err.response.status === 401) {

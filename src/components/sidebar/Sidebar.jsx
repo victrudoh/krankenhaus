@@ -370,7 +370,7 @@ const Sidebar = () => {
             <CDBSidebarContent>
               <CDBSidebarMenu>
                 <NavLink to="/login" onClick={logoutHandler}>
-                  <CDBSidebarMenuItem icon="user" className="onHover">
+                  <CDBSidebarMenuItem icon="arrow-left" className="onHover">
                     Log out
                   </CDBSidebarMenuItem>
                 </NavLink>

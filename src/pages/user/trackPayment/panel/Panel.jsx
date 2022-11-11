@@ -34,7 +34,7 @@ const Panel = () => {
       setLeftPanelLoading(false);
       console.log("response", response);
       if (response.status === 200) {
-        success("Found payment");
+        // success("Found payment");
         setTrackPayment({
           transaction: response.data.transaction,
           products: response.data.products,
@@ -60,25 +60,25 @@ const Panel = () => {
       <Wrapper>
         <h5>Panel</h5>
         <Content>
-          {leftPanelLoading ? (
-            <CircleSpinner />
-          ) : (
-            <form onSubmit={trackPayment}>
-              <div className="pair">
-                <label>Transaction ID:</label>
-                <input
-                  type="text"
-                  name="transactionId"
-                  id="transactionId"
-                  required
-                  placeholder="Transaction ID"
-                  onChange={onchangeHandler}
-                  defaultValue={findTrx.transactionId}
-                />
-              </div>
+          <form onSubmit={trackPayment}>
+            <div className="pair">
+              <label>Transaction ID:</label>
+              <input
+                type="text"
+                name="transactionId"
+                id="transactionId"
+                required
+                placeholder="Transaction ID"
+                onChange={onchangeHandler}
+                defaultValue={findTrx.transactionId}
+              />
+            </div>
+            {leftPanelLoading ? (
+              <CircleSpinner />
+            ) : (
               <button type="submit">Find Transaction</button>
-            </form>
-          )}
+            )}
+          </form>
         </Content>
       </Wrapper>
     </>

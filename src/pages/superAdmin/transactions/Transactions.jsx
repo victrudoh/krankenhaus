@@ -19,6 +19,8 @@ const Transactions = () => {
       return <Invoices />;
     } else if (trxDisplay === "summaries") {
       return <UnitDeptHistory />;
+    } else {
+      return <ProductCustomerHistory />;
     }
   };
 

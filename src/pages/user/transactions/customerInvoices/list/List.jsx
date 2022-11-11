@@ -70,7 +70,10 @@ const List = () => {
                 {invoiceCustomers.map((item, i) => (
                   <tr key={i}>
                     <th scope="row">{(SN = SN + 1)}</th>
-                    <td>{item.createdAt.slice(0, 10)}</td>
+                    <td>
+                      {item.createdAt.split("T")[0]}...
+                      {item.createdAt.split("T")[1].slice(0, 8)}
+                    </td>
                     <td colSpan={2}>
                       {item.firstName} {item.lastName}
                     </td>
@@ -84,22 +87,28 @@ const List = () => {
                     </td>
                   </tr>
                 ))}
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <th>Total</th>
-                  <th>₦ {totalPrice.toLocaleString("en-US")}</th>
-                  <td></td>
-                </tr>
+                {invoiceCustomers.length > 0 ? (
+                  <>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <th>Total</th>
+                      <th>₦ {totalPrice.toLocaleString("en-US")}</th>
+                      <td></td>
+                    </tr>
+                  </>
+                ) : (
+                  ""
+                )}
               </tbody>
             </table>
           </>

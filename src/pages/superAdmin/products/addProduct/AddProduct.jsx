@@ -8,7 +8,8 @@ import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinne
 import { Wrapper, Content } from "./AddProduct.Styles";
 
 const AddProduct = () => {
-  const { loading, setLoading, departments } = useContext(AppContext);
+  const { leftPanelLoading, setLeftPanelLoading, departments } =
+    useContext(AppContext);
   const [unit, setUnit] = useState([]);
   const [newUnit, setNewUnit] = useState({
     department: "",
@@ -23,7 +24,7 @@ const AddProduct = () => {
     try {
       console.log("newUnit: ", newUnit);
       e.preventDefault();
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.post(
         "https://hospital-ms-api.herokuapp.com/products/new",
         newUnit,
@@ -35,16 +36,16 @@ const AddProduct = () => {
         }
       );
       console.log("~ response", response);
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success("Created new product successfully");
         // setAddedUser(response.status);
         // getUsers();
       }
     } catch (err) {
-      error("Psych! couldn't add product");
+      error("  couldn't add product");
       console.log(err);
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (err.response.status === 401) {
         error("Unauthorized");
         localStorage.removeItem("token");
@@ -85,7 +86,7 @@ const AddProduct = () => {
       <Wrapper>
         <h5>Add Product/Service</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <CircleSpinner />
           ) : (
             <>

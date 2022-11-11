@@ -38,12 +38,16 @@ const AvailableList = () => {
   const onSearchCangeHandler = async (e) => {
     try {
       e.preventDefault();
-      const filteredUser = inventoryProds.filter((item) =>
+      const filteredProd = await inventoryProds.filter((item) =>
         item.name.toLowerCase().includes(e.target.value.toLocaleLowerCase())
       );
-      setFiltered(filteredUser);
+      setFiltered(filteredProd);
     } catch (err) {
-      return err;
+      console.log(
+        "🚀 ~ file: AvailableList.jsx ~ line 46 ~ onSearchCangeHandler ~ err",
+        err
+      );
+      // return err;
     }
   };
 

@@ -49,7 +49,7 @@ const AddProduct = () => {
         setInventoryProds(response.data.product);
       }
     } catch (err) {
-      error("Psych! couldn't add product");
+      error("  couldn't add product");
       // console.log(err);
       setLeftPanelLoading(false);
       if (err.response.status === 401) {

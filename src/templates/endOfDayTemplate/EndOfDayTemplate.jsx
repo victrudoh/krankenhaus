@@ -82,11 +82,11 @@ const EndOfDayTemplate = () => {
             </div>
             <div className="container printInvoice" id="printInvoice">
               <i className="fab fa-1x ms-0 mt-2" style={{ color: "#000080" }}>
-                Krankenhaus
+                End of Day Report
               </i>
               <div className="my-2"></div>
               <h4>
-                <b>End of Day Report</b>
+                <b>Krankenhaus</b>
               </h4>
               <hr />
               <div className="my-5"></div>
@@ -107,7 +107,7 @@ const EndOfDayTemplate = () => {
                 <b>Date Under Review</b>
               </h4>
               <h6>
-                <small> {savedInvoice.data.message.slice(27, 57)}</small>
+                <small> {savedInvoice.data.message?.slice(27, 57)}</small>
               </h6>
               <br />
               <h4>

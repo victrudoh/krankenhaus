@@ -55,15 +55,21 @@ const UnitList = () => {
                   <tbody key={i}>
                     <>
                       <tr className="bg-secondary bg-gradient text-white">
-                        <td className="fw-bold">{item.department.name}</td>
+                        <td className="fw-bold">
+                          {item.department.name}{" "}
+                          <i
+                            className="bx bxs-webcam"
+                            onClick={() => viewHandler(item.department.name)}
+                          ></i>
+                        </td>
                         <td></td>
                         <td></td>
                         <td>
-                          <button
+                          {/* <button
                             onClick={() => viewHandler(item.department.name)}
                           >
                             View units products
-                          </button>
+                          </button> */}
                         </td>
                       </tr>
                       {item.units.map((unit, i) => (
@@ -73,13 +79,12 @@ const UnitList = () => {
                             <td>{unit.name}</td>
                             <td>{unit.publish === false ? "No" : "Yes"}</td>
                             <td>
-                              <button
+                              <i
+                                className="bx bxs-edit"
                                 onClick={() =>
                                   editHandler(unit.id, item.department.name)
                                 }
-                              >
-                                Edit unit
-                              </button>
+                              ></i>
                             </td>
                           </>
                         </tr>

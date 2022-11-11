@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   /* max-height: 108vh; */
   /* overflow-y: auto; */
   margin-bottom: 1rem;
+  height: 40rem;
 
   button {
     padding: 0.2rem 0.5rem;

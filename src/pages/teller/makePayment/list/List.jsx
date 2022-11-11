@@ -10,8 +10,7 @@ import { Wrapper, Top } from "./List.Styles";
 import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const List = () => {
-  const { loading, setLoading, trackPayment, setTrackPayment } =
-    useContext(AppContext);
+  const { loading, setLoading, trackPayment } = useContext(AppContext);
 
   let SN = 0;
   let totalPrice = 0;
@@ -72,37 +71,43 @@ const List = () => {
   return (
     <>
       <Wrapper>
-        <Top>
-          <div className="pair">
-            <label>Name: </label>
-            <h4>
-              {trackPayment.transaction.firstName}{" "}
-              {trackPayment.transaction.lastName}
-            </h4>
-          </div>
-          <form onSubmit={updateStatus}>
-            <div className="pair">
-              <label>Status: </label>
-              {trackPayment.transaction.status === "paid" || status.paid ? (
-                <h4>{trackPayment.transaction.status}</h4>
-              ) : (
-                <>
-                  <select
-                    name="status"
-                    id="status"
-                    required
-                    onChange={onchangeHandler}
-                    defaultValue={trackPayment.transaction.status}
-                  >
-                    <option>{trackPayment.transaction.status}</option>
-                    <option value="paid">paid</option>
-                  </select>
-                  <button type="submit">Update</button>
-                </>
-              )}
-            </div>
-          </form>
-        </Top>
+        {trackPayment.products.length > 0 ? (
+          <>
+            <Top>
+              <div className="pair">
+                <label>Name: </label>
+                <h4>
+                  {trackPayment.transaction.firstName}{" "}
+                  {trackPayment.transaction.lastName}
+                </h4>
+              </div>
+              <form onSubmit={updateStatus}>
+                <div className="pair">
+                  <label>Status: </label>
+                  {trackPayment.transaction.status === "paid" || status.paid ? (
+                    <h4>{trackPayment.transaction.status}</h4>
+                  ) : (
+                    <>
+                      <select
+                        name="status"
+                        id="status"
+                        required
+                        onChange={onchangeHandler}
+                        defaultValue={trackPayment.transaction.status}
+                      >
+                        <option>{trackPayment.transaction.status}</option>
+                        <option value="paid">paid</option>
+                      </select>
+                      <button type="submit">Update</button>
+                    </>
+                  )}
+                </div>
+              </form>
+            </Top>
+          </>
+        ) : (
+          ""
+        )}
         {loading ? (
           <CircleSpinner />
         ) : (
@@ -127,12 +132,18 @@ const List = () => {
                   </td>
                 </tr>
               ))}
-              <tr>
-                <td></td>
-                <td></td>
-                <th>Total:</th>
-                <td>₦ {totalPrice.toLocaleString("en-US")}</td>
-              </tr>
+              {trackPayment.products.length > 0 ? (
+                <>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <th>Total:</th>
+                    <td>₦ {totalPrice.toLocaleString("en-US")}</td>
+                  </tr>
+                </>
+              ) : (
+                ""
+              )}
             </tbody>
           </table>
         )}

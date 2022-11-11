@@ -13,6 +13,17 @@ export const Wrapper = styled.div`
     width: 100%;
   }
 
+  i {
+    cursor: pointer;
+    font-size: 18px;
+
+    &:hover {
+      font-size: 24px;
+      color: var(--accent-color);
+      background-color: var(--secondary-color);
+    }
+  }
+
   button {
     padding: 0.2rem 0.5rem;
     border-radius: var(--border-radius);

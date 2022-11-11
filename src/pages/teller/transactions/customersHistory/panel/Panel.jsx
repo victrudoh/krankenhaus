@@ -9,7 +9,8 @@ import { Wrapper, Content } from "./Panel.Styles";
 // components
 import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
 const Panel = () => {
-  const { loading, setLoading, setInvoiceCustomers } = useContext(AppContext);
+  const { leftPanelLoading, setLeftPanelLoading, setInvoiceCustomers } =
+    useContext(AppContext);
 
   const [filterParams, setFilterParams] = useState({
     From: "",
@@ -22,7 +23,7 @@ const Panel = () => {
   const filter = async (e) => {
     try {
       e.preventDefault();
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.get(
         `https://hospital-ms-api.herokuapp.com/transactions/view-By-customer?From=${filterParams.From}&To=${filterParams.To}&status=${filterParams.status}&firstName=${filterParams.firstName}&lastName=${filterParams.lastName}`,
         {
@@ -32,7 +33,7 @@ const Panel = () => {
           },
         }
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       console.log("Invoice by customers response", response);
       if (response.status === 200) {
         success(response.data.message);
@@ -57,7 +58,7 @@ const Panel = () => {
       <Wrapper>
         <h5>Panel</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <CircleSpinner />
           ) : (
             <>

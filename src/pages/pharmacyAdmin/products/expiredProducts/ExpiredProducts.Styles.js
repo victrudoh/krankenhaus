@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  width: 90%;
+  width: 94%;
   margin: 1rem auto;
   background-color: white;
   box-shadow: var(--box-shadow);

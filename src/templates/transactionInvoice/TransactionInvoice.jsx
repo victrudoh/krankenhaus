@@ -80,10 +80,10 @@ const TransactionInvoice = () => {
 
             <div className="container printInvoice" id="printInvoice">
               <i className="fab fa-1x ms-0 mt-2" style={{ color: "#000080" }}>
-                Krankenhaus
+                Payment Invoice
               </i>
               <div className="my-2"></div>
-              <h4>Payment Invoice</h4>
+              <h4>Krankenhaus</h4>
 
               <hr />
 

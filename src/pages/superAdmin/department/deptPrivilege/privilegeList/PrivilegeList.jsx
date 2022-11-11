@@ -37,7 +37,7 @@ const PrivilegeList = () => {
       //   response
       // );
       if (response.status === 200) {
-        success("Fetched privileges");
+        // success("Fetched privileges");
         setPrivs(response.data.privileges);
       }
     } catch (err) {
@@ -67,7 +67,7 @@ const PrivilegeList = () => {
       // console.log("response", response);
       setLoading(false);
       if (response.status === 200) {
-        success("Privilege Deleted");
+        // success("Privilege Deleted");
         getPriv();
         // setPrivs(response.data.privileges);
       }

@@ -8,7 +8,8 @@ import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinne
 import AppContext from "../../../../context/AppContext";
 
 const UserDetails = () => {
-  const { loading, setLoading, setInvoiceUser } = useContext(AppContext);
+  const { leftPanelLoading, setLeftPanelLoading, setInvoiceUser } =
+    useContext(AppContext);
 
   const [newUser, setNewUser] = useState({
     firstName: "",
@@ -18,14 +19,14 @@ const UserDetails = () => {
   const addInvoiceUser = (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       setInvoiceUser({
         foundInvoiceUser: true,
         firstName: newUser.firstName,
         lastName: newUser.lastName,
         items: [],
       });
-      setLoading(false);
+      setLeftPanelLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +45,7 @@ const UserDetails = () => {
       <Wrapper>
         <h5>New Customer</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <CircleSpinner />
           ) : (
             <form onSubmit={addInvoiceUser}>

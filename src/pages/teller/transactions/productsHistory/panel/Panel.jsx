@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import AppContext from "../../../../../context/AppContext";
 import axios from "axios";
 
@@ -10,7 +10,8 @@ import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpi
 import { success, error } from "../../../../../helpers/Alert";
 
 const Panel = () => {
-  const { loading, setLoading, setInvoiceProducts } = useContext(AppContext);
+  const { leftPanelLoading, setLeftPanelLoading, setInvoiceProducts } =
+    useContext(AppContext);
 
   const [filterParams, setFilterParams] = useState({
     From: "",
@@ -23,7 +24,7 @@ const Panel = () => {
     e.preventDefault();
     console.log("filterParams", filterParams);
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.get(
         `https://hospital-ms-api.herokuapp.com/transactions/view-By-products?From=${filterParams.From}&To=${filterParams.To}&s`,
         {
@@ -33,7 +34,7 @@ const Panel = () => {
           },
         }
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       console.log("response", response);
       if (response.status === 200) {
         success(response.data.message);
@@ -58,7 +59,7 @@ const Panel = () => {
       <Wrapper>
         <h5>Panel</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <CircleSpinner />
           ) : (
             <>

@@ -10,7 +10,8 @@ import { Wrapper, Content } from "./Panel.Styles";
 import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const Panel = () => {
-  const { loading, setLoading, setTrackPayment } = useContext(AppContext);
+  const { leftPanelLoading, setLeftPanelLoading, setTrackPayment } =
+    useContext(AppContext);
 
   const [findTrx, setFindTrx] = useState({
     transactionId: "",
@@ -20,7 +21,7 @@ const Panel = () => {
     console.log("findTrx", findTrx);
     e.preventDefault();
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.get(
         `https://hospital-ms-api.herokuapp.com/transactions/${findTrx.transactionId}`,
         {
@@ -30,7 +31,7 @@ const Panel = () => {
           },
         }
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       console.log("response", response);
       if (response.status === 200) {
         success("Found payment");
@@ -42,7 +43,7 @@ const Panel = () => {
     } catch (err) {
       error("Couldn't track payment");
       console.log(err);
-      setLoading(false);
+      setLeftPanelLoading(false);
     }
   };
 
@@ -59,7 +60,7 @@ const Panel = () => {
       <Wrapper>
         <h5>Panel</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <CircleSpinner />
           ) : (
             <form onSubmit={trackPayment}>

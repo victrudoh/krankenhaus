@@ -57,7 +57,7 @@ const EditUser = () => {
         getUsers();
       }
     } catch (err) {
-      error("Psych! can't update user");
+      error("  can't update user");
       console.log(err);
       setLeftPanelLoading(false);
     }

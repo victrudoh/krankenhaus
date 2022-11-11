@@ -50,7 +50,7 @@ const PendingProducts = () => {
         );
       }
     } catch (err) {
-      error("Psych! Couldn't accept product");
+      error("  Couldn't accept product");
       console.log(err);
       setLoading(false);
       if (err.response.status === 401) {
@@ -85,7 +85,7 @@ const PendingProducts = () => {
         info(`Rejected ${item.quantity} ${item.measuringUnit} of ${item.name}`);
       }
     } catch (err) {
-      error("Psych! Couldn't reject product");
+      error("  Couldn't reject product");
       console.log(err);
       setLoading(false);
       if (err.response.status === 401) {

@@ -10,7 +10,8 @@ import { Wrapper, Content } from "./Panel.Styles";
 import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const Panel = () => {
-  const { loading, setLoading, setInvoiceCustomers } = useContext(AppContext);
+  const { leftPanelLoading, setLeftPanelLoading, setInvoiceCustomers } =
+    useContext(AppContext);
 
   const [filterParams, setFilterParams] = useState({
     From: "",
@@ -23,7 +24,7 @@ const Panel = () => {
   const filter = async (e) => {
     try {
       e.preventDefault();
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.get(
         `https://hospital-ms-api.herokuapp.com/transactions/view-By-customer?From=${filterParams.From}&To=${filterParams.To}&status=${filterParams.status}&firstName=${filterParams.firstName}&lastName=${filterParams.lastName}`,
         {
@@ -33,12 +34,20 @@ const Panel = () => {
           },
         }
       );
-      setLoading(false);
+      // setLeftPanelLoading(false);
       console.log("Invoice by customers response", response);
       if (response.status === 200) {
         success(response.data.message);
         setInvoiceCustomers(response.data.transactions);
+        // setFilterParams({
+        //   From: filterParams.From,
+        //   To: filterParams.To,
+        //   firstName: filterParams.firstName,
+        //   lastName: filterParams.lastName,
+        //   status: filterParams.status,
+        // });
       }
+      setLeftPanelLoading(false);
     } catch (err) {
       error("OOps! Couldn't fetch record");
       console.log(err);
@@ -58,7 +67,7 @@ const Panel = () => {
       <Wrapper>
         <h5>Panel</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <CircleSpinner />
           ) : (
             <>
@@ -80,7 +89,7 @@ const Panel = () => {
                     type="date"
                     name="To"
                     id="To"
-                    required
+                    // required
                     defaultValue={filterParams.To}
                     onChange={onChangeHandler}
                   />

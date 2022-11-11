@@ -57,7 +57,7 @@ const AddUnit = () => {
         // setAddedDept(response.status);
       }
     } catch (err) {
-      error("Psych! Couldn't add unit");
+      error("  Couldn't add unit");
       console.log(err);
       setLeftPanelLoading(false);
       if (err.response.status === 401) {

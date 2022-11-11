@@ -33,7 +33,7 @@ const List = () => {
           <CircleSpinner />
         ) : (
           <table className="table caption-top">
-            <caption>Track payment</caption>
+            <caption>Track payment Id: {trackPayment.transaction.id}</caption>
             <thead>
               <tr>
                 <th scope="col">S/N</th>
@@ -53,12 +53,18 @@ const List = () => {
                   </td>
                 </tr>
               ))}
-              <tr>
-                <td></td>
-                <td></td>
-                <th>Total:</th>
-                <td>{totalPrice}</td>
-              </tr>
+              {trackPayment.products.length > 0 ? (
+                <>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <th>Total:</th>
+                    <td>{totalPrice}</td>
+                  </tr>
+                </>
+              ) : (
+                ""
+              )}
             </tbody>
           </table>
         )}

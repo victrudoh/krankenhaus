@@ -10,7 +10,7 @@ import { Wrapper, Content } from "./AddPrivilege.Styles";
 import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const AddPrivilege = () => {
-  const { loading, setLoading, savedDeptId, departments } =
+  const { leftPanelLoading, setLeftPanelLoading, savedDeptId, departments } =
     useContext(AppContext);
 
   const [newPriv, setNewPriv] = useState({
@@ -40,11 +40,11 @@ const AddPrivilege = () => {
       // );
       // setLoading(false);
       if (response.status === 200) {
-        success("Fetched all privileges");
+        // success("Fetched all privileges");
         setAllPrivs(response.data.privileges);
       }
     } catch (err) {
-      setLoading(false);
+      setLeftPanelLoading(false);
       error("Couldn't fetch privileges");
       if (err.response.status === 401) {
         error(err.response.data.message);
@@ -57,7 +57,7 @@ const AddPrivilege = () => {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.post(
         `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
         {},
@@ -68,7 +68,7 @@ const AddPrivilege = () => {
           },
         }
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       console.log(
         "🚀 ~ file: AddPrivilege.jsx ~ line 66 ~ submit ~ response",
         response
@@ -78,7 +78,7 @@ const AddPrivilege = () => {
         getAllPrivs();
       }
     } catch (err) {
-      setLoading(false);
+      setLeftPanelLoading(false);
       console.log("🚀 ~ file: AddPrivilege.jsx ~ line 71 ~ submit ~ err", err);
       error("Couldn't add privilege");
     }
@@ -88,7 +88,7 @@ const AddPrivilege = () => {
   const addPriv = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.post(
         `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
         {},
@@ -103,13 +103,13 @@ const AddPrivilege = () => {
         "🚀 ~ file: AddPrivilege.jsx ~ line 93 ~ addPriv ~ response",
         response
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success(`Added privilege`);
         setAllPrivs(response.data.privileges);
       }
     } catch (err) {
-      setLoading(false);
+      setLeftPanelLoading(false);
       console.log(
         "🚀 ~ file: AddPrivilege.jsx ~ line 103 ~ addPriv ~ err",
         err
@@ -139,7 +139,7 @@ const AddPrivilege = () => {
     <Wrapper>
       <h5>Add a new privilege</h5>
       <Content>
-        {loading ? (
+        {leftPanelLoading ? (
           <CircleSpinner />
         ) : (
           <>

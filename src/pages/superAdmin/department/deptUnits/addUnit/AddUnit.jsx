@@ -8,7 +8,7 @@ import { Wrapper, Content } from "./AddUnit.Styles";
 import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpinner.Styles";
 
 const AddUnit = () => {
-  const { loading, setLoading, departments, getDepartments } =
+  const { leftPanelLoading, setLeftPanelLoading, departments, getDepartments } =
     useContext(AppContext);
 
   const [newUnit, setNewUnit] = useState({
@@ -21,7 +21,7 @@ const AddUnit = () => {
     e.preventDefault();
     console.log("newUnit", newUnit);
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.post(
         `https://hospital-ms-api.herokuapp.com/departments/unit/new?departmentId=${newUnit.department}`,
         newUnit,
@@ -36,16 +36,16 @@ const AddUnit = () => {
         "🚀 ~ file: AddUnit.jsx ~ line 34 ~ addunit ~ response",
         response
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success("Created new department successfully");
         getDepartments();
         // setAddedDept(response.status);
       }
     } catch (err) {
-      error("Psych! Couldn't add unit");
+      error("  Couldn't add unit");
       console.log(err);
-      setLoading(false);
+      setLeftPanelLoading(false);
     }
   };
 
@@ -61,57 +61,57 @@ const AddUnit = () => {
     <Wrapper>
       <h5>Add Unit</h5>
       <Content>
-        {loading ? (
-          <>
-            <CircleSpinner />
-          </>
-        ) : (
-          <>
-            <form onSubmit={addunit}>
-              <div className="pair">
-                <label>Department:</label>
-                <select
-                  name="department"
-                  id="department"
-                  onChange={onchangeHandler}
-                  defaultValue={newUnit.department}
-                >
-                  <option>Select department</option>
-                  {departments.map((item, i) => (
-                    <option key={i} value={item.department.id}>
-                      {item.department.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="pair">
-                <label>Unit:</label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="Unit"
-                  onChange={onchangeHandler}
-                  defaultValue={newUnit.name}
-                />
-              </div>
-              <div className="pair">
-                <label>Publish:</label>
-                <select
-                  name="publish"
-                  id="publish"
-                  onChange={onchangeHandler}
-                  defaultValue={newUnit.publish}
-                >
-                  <option>Publish</option>
-                  <option value="true">True</option>
-                  <option value="false">False</option>
-                </select>
-              </div>
+        <form onSubmit={addunit}>
+          <div className="pair">
+            <label>Department:</label>
+            <select
+              name="department"
+              id="department"
+              onChange={onchangeHandler}
+              defaultValue={newUnit.department}
+            >
+              <option>Select department</option>
+              {departments.map((item, i) => (
+                <option key={i} value={item.department.id}>
+                  {item.department.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="pair">
+            <label>Unit:</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Unit"
+              onChange={onchangeHandler}
+              defaultValue={newUnit.name}
+            />
+          </div>
+          <div className="pair">
+            <label>Publish:</label>
+            <select
+              name="publish"
+              id="publish"
+              onChange={onchangeHandler}
+              defaultValue={newUnit.publish}
+            >
+              <option>Publish</option>
+              <option value="true">True</option>
+              <option value="false">False</option>
+            </select>
+          </div>
+          {leftPanelLoading ? (
+            <>
+              <CircleSpinner />
+            </>
+          ) : (
+            <>
               <button>Add unit</button>
-            </form>
-          </>
-        )}
+            </>
+          )}
+        </form>
       </Content>
     </Wrapper>
   );

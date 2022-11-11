@@ -9,8 +9,8 @@ import { Wrapper, Content } from "./EditProduct.Styles";
 
 const EditProduct = () => {
   const {
-    loading,
-    setLoading,
+    leftPanelLoading,
+    setLeftPanelLoading,
     departments,
     prodsByDept,
     editProduct,
@@ -35,7 +35,7 @@ const EditProduct = () => {
   // get products (Called after editing)
   const getProducts = async () => {
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.get(
         `https://hospital-ms-api.herokuapp.com/products`,
         {
@@ -47,7 +47,7 @@ const EditProduct = () => {
       );
       setProdsByDept(response.data.products);
       // console.log("response.data.products", response.data.products);
-      setLoading(false);
+      setLeftPanelLoading(false);
     } catch (err) {
       error("Couldn't fetch products");
       console.log(err);
@@ -75,7 +75,7 @@ const EditProduct = () => {
     console.log("updateProduct", updateProduct);
     e.preventDefault();
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.put(
         `https://hospital-ms-api.herokuapp.com/products/edit?productId=3${foundProduct.id}`,
         updateProduct,
@@ -90,15 +90,15 @@ const EditProduct = () => {
         "🚀 ~ file: EditProduct.jsx ~ line 89 ~ submit ~ response",
         response
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success("Updated user successfully");
         // getProducts();
       }
     } catch (err) {
-      error("Psych! can't update user");
+      error("  can't update user");
       console.log(err);
-      setLoading(false);
+      setLeftPanelLoading(false);
     }
   };
 

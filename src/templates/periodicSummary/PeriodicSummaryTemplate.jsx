@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import QRCode from "react-qr-code";
+// import QRCode from "react-qr-code";
 import AppContext from "../../context/AppContext";
 
 // Styles
@@ -77,10 +77,10 @@ const PeriodicSummaryTemplate = () => {
             </div>
             <div className="container printInvoice" id="printInvoice">
               <i className="fab fa-1x ms-0 mt-2" style={{ color: "#000080" }}>
-                Krankenhaus
+                Time Period Report
               </i>
               <div className="my-2"></div>
-              <h4>Time Period Report</h4>
+              <h4>Krankenhaus</h4>
               <hr />
               <div className="my-5"></div>
               <h6>

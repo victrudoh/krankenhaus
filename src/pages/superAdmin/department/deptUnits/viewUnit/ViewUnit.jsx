@@ -12,11 +12,6 @@ const ViewUnit = () => {
   const { savedDeptName, loading, setLoading, prodsByUnit, setProdsByUnit } =
     useContext(AppContext);
 
-  console.log(
-    "🚀 ~ file: ViewUnit.jsx ~ line 13 ~ ViewUnit ~ prodsByUnit",
-    prodsByUnit
-  );
-
   const [units, setUnits] = useState([]);
   const [sortParams, setSortParams] = useState({
     unit: "",
@@ -46,7 +41,8 @@ const ViewUnit = () => {
         setUnits(response.data.units);
       }
     } catch (err) {
-      error("Couldn't fetch units");
+      console.log("🚀 ~ file: ViewUnit.jsx ~ line 48 ~ getUnits ~ err", err);
+      // error("Couldn't fetch units");
       if (err.response.status === 401) {
         error("Unauthorized");
         localStorage.removeItem("token");
@@ -154,7 +150,7 @@ const ViewUnit = () => {
                   </tr>
                 ) : (
                   <>
-                    {prodsByUnit.products.map((item, i) => (
+                    {prodsByUnit?.products?.map((item, i) => (
                       <tr key={i}>
                         <th scope="row">{(SN = SN + 1)}</th>
                         <td>{savedDeptName}</td>

@@ -114,7 +114,7 @@ const ProductByUnit = () => {
                 </tr>
               ) : (
                 <>
-                  {prodsByUnit.map((item, i) => (
+                  {prodsByUnit?.map((item, i) => (
                     <tr key={i}>
                       <th scope="row">{(SN = SN + 1)}</th>
                       <td>{item.department}</td>

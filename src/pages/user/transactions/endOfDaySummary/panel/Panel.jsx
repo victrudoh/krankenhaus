@@ -81,6 +81,7 @@ const Panel = () => {
                     type="date"
                     name="date"
                     id="date"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={filterParams.date}
                   />
@@ -91,6 +92,7 @@ const Panel = () => {
                     type="time"
                     name="time"
                     id="time"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={filterParams.time}
                   />
@@ -101,6 +103,7 @@ const Panel = () => {
                     type="time"
                     name="time2"
                     id="time2"
+                    required
                     onChange={onchangeHandler}
                     defaultValue={filterParams.time2}
                   />

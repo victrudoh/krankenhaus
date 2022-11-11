@@ -10,7 +10,8 @@ import { CircleSpinner } from "../../../../../components/circleSpinner/CircleSpi
 import { success, error } from "../../../../../helpers/Alert";
 
 const Panel = () => {
-  const { loading, setLoading, setSavedInvoice } = useContext(AppContext);
+  const { leftPanelLoading, setLeftPanelLoading, setSavedInvoice } =
+    useContext(AppContext);
 
   const [filterParams, setFilterParams] = useState({
     From: "",
@@ -25,7 +26,7 @@ const Panel = () => {
     e.preventDefault();
     console.log("filterParams", filterParams);
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.get(
         `https://hospital-ms-api.herokuapp.com/transactions/report?From=${filterParams.From}&To=${filterParams.To}&hour1=${filterParams.hour1}&hour2=${filterParams.hour2}`,
         {
@@ -35,7 +36,7 @@ const Panel = () => {
           },
         }
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       console.log("response", response);
       if (response.status === 200) {
         success(response.data.message);
@@ -46,7 +47,7 @@ const Panel = () => {
         });
       }
     } catch (err) {
-      setLoading(false);
+      setLeftPanelLoading(false);
       console.log(err);
       error("Couldn't fetch History");
       if (err.response.status === 401) {
@@ -70,7 +71,7 @@ const Panel = () => {
       <Wrapper>
         <h5>Panel</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <CircleSpinner />
           ) : (
             <>

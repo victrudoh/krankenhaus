@@ -10,10 +10,10 @@ import { Wrapper, Content } from "./EditUser.Styles";
 const EditUser = () => {
   const {
     users,
-    loading,
+    leftPanelLoading,
+    setLeftPanelLoading,
     editUser,
     getUsers,
-    setLoading,
     setEditUser,
     departments,
     setEditedUser,
@@ -53,7 +53,7 @@ const EditUser = () => {
     console.log("updateUser", updateUser);
     e.preventDefault();
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.put(
         `https://hospital-ms-api.herokuapp.com/users/edit?userId=${foundUser.id}`,
         updateUser,
@@ -64,16 +64,16 @@ const EditUser = () => {
           },
         }
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success("Updated user successfully");
         setEditedUser(response.status);
         getUsers();
       }
     } catch (err) {
-      error("Psych! can't update user");
+      error("  can't update user");
       console.log(err);
-      setLoading(false);
+      setLeftPanelLoading(false);
     }
   };
 
@@ -228,7 +228,7 @@ const EditUser = () => {
                 <option value="limited">Limited</option>
               </select>
             </div>
-            {loading ? (
+            {leftPanelLoading ? (
               <CircleSpinner />
             ) : (
               <>

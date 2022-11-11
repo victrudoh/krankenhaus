@@ -44,6 +44,7 @@ export const AppProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [prodsByDept, setProdsByDept] = useState([]);
   const [prodsByUnit, setProdsByUnit] = useState([]);
+  const [prodsByPriv, setProdsByPriv] = useState([]);
   const [displayByUnit, setDisplayByUnit] = useState(false); //for view product by unit
   const [editProduct, setEditProduct] = useState({
     index: "",
@@ -59,7 +60,7 @@ export const AppProvider = ({ children }) => {
   const [displayCustomer, setDisplayCustomer] = useState(false);
   const [deptSummary, setDeptSummary] = useState([]);
   const [unitSummary, setUnitSummary] = useState([]);
-  const [trxDisplay, setTrxDisplay] = useState("records");
+  const [trxDisplay, setTrxDisplay] = useState("");
   const [byUnit, setByUnit] = useState(false); //for display
   const [getDetails, setGetDetails] = useState({
     display: false,
@@ -127,69 +128,6 @@ export const AppProvider = ({ children }) => {
     unit: {},
     deptName: "",
   });
-
-  //*******/
-  //************/
-  // Reload States
-  // Super Admin (SA)
-  // const [userListReloadSA, setUserListReloadSA] = useState(false);
-  // const [userLogListReloadSA, setUserLogListReloadSA] = useState(false);
-  // const [deptListReloadSA, setdeptListReloadSA] = useState(false);
-  // const [deptPrivListReloadSA, setDeptPrivListReloadSA] = useState(false);
-  // const [deptUnitListReloadSA, setDeptUnitListReloadSA] = useState(false);
-  // const [deptProdByUnitListReloadSA, setDeptProdByUnitListReloadSA] =
-  //   useState(false);
-  // const [prodListReloadSA, setProdListReloadSA] = useState(false);
-  // const [trxListReloadSA, settrxListReloadSA] = useState(false);
-  // // ...Right side ...//
-  // const [addUserReloadSA, setAddUserReloadSA] = useState(false);
-  // const [userLogPanelReloadSA, setUserLogPanelReloadSA] = useState(false);
-  // const [addDeptReloadSA, setAddDeptReloadSA] = useState(false);
-  // const [addDeptPrivReloadSA, setAddDeptPrivReloadSA] = useState(false);
-  // const [addDeptUnitReloadSA, setAddDeptUnitReloadSA] = useState(false);
-  // const [addProdReloadSA, setAddProdReloadSA] = useState(false);
-  // const [trxPanelReloadSA, settrxPanelReloadSA] = useState(false);
-
-  // // Regular User [Revenue, etc] (RU)
-  // const [createInvoiceListRU, setCreateInvoiceListRU] = useState(false);
-  // const [trackPaymentListRU, setTrackPaymentListRU] = useState(false);
-  // const [trxListRU, setTrxListRU] = useState(false);
-  // // ...Right side ...//
-  // const [createInvoicePanelRU, setCreateInvoicePanelRU] = useState(false);
-  // const [trackPaymentPanelRU, setTrackPaymentPanelRU] = useState(false);
-  // const [trxPanelRU, setTrxPanelRU] = useState(false);
-
-  // // Bank User [Teller] (BU)
-  // const [makePaymentListBU, setMakePaymentListBU] = useState(false);
-  // const [trxListBU, setTrxListBU] = useState(false);
-  // // ...Right side ...//
-  // const [makePaymentPanelBU, setMakePaymentPanelBU] = useState(false);
-  // const [trxPanelBU, setTrxPanelBU] = useState(false);
-
-  // // Pharmacy Admin (PA)
-  // const [userListReloadPA, setUserListReloadPA] = useState(false);
-  // const [productListReloadPA, setProductListReloadPA] = useState(false);
-  // const [unitListReloadPA, setUnitListReloadPA] = useState(false);
-  // const [supplierListReloadPA, setSupplierListReloadPA] = useState(false);
-  // const [measuringUnitReloadPA, setMeasuringUnitReloadPA] = useState(false);
-  // // ...Right side ...//
-  // const [addUserReloadPA, setAddUserReloadPA] = useState(false);
-  // const [addProductReloadPA, setAddProductReloadPA] = useState(false);
-  // const [addUnitReloadPA, setAddUnitReloadPA] = useState(false);
-  // const [addSupplierReloadPA, setAddSupplierReloadPA] = useState(false);
-  // const [addMeasuringUnitReloadPA, setAddMeasuringUnitReloadPA] =
-  //   useState(false);
-
-  // // Pharmacy User (PU)
-  // const [acceptedProductReloadPU, setAcceptedProductReloadPU] = useState(false);
-  // const [pendingProductsReloadPU, setPendingProductsReloadPU] = useState(false);
-  // const [invoiceListReloadPU, setInvoiceListReloadPU] = useState(false);
-  // const [trackPaymentListReloadPU, setTrackPaymentListReloadPU] =
-  //   useState(false);
-  // // ...Right side ...//
-  // const [invoicePanelReloadPU, setInvoicePanelReloadPU] = useState(false);
-  // const [trackPaymentPanelReloadPU, setTrackPaymentPanelReloadPU] =
-  //   useState(false);
 
   //************/
   //*******/
@@ -347,6 +285,41 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // get All products
+  const getProductsByPriv = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `https://hospital-ms-api.herokuapp.com/products/search`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.js ~ line 301 ~ getProductsByPriv ~ response",
+      //   response
+      // );
+      setLoading(false);
+      if (response.status === 200) {
+        setProdsByPriv(response.data.products);
+      }
+    } catch (err) {
+      console.log(
+        "🚀 ~ file: AppContext.js ~ line 310 ~ getProductsByPriv ~ err",
+        err
+      );
+      // error(err.response.data.message);
+      // if (err.response.status === 401) {
+      //   error("Unauthorized");
+      //   localStorage.removeItem("token");
+      //   window.location.reload(false);
+      // }
+    }
+  };
+
   // get All departments and units
   const getDepartments = async () => {
     try {
@@ -452,7 +425,7 @@ export const AppProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/inventory/products/all?size=10&page=0`,
+        `https://hospital-ms-api.herokuapp.com/inventory/products/all?size=20&page=0`,
         {
           headers: {
             "content-type": "application/json",
@@ -667,10 +640,10 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: AppContext.js ~ line 663 ~ getExpiredProducts ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.js ~ line 663 ~ getExpiredProducts ~ response",
+      //   response
+      // );
       setLoading(false);
       if (response.status === 200) {
         setInventoryExpiredProducts(response.data.products);
@@ -698,10 +671,10 @@ export const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: AppContext.js ~ line 697 ~ getOutOfStockProducts ~ response",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.js ~ line 697 ~ getOutOfStockProducts ~ response",
+      //   response
+      // );
       setLoading(false);
       if (response.status === 200) {
         setInventoryOutOfStockProducts(response.data.products);
@@ -728,12 +701,13 @@ export const AppProvider = ({ children }) => {
     if (token) {
       console.log("Fetch everything");
       getUsers();
-      getUserLogs();
-      getUsersByDept();
       activeUser();
+      getUserLogs();
       getProducts();
       getTrxChart();
       getTrxLength();
+      getUsersByDept();
+      getProductsByPriv();
       setTransactions([]);
 
       // INVENTORY STUFF
@@ -809,15 +783,17 @@ export const AppProvider = ({ children }) => {
 
         // Products
         products,
+        editProduct,
         prodsByDept,
         prodsByUnit,
-        editProduct,
+        prodsByPriv,
         displayByUnit,
 
         setProducts,
         setEditProduct,
         setProdsByUnit,
         setProdsByDept,
+        setProdsByPriv,
         setDisplayByUnit,
 
         // Transactions

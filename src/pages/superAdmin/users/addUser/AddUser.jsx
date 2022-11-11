@@ -10,8 +10,14 @@ import { CircleSpinner } from "../../../../components/circleSpinner/CircleSpinne
 import { Content, Wrapper } from "./AddUser.Styles";
 
 const AddUser = () => {
-  const { user, loading, getUsers, setLoading, departments, setAddedUser } =
-    useContext(AppContext);
+  const {
+    user,
+    getUsers,
+    leftPanelLoading,
+    setLeftPanelLoading,
+    departments,
+    setAddedUser,
+  } = useContext(AppContext);
 
   const [unit, setUnit] = useState([]);
 
@@ -36,7 +42,7 @@ const AddUser = () => {
     console.log("newUser", newUser);
     e.preventDefault();
     try {
-      setLoading(true);
+      setLeftPanelLoading(true);
       const response = await axios.post(
         "https://hospital-ms-api.herokuapp.com/users/create",
         newUser,
@@ -47,7 +53,7 @@ const AddUser = () => {
           },
         }
       );
-      setLoading(false);
+      setLeftPanelLoading(false);
       if (response.status === 200) {
         success("Created new user successfully");
         setAddedUser(response.status);
@@ -56,7 +62,7 @@ const AddUser = () => {
     } catch (err) {
       error("Error: Couldn't add user");
       console.log(err);
-      setLoading(false);
+      setLeftPanelLoading(false);
     }
   };
 
@@ -113,7 +119,7 @@ const AddUser = () => {
       <Wrapper>
         <h5>Add User</h5>
         <Content>
-          {loading ? (
+          {leftPanelLoading ? (
             <CircleSpinner />
           ) : (
             <form onSubmit={addUser}>

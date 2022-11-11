@@ -19,8 +19,8 @@ const ProductList = () => {
     setDisplayByUnit,
   } = useContext(AppContext);
   console.log(
-    "🚀 ~ file: ProductList.jsx ~ line 21 ~ ProductList ~ user",
-    user
+    "🚀 ~ file: ProductList.jsx ~ line 21 ~ ProductList ~ prodsByDept",
+    prodsByDept
   );
 
   const [sortBy, setSortBy] = useState("");
@@ -67,7 +67,6 @@ const ProductList = () => {
 
   const onchangeHandler = (e) => {
     e.persist();
-    console.log(e.target.value);
     setSortBy(e.target.value);
   };
 
