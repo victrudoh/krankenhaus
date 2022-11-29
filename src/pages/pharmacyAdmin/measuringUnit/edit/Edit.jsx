@@ -37,7 +37,7 @@ const Edit = () => {
       );
       setLoading(false);
       if (response.status === 200) {
-        success("Updated measuring unit successfully");
+        // success("Updated measuring unit successfully");
         setEditMeasuringUnit({
           unit: "",
           editing: false,

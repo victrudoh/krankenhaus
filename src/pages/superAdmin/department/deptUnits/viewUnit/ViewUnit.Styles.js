@@ -67,15 +67,17 @@ export const Top = styled.div`
 
   .pair {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     align-items: center;
     gap: 1rem;
-    /* background-color: green; */
+    // background-color: green;
     /* width: 60%; */
 
     select {
       padding: 0.2rem;
       border-radius: var(--border-radius);
+      width: 20rem;
+      height: 3rem;
 
       &:focus {
         border-radius: 10px 10px 0 0;

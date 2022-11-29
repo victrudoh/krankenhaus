@@ -18,9 +18,8 @@ export const Wrapper = styled.div`
     font-size: 18px;
 
     &:hover {
-      font-size: 24px;
-      color: var(--accent-color);
-      background-color: var(--secondary-color);
+      font-size: 20px;
+      color: var(--secondary-color);
     }
   }
 

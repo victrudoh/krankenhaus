@@ -55,7 +55,7 @@ const UnitList = () => {
                   <tbody key={i}>
                     <>
                       <tr className="bg-secondary bg-gradient text-white">
-                        <td className="fw-bold">
+                        <td className="fw-bold d-flex justify-content-around">
                           {item.department.name}{" "}
                           <i
                             className="bx bxs-webcam"

@@ -32,7 +32,7 @@ const AreaChart = () => {
       );
       console.log("response", response);
       if (response.status === 200) {
-        success(response.data.message);
+        // success(response.data.message);
         // setChartData(response.data.chart);
         let date = response.data.chart.map((item) => {
           console.log(item);

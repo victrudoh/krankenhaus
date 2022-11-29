@@ -105,7 +105,7 @@ const EditUnit = () => {
   };
 
   useEffect(() => {
-    info("Fetching unit data, please wait");
+    // info("Fetching unit data, please wait");
     fetchUnits();
   }, []);
 

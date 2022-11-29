@@ -78,8 +78,8 @@ const ProductByUnit = () => {
                 defaultValue={unit.unitId}
               >
                 <option>Select Unit</option>
-                {departments.map((item, i) =>
-                  item.units.map((unit, i) => (
+                {departments?.map((item, i) =>
+                  item?.units.map((unit, i) => (
                     <option key={i} value={unit.id}>
                       {unit.name}
                     </option>
