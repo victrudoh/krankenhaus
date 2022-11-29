@@ -114,15 +114,16 @@ const ProductByUnit = () => {
                 </tr>
               ) : (
                 <>
-                  {prodsByUnit?.map((item, i) => (
-                    <tr key={i}>
-                      <th scope="row">{(SN = SN + 1)}</th>
-                      <td>{item.department}</td>
-                      <td>{item.name}</td>
-                      <td>{item.price}</td>
-                      <td>{item.publish === true ? "Yes" : "No"}</td>
-                    </tr>
-                  ))}
+                  {prodsByUnit &&
+                    prodsByUnit?.map((item, i) => (
+                      <tr key={i}>
+                        <th scope="row">{(SN = SN + 1)}</th>
+                        <td>{item.department}</td>
+                        <td>{item.name}</td>
+                        <td>{item.price}</td>
+                        <td>{item.publish === true ? "Yes" : "No"}</td>
+                      </tr>
+                    ))}
                 </>
               )}
             </tbody>
