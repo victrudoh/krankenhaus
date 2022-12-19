@@ -28,7 +28,7 @@ const PendingProducts = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        `https://hospital-ms-api.herokuapp.com/inventory/products/accept?product=${item.id}`,
+        `https://hospital-ms-api.onrender.com/inventory/products/accept?product=${item.id}`,
         {},
         {
           headers: {
@@ -66,7 +66,7 @@ const PendingProducts = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://hospital-ms-api.herokuapp.com/inventory/products/reject?product=${item.id}`,
+        `https://hospital-ms-api.onrender.com/inventory/products/reject?product=${item.id}`,
         {
           headers: {
             "content-type": "application/json",

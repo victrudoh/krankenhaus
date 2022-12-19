@@ -30,7 +30,7 @@ const EditDept = ({ setIsEditing }) => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.put(
-        `https://hospital-ms-api.herokuapp.com/departments/edit/${foundDept.id}`,
+        `https://hospital-ms-api.onrender.com/departments/edit/${foundDept.id}`,
         editDept,
         {
           headers: {

@@ -41,7 +41,7 @@ const EditUser = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.put(
-        `https://hospital-ms-api.herokuapp.com/users/edit?userId=${foundUser.id}`,
+        `https://hospital-ms-api.onrender.com/users/edit?userId=${foundUser.id}`,
         updateUser,
         {
           headers: {

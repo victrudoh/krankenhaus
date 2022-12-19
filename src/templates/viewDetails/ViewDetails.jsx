@@ -18,7 +18,7 @@ const ViewDetails = () => {
   const getInvoiceCreator = async () => {
     try {
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/users/${getDetails.data.creator}`,
+        `https://hospital-ms-api.onrender.com/users/${getDetails.data.creator}`,
         {
           headers: {
             "content-type": "application/json",
@@ -42,7 +42,7 @@ const ViewDetails = () => {
   const getTeller = async () => {
     try {
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/users/${getDetails.data.teller}`,
+        `https://hospital-ms-api.onrender.com/users/${getDetails.data.teller}`,
         {
           headers: {
             "content-type": "application/json",

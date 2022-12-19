@@ -26,7 +26,7 @@ const ItemList = () => {
       setLoading(true);
       console.log("invoiceUser", invoiceUser);
       const response = await axios.post(
-        "https://hospital-ms-api.herokuapp.com/transactions/new",
+        "https://hospital-ms-api.onrender.com/transactions/new",
         invoiceUser,
         {
           headers: {
@@ -57,7 +57,7 @@ const ItemList = () => {
     try {
       console.log("deleteHandler ~ id", id);
       const response = await axios.delete(
-        `https://hospital-ms-api.herokuapp.com/transactions/delete-item?id=${id}`,
+        `https://hospital-ms-api.onrender.com/transactions/delete-item?id=${id}`,
         {
           headers: {
             "content-type": "application/json",

@@ -25,7 +25,7 @@ const Panel = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/transactions/view-By-customer?From=${filterParams.From}&To=${filterParams.To}&status=${filterParams.status}&lastName=${filterParams.lastName}&firstName=${filterParams.firstName}`,
+        `https://hospital-ms-api.onrender.com/transactions/view-By-customer?From=${filterParams.From}&To=${filterParams.To}&status=${filterParams.status}&lastName=${filterParams.lastName}&firstName=${filterParams.firstName}`,
         {
           headers: {
             "content-type": "application/json",

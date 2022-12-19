@@ -22,7 +22,7 @@ const Panel = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://hospital-ms-api.herokuapp.com/inventory/measuring-unit/add",
+        "https://hospital-ms-api.onrender.com/inventory/measuring-unit/add",
         newMeasuringUnit,
         {
           headers: {

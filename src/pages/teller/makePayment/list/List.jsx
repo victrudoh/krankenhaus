@@ -26,7 +26,7 @@ const List = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        `https://hospital-ms-api.herokuapp.com/transactions/update?transactionId=${trackPayment.transaction.id}`,
+        `https://hospital-ms-api.onrender.com/transactions/update?transactionId=${trackPayment.transaction.id}`,
         status,
         {
           headers: {

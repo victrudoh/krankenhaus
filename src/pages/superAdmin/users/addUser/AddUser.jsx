@@ -20,6 +20,11 @@ const AddUser = () => {
   } = useContext(AppContext);
 
   const [unit, setUnit] = useState([]);
+  const [hideRole, setHideRole] = useState(false);
+  console.log(
+    "🚀 ~ file: AddUser.jsx ~ line 24 ~ AddUser ~ hideRole",
+    hideRole
+  );
 
   const [newUser, setNewUser] = useState({
     firstName: "",
@@ -44,7 +49,7 @@ const AddUser = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.post(
-        "https://hospital-ms-api.herokuapp.com/users/create",
+        "https://hospital-ms-api.onrender.com/users/create",
         newUser,
         {
           headers: {
@@ -86,7 +91,31 @@ const AddUser = () => {
   // // fetch unit when department is selected
   useEffect(() => {
     getUnit(newUser.department);
+
+    // For teller, hide role fields
+    if (newUser.department === "Bank") {
+      setHideRole(true);
+    } else {
+      setHideRole(false);
+    }
   }, [newUser.department]);
+
+  // Automatically assign access based on role
+  useEffect(() => {
+    if (newUser.role === "admin") {
+      setNewUser((newUser) => ({
+        ...newUser,
+        role: "admin",
+        access: "full",
+      }));
+    } else {
+      setNewUser((newUser) => ({
+        ...newUser,
+        role: "user",
+        access: "limited",
+      }));
+    }
+  }, [newUser.role]);
 
   useEffect(() => {
     setEditUser(() => ({
@@ -261,7 +290,7 @@ const AddUser = () => {
               )}
 
               {/* BANK ADMIN */}
-              {user.role === "bank-admin" ? (
+              {user.department === "bank" ? (
                 <>
                   {/* department */}
                   <div className="pair">
@@ -413,8 +442,44 @@ const AddUser = () => {
                       defaultValue={newUser.password}
                     />
                   </div>
+                  {hideRole ? (
+                    ""
+                  ) : (
+                    <>
+                      {/* role */}
+                      <div className="pair">
+                        <label>Account type:</label>
+                        <select
+                          name="role"
+                          id="role"
+                          required
+                          onChange={onchangeHandler}
+                          defaultValue={newUser.password}
+                        >
+                          <option>Select role</option>
+                          <option value="admin">Admin</option>
+                          <option value="user">User</option>
+                        </select>
+                      </div>
+                      {/* privilege */}
+                      {/* <div className="pair">
+                        <label>Privilege:</label>
+                        <select
+                          name="access"
+                          id="access"
+                          required
+                          onChange={onchangeHandler}
+                          defaultValue={newUser.access}
+                        >
+                          <option>Select privilege</option>
+                          <option value="full">Full</option>
+                          <option value="limited">Limited</option>
+                        </select>
+                      </div> */}
+                    </>
+                  )}
                   {/* role */}
-                  <div className="pair">
+                  {/* <div className="pair">
                     <label>Account type:</label>
                     <select
                       name="role"
@@ -432,9 +497,9 @@ const AddUser = () => {
                       <option value="teller">Teller</option>
                       <option value="user">User</option>
                     </select>
-                  </div>
+                  </div> */}
                   {/* privilege */}
-                  <div className="pair">
+                  {/* <div className="pair">
                     <label>Privilege:</label>
                     <select
                       name="access"
@@ -447,7 +512,7 @@ const AddUser = () => {
                       <option value="full">Full</option>
                       <option value="limited">Limited</option>
                     </select>
-                  </div>
+                  </div> */}
                 </>
               ) : (
                 ""
@@ -509,39 +574,42 @@ const AddUser = () => {
                       defaultValue={newUser.password}
                     />
                   </div>
-                  {/* role */}
-                  <div className="pair">
-                    <label>Account type:</label>
-                    <select
-                      name="role"
-                      id="role"
-                      required
-                      onChange={onchangeHandler}
-                      defaultValue={newUser.password}
-                    >
-                      <option>Select role</option>
-                      <option value="admin">Admin</option>
-                      <option value="bank-admin">Bank admin</option>
-                      <option value="hospital-admin">Hospital admin</option>
-                      <option value="teller">Teller</option>
-                      <option value="user">User</option>
-                    </select>
-                  </div>
-                  {/* privilege */}
-                  <div className="pair">
-                    <label>Privilege:</label>
-                    <select
-                      name="access"
-                      id="access"
-                      required
-                      onChange={onchangeHandler}
-                      defaultValue={newUser.access}
-                    >
-                      <option>Select privilege</option>
-                      <option value="full">Full</option>
-                      <option value="limited">Limited</option>
-                    </select>
-                  </div>
+                  {hideRole ? (
+                    ""
+                  ) : (
+                    <>
+                      {/* role */}
+                      <div className="pair">
+                        <label>Account type:</label>
+                        <select
+                          name="role"
+                          id="role"
+                          required
+                          onChange={onchangeHandler}
+                          defaultValue={newUser.password}
+                        >
+                          <option>Select role</option>
+                          <option value="admin">Admin</option>
+                          <option value="user">User</option>
+                        </select>
+                      </div>
+                      {/* privilege */}
+                      {/* <div className="pair">
+                        <label>Privilege:</label>
+                        <select
+                          name="access"
+                          id="access"
+                          required
+                          onChange={onchangeHandler}
+                          defaultValue={newUser.access}
+                        >
+                          <option>Select privilege</option>
+                          <option value="full">Full</option>
+                          <option value="limited">Limited</option>
+                        </select>
+                      </div> */}
+                    </>
+                  )}
                 </>
               ) : (
                 ""

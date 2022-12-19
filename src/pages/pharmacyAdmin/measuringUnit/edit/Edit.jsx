@@ -26,7 +26,7 @@ const Edit = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        `https://hospital-ms-api.herokuapp.com/inventory/measuring-unit/edit?id=${editMeasuringUnit.unit.id}`,
+        `https://hospital-ms-api.onrender.com/inventory/measuring-unit/edit?id=${editMeasuringUnit.unit.id}`,
         updateMeasuringUnit,
         {
           headers: {

@@ -28,7 +28,7 @@ const Panel = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/transactions/report?From=${filterParams.From}&To=${filterParams.To}&hour1=${filterParams.hour1}&hour2=${filterParams.hour2}`,
+        `https://hospital-ms-api.onrender.com/transactions/report?From=${filterParams.From}&To=${filterParams.To}&hour1=${filterParams.hour1}&hour2=${filterParams.hour2}`,
         {
           headers: {
             "content-type": "application/json",

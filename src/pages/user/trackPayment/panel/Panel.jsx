@@ -23,7 +23,7 @@ const Panel = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/transactions/${findTrx.transactionId}`,
+        `https://hospital-ms-api.onrender.com/transactions/${findTrx.transactionId}`,
         {
           headers: {
             "content-type": "application/json",

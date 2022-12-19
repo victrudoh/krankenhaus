@@ -37,7 +37,7 @@ const ProductHistoryPanel = () => {
     // try {
     //   setLoading(true);
     //   const response = await axios.get(
-    //     "https://hospital-ms-api.herokuapp.com/users/tellers",
+    //     "https://hospital-ms-api.onrender.com/users/tellers",
     //     {
     //       headers: {
     //         "content-type": "application/json",
@@ -65,7 +65,7 @@ const ProductHistoryPanel = () => {
       e.preventDefault();
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/transactions/view-By-products?From=${filterParams.From}&To=${filterParams.To}&status=${filterParams.status}&departmentId=${filterParams.department}&tellerId=${filterParams.teller}`,
+        `https://hospital-ms-api.onrender.com/transactions/view-By-products?From=${filterParams.From}&To=${filterParams.To}&status=${filterParams.status}&departmentId=${filterParams.department}&tellerId=${filterParams.teller}`,
         {
           headers: {
             "content-type": "application/json",

@@ -34,7 +34,7 @@ const AddProduct = () => {
       e.preventDefault();
       setLeftPanelLoading(true);
       const response = await axios.post(
-        "https://hospital-ms-api.herokuapp.com/inventory/products/add",
+        "https://hospital-ms-api.onrender.com/inventory/products/add",
         newProduct,
         {
           headers: {

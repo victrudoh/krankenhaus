@@ -42,7 +42,7 @@ const AddUser = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.post(
-        "https://hospital-ms-api.herokuapp.com/users/create",
+        "https://hospital-ms-api.onrender.com/users/create",
         newUser,
         {
           headers: {

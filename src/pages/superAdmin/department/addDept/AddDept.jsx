@@ -27,7 +27,7 @@ const AddDept = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.post(
-        "https://hospital-ms-api.herokuapp.com/departments/new",
+        "https://hospital-ms-api.onrender.com/departments/new",
         newDept,
         {
           headers: {

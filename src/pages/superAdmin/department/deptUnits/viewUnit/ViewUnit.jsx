@@ -28,7 +28,7 @@ const ViewUnit = () => {
   const getUnits = async () => {
     try {
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/departments/units?name=${savedDeptName}`,
+        `https://hospital-ms-api.onrender.com/departments/units?name=${savedDeptName}`,
         {
           headers: {
             "content-type": "application/json",
@@ -56,7 +56,7 @@ const ViewUnit = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/products/units?unitId=${sortParams.unit}`,
+        `https://hospital-ms-api.onrender.com/products/units?unitId=${sortParams.unit}`,
         {
           headers: {
             "content-type": "application/json",

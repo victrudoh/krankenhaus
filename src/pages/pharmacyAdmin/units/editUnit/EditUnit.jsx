@@ -28,7 +28,7 @@ const EditUnit = () => {
       console.log("updateUnit", updateUnit);
       setLeftPanelLoading(true);
       const response = await axios.put(
-        `https://hospital-ms-api.herokuapp.com/departments/units/edit?id=${editInventoryUnit.unit.id}`,
+        `https://hospital-ms-api.onrender.com/departments/units/edit?id=${editInventoryUnit.unit.id}`,
         updateUnit,
         {
           headers: {

@@ -15,7 +15,7 @@ const ActivityPanel = () => {
     From: "",
     To: "",
     page: 0,
-    size: 5,
+    size: 15,
   });
 
   const filter = async (e) => {
@@ -23,7 +23,7 @@ const ActivityPanel = () => {
       e.preventDefault();
       setLeftPanelLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/auth/logs/all?From=${filterParams.From}&To=${filterParams.To}`,
+        `https://hospital-ms-api.onrender.com/auth/logs/all?From=${filterParams.From}&To=${filterParams.To}`,
         {
           headers: {
             "content-type": "application/json",
@@ -31,10 +31,10 @@ const ActivityPanel = () => {
           },
         }
       );
-      // console.log(
-      //   "🚀 ~ file: ActivityPanel.jsx ~ line 34 ~ filter ~ response",
-      //   response
-      // );
+      console.log(
+        "🚀 ~ file: ActivityPanel.jsx ~ line 34 ~ filter ~ response",
+        response
+      );
       setLeftPanelLoading(false);
       if (response.status === 200) {
         success(response.data.message);

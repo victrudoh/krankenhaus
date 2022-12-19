@@ -20,7 +20,7 @@ const List = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.herokuapp.com/transactions/${id}`,
+        `https://hospital-ms-api.onrender.com/transactions/${id}`,
         {
           headers: {
             "content-type": "application/json",
