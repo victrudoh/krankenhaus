@@ -23,7 +23,7 @@ const ActivityPanel = () => {
       e.preventDefault();
       setLeftPanelLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.onrender.com/auth/logs/all?From=${filterParams.From}&To=${filterParams.To}`,
+        `https://hospital-ms-api.herokuapp.com/auth/logs/all?From=${filterParams.From}&To=${filterParams.To}`,
         {
           headers: {
             "content-type": "application/json",

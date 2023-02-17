@@ -26,7 +26,7 @@ const AddPrivilege = () => {
       // console.log("privs", privs);
       // setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.onrender.com/departments/privileges/all`,
+        `https://hospital-ms-api.herokuapp.com/departments/privileges/all`,
         {
           headers: {
             "content-type": "application/json",
@@ -59,7 +59,7 @@ const AddPrivilege = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.post(
-        `https://hospital-ms-api.onrender.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
+        `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
         {},
         {
           headers: {
@@ -90,7 +90,7 @@ const AddPrivilege = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.post(
-        `https://hospital-ms-api.onrender.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
+        `https://hospital-ms-api.herokuapp.com/departments/privilleges/add?departmentId=${foundDept.id}&privillegeId=${newPriv.privId}`,
         {},
         {
           headers: {

@@ -24,7 +24,7 @@ const PrivilegeList = () => {
     try {
       // console.log("privs", privs);
       const response = await axios.get(
-        `https://hospital-ms-api.onrender.com/departments/privilleges?departmentId=${foundDept.id}`,
+        `https://hospital-ms-api.herokuapp.com/departments/privilleges?departmentId=${foundDept.id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -56,7 +56,7 @@ const PrivilegeList = () => {
       // console.log("privs", privs);
       setLoading(true);
       const response = await axios.delete(
-        `https://hospital-ms-api.onrender.com/departments/privilleges/remove?privillegeId=${id}&departmentId=${foundDept.id}`,
+        `https://hospital-ms-api.herokuapp.com/departments/privilleges/remove?privillegeId=${id}&departmentId=${foundDept.id}`,
         {
           headers: {
             "content-type": "application/json",

@@ -42,7 +42,7 @@ const AddItem = () => {
   const getDeptByPriv = async () => {
     try {
       const response = await axios.get(
-        "https://hospital-ms-api.onrender.com/departments/find-By-dept",
+        "https://hospital-ms-api.herokuapp.com/departments/find-By-dept",
         {
           headers: {
             "content-type": "application/json",
@@ -69,7 +69,7 @@ const AddItem = () => {
   const getDeptId = async (id) => {
     try {
       const response = await axios.get(
-        `https://hospital-ms-api.onrender.com/products/departments?departmentId=${deptId}`,
+        `https://hospital-ms-api.herokuapp.com/products/departments?departmentId=${deptId}`,
         {
           headers: {
             "content-type": "application/json",
@@ -96,7 +96,7 @@ const AddItem = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.post(
-        "https://hospital-ms-api.onrender.com/transactions/add-item",
+        "https://hospital-ms-api.herokuapp.com/transactions/add-item",
         newItem,
         {
           headers: {

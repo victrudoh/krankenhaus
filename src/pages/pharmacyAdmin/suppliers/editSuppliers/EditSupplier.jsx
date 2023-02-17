@@ -33,7 +33,7 @@ const EditSupplier = () => {
     try {
       setLoading(true);
       const response = await axios.put(
-        `https://hospital-ms-api.onrender.com/inventory/suppliers/edit?id=${foundSupplier.id}`,
+        `https://hospital-ms-api.herokuapp.com/inventory/suppliers/edit?id=${foundSupplier.id}`,
         updateSupplier,
         {
           headers: {

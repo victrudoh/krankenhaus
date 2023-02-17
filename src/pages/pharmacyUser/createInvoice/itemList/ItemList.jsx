@@ -26,7 +26,7 @@ const ItemList = () => {
       setLoading(true);
       console.log("invoiceUser", invoiceUser);
       const response = await axios.post(
-        "https://hospital-ms-api.onrender.com/transactions/new",
+        "https://hospital-ms-api.herokuapp.com/transactions/new",
         invoiceUser,
         {
           headers: {

@@ -55,7 +55,7 @@ const SendProducts = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.post(
-        `https://hospital-ms-api.onrender.com/inventory/products/send-to-unit?unit=${editInventoryUnit.unit.id}`,
+        `https://hospital-ms-api.herokuapp.com/inventory/products/send-to-unit?unit=${editInventoryUnit.unit.id}`,
         sendProducts,
         {
           headers: {

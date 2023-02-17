@@ -11,19 +11,22 @@ import EditProduct from "./editProduct/EditProduct";
 import AppContext from "../../../context/AppContext";
 
 const Products = () => {
-  const { editProduct, displayByUnit } = useContext(AppContext);
+  const { editProduct, displayByUnit, user } = useContext(AppContext);
 
   return (
     <>
       <Wrapper>
         {displayByUnit ? <ProductByUnit /> : <ProductList />}
-
-        {editProduct.editing ? (
+        {user.role !== "admin_read_only" && (
           <>
-            <EditProduct />
+            {editProduct.editing ? (
+              <>
+                <EditProduct />
+              </>
+            ) : (
+              <AddProduct />
+            )}
           </>
-        ) : (
-          <AddProduct />
         )}
       </Wrapper>
     </>

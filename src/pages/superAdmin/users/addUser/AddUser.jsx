@@ -21,10 +21,6 @@ const AddUser = () => {
 
   const [unit, setUnit] = useState([]);
   const [hideRole, setHideRole] = useState(false);
-  console.log(
-    "🚀 ~ file: AddUser.jsx ~ line 24 ~ AddUser ~ hideRole",
-    hideRole
-  );
 
   const [newUser, setNewUser] = useState({
     firstName: "",
@@ -49,7 +45,7 @@ const AddUser = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.post(
-        "https://hospital-ms-api.onrender.com/users/create",
+        "https://hospital-ms-api.herokuapp.com/users/create",
         newUser,
         {
           headers: {
@@ -108,7 +104,13 @@ const AddUser = () => {
         role: "admin",
         access: "full",
       }));
-    } else {
+    } else if (newUser.role === "read_only") {
+      setNewUser((newUser) => ({
+        ...newUser,
+        role: "admin_read_only",
+        access: "full",
+      }));
+    } else if (newUser.role === "user") {
       setNewUser((newUser) => ({
         ...newUser,
         role: "user",
@@ -458,6 +460,7 @@ const AddUser = () => {
                         >
                           <option>Select role</option>
                           <option value="admin">Admin</option>
+                          <option value="read_only">Admin (Read-only)</option>
                           <option value="user">User</option>
                         </select>
                       </div>
@@ -590,6 +593,7 @@ const AddUser = () => {
                         >
                           <option>Select role</option>
                           <option value="admin">Admin</option>
+                          <option value="read_only">Admin (Read-only)</option>
                           <option value="user">User</option>
                         </select>
                       </div>

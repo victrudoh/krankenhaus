@@ -22,7 +22,7 @@ const AreaChart = () => {
   const getChartData = async () => {
     try {
       const response = await axios.get(
-        `https://hospital-ms-api.onrender.com/transactions/monthly`,
+        `https://hospital-ms-api.herokuapp.com/transactions/monthly`,
         {
           headers: {
             "content-type": "application/json",

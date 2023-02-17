@@ -10,7 +10,7 @@ import Panel from "./panel/Panel";
 import ViewDetails from "../../../../../templates/viewDetails/ViewDetails";
 
 const CustomerHistory = ({ setIsCustomer }) => {
-  const { getDetails } = useContext(AppContext);
+  const { getDetails, user } = useContext(AppContext);
   return (
     <>
       <Wrapper>

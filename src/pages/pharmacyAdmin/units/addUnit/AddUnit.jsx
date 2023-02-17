@@ -36,7 +36,7 @@ const AddUnit = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.post(
-        `https://hospital-ms-api.onrender.com/departments/unit/new?departmentId=${pharmacy[0].id}`,
+        `https://hospital-ms-api.herokuapp.com/departments/unit/new?departmentId=${pharmacy[0].id}`,
         newUnit,
         {
           headers: {

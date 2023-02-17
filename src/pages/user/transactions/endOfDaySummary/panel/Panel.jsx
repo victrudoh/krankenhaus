@@ -23,7 +23,7 @@ const Panel = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        `https://hospital-ms-api.onrender.com/transactions/summary?date=${filterParams.date}&time=${filterParams.time}&time2=${filterParams.time2}`,
+        `https://hospital-ms-api.herokuapp.com/transactions/summary?date=${filterParams.date}&time=${filterParams.time}&time2=${filterParams.time2}`,
         {
           headers: {
             "content-type": "application/json",

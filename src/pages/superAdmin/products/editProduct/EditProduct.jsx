@@ -37,7 +37,7 @@ const EditProduct = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.onrender.com/products`,
+        `https://hospital-ms-api.herokuapp.com/products`,
         {
           headers: {
             "content-type": "application/json",
@@ -77,7 +77,7 @@ const EditProduct = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.put(
-        `https://hospital-ms-api.onrender.com/products/edit?productId=3${foundProduct.id}`,
+        `https://hospital-ms-api.herokuapp.com/products/edit?productId=3${foundProduct.id}`,
         updateProduct,
         {
           headers: {

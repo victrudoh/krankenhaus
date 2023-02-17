@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
+import AppContext from "../../../context/AppContext";
 
 // styles
 import { Top, Wrapper } from "./Department.Styles";
@@ -10,6 +11,7 @@ import AddDept from "./addDept/AddDept";
 import EditDept from "./editDept/EditDept";
 
 const Department = () => {
+  const { user } = useContext(AppContext);
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -19,12 +21,16 @@ const Department = () => {
       </Top>
       <Wrapper>
         <DeptList isEditing={isEditing} setIsEditing={setIsEditing} />
-        {isEditing ? (
+        {user.role !== "admin_read_only" && (
           <>
-            <EditDept isEditing={isEditing} setIsEditing={setIsEditing} />
+            {isEditing ? (
+              <>
+                <EditDept isEditing={isEditing} setIsEditing={setIsEditing} />
+              </>
+            ) : (
+              <AddDept />
+            )}
           </>
-        ) : (
-          <AddDept />
         )}
       </Wrapper>
     </>

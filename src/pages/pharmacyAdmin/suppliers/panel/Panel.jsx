@@ -24,7 +24,7 @@ const Panel = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://hospital-ms-api.onrender.com/inventory/suppliers/new",
+        "https://hospital-ms-api.herokuapp.com/inventory/suppliers/new",
         newSupplier,
         {
           headers: {

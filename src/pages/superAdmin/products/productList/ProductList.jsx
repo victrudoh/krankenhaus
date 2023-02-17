@@ -36,7 +36,7 @@ const ProductList = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://hospital-ms-api.onrender.com/products/departments?departmentId=${foundDept[0].department.id}`,
+        `https://hospital-ms-api.herokuapp.com/products/departments?departmentId=${foundDept[0].department.id}`,
         {
           headers: {
             "content-type": "application/json",

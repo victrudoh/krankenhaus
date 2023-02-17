@@ -10,19 +10,22 @@ import EditUser from "./editUser/EditUser";
 import AppContext from "../../../context/AppContext";
 
 const Users = () => {
-  const { editUser } = useContext(AppContext);
+  const { editUser, user } = useContext(AppContext);
 
   return (
     <>
       <Wrapper>
         <UsersList />
-        {/* <AddUser /> */}
-        {editUser.editing ? (
+        {user.role !== "admin_read_only" && (
           <>
-            <EditUser />
+            {editUser.editing ? (
+              <>
+                <EditUser />
+              </>
+            ) : (
+              <AddUser />
+            )}
           </>
-        ) : (
-          <AddUser />
         )}
       </Wrapper>
     </>

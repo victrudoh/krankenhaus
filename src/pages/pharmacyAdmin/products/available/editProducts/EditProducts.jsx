@@ -35,7 +35,7 @@ const EditProducts = () => {
     try {
       setLeftPanelLoading(true);
       const response = await axios.put(
-        `https://hospital-ms-api.onrender.com/inventory/products/edit?id=${editInventoryProduct.product.id}`,
+        `https://hospital-ms-api.herokuapp.com/inventory/products/edit?id=${editInventoryProduct.product.id}`,
         updateProducts,
         {
           headers: {

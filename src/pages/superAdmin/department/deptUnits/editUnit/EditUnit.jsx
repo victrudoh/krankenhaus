@@ -29,7 +29,7 @@ const EditUnit = () => {
   const fetchUnits = async () => {
     try {
       const response = await axios.get(
-        `https://hospital-ms-api.onrender.com/departments/units?name=${editUnit.deptName}`,
+        `https://hospital-ms-api.herokuapp.com/departments/units?name=${editUnit.deptName}`,
         {
           headers: {
             "content-type": "application/json",
@@ -57,7 +57,7 @@ const EditUnit = () => {
       console.log("updateUnit, Super Admin: ", updateUnit);
       setLeftPanelLoading(true);
       const response = await axios.put(
-        `https://hospital-ms-api.onrender.com/departments/units/edit?id=${foundUnit.id}`,
+        `https://hospital-ms-api.herokuapp.com/departments/units/edit?id=${foundUnit.id}`,
         updateUnit,
         {
           headers: {
